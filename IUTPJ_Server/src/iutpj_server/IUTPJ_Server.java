@@ -14,7 +14,7 @@ import java.sql.SQLException;
  *
  * @author KAWSAR
  */
-public class IUTOJ_Server {
+public class IUTPJ_Server {
 
     /**
      * @param args the command line arguments

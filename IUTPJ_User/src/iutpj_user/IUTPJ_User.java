@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package iutpj_admin;
+package iutpj_user;
 
 import java.io.IOException;
 
@@ -11,13 +11,15 @@ import java.io.IOException;
  *
  * @author KAWSAR
  */
-public class IUTOJ_Admin {
+public class IUTPJ_User {
 
     /**
      * @param args the command line arguments
      * @throws java.io.IOException
      * @throws java.lang.InterruptedException
      */
+    
+    
     public static void main(String[] args) throws IOException, InterruptedException {
         
         try {
@@ -31,10 +33,19 @@ public class IUTOJ_Admin {
             java.util.logging.Logger.getLogger(SignUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         
-        AdminSocket adminsocket = new AdminSocket();
+        UserSocket usersoceket = new UserSocket();
         
         
-        Login loginPage = new Login(adminsocket);
+        Login loginPage = new Login(usersoceket);
+        
+
+        
+        
+        
+        
+        
+        
+        
     }
     
 }
