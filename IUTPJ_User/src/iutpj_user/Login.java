@@ -79,12 +79,11 @@ public class Login extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        LeftPanel.setBackground(new java.awt.Color(0, 181, 204));
+        LeftPanel.setBackground(new java.awt.Color(54, 33, 89));
         LeftPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        logoLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/IUTOJ-Logo-1st-try-small.png"))); // NOI18N
-        logoLabel.setText("jLabel1");
-        LeftPanel.add(logoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 400, 420));
+        logoLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/newlogo.png"))); // NOI18N
+        LeftPanel.add(logoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 180, 170));
 
         getContentPane().add(LeftPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 560));
 
@@ -92,12 +91,12 @@ public class Login extends javax.swing.JFrame {
         RightPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         WelcomeLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 38)); // NOI18N
-        WelcomeLabel.setForeground(new java.awt.Color(0, 181, 204));
+        WelcomeLabel.setForeground(new java.awt.Color(54, 33, 89));
         WelcomeLabel.setText("Login To Get Started");
         RightPanel.add(WelcomeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 390, 70));
 
         closeLabel.setFont(new java.awt.Font("Tahoma", 1, 25)); // NOI18N
-        closeLabel.setForeground(new java.awt.Color(0, 181, 204));
+        closeLabel.setForeground(new java.awt.Color(54, 33, 89));
         closeLabel.setText("x");
         closeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -107,7 +106,7 @@ public class Login extends javax.swing.JFrame {
         RightPanel.add(closeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 10, 30, 20));
 
         minimizeLabel.setFont(new java.awt.Font("Tahoma", 1, 25)); // NOI18N
-        minimizeLabel.setForeground(new java.awt.Color(0, 181, 204));
+        minimizeLabel.setForeground(new java.awt.Color(54, 33, 89));
         minimizeLabel.setText("_");
         minimizeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -119,6 +118,7 @@ public class Login extends javax.swing.JFrame {
         txtStudentID.setFont(new java.awt.Font("Segoe UI Light", 0, 20)); // NOI18N
         txtStudentID.setForeground(new java.awt.Color(102, 102, 102));
         txtStudentID.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(102, 102, 102)));
+        txtStudentID.setSelectionColor(new java.awt.Color(110, 89, 222));
         txtStudentID.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtStudentIDFocusGained(evt);
@@ -134,11 +134,11 @@ public class Login extends javax.swing.JFrame {
         });
         RightPanel.add(txtStudentID, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 230, 270, 50));
 
-        LoginButton.setBackground(new java.awt.Color(0, 181, 204));
+        LoginButton.setBackground(new java.awt.Color(54, 33, 89));
         LoginButton.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
-        LoginButton.setForeground(new java.awt.Color(0, 181, 204));
+        LoginButton.setForeground(new java.awt.Color(54, 33, 89));
         LoginButton.setText("Login");
-        LoginButton.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 181, 204)));
+        LoginButton.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(54, 33, 89)));
         LoginButton.setContentAreaFilled(false);
         LoginButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         LoginButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -149,11 +149,11 @@ public class Login extends javax.swing.JFrame {
         });
         RightPanel.add(LoginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 360, 80, 40));
 
-        CrNewAccButton.setBackground(new java.awt.Color(0, 181, 204));
+        CrNewAccButton.setBackground(new java.awt.Color(54, 33, 89));
         CrNewAccButton.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
-        CrNewAccButton.setForeground(new java.awt.Color(0, 181, 204));
+        CrNewAccButton.setForeground(new java.awt.Color(54, 33, 89));
         CrNewAccButton.setText("Create New Account");
-        CrNewAccButton.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 181, 204)));
+        CrNewAccButton.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(54, 33, 89)));
         CrNewAccButton.setContentAreaFilled(false);
         CrNewAccButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         CrNewAccButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -173,6 +173,7 @@ public class Login extends javax.swing.JFrame {
         PasswordField.setFont(new java.awt.Font("Segoe UI Light", 0, 20)); // NOI18N
         PasswordField.setForeground(new java.awt.Color(102, 102, 102));
         PasswordField.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        PasswordField.setSelectionColor(new java.awt.Color(110, 89, 222));
         PasswordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PasswordFieldActionPerformed(evt);
@@ -181,24 +182,25 @@ public class Login extends javax.swing.JFrame {
         RightPanel.add(PasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 290, 270, 30));
 
         PasswordLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
-        PasswordLabel.setForeground(new java.awt.Color(0, 181, 204));
+        PasswordLabel.setForeground(new java.awt.Color(54, 33, 89));
         PasswordLabel.setText("Password");
         RightPanel.add(PasswordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 300, 120, 30));
 
         StudentIDLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
-        StudentIDLabel.setForeground(new java.awt.Color(0, 181, 204));
+        StudentIDLabel.setForeground(new java.awt.Color(54, 33, 89));
         StudentIDLabel.setText("Student ID");
         RightPanel.add(StudentIDLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 120, 30));
         RightPanel.add(rightSeparator, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 430, 170, 40));
 
         IPLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
-        IPLabel.setForeground(new java.awt.Color(0, 181, 204));
+        IPLabel.setForeground(new java.awt.Color(54, 33, 89));
         IPLabel.setText("IP");
         RightPanel.add(IPLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 30, 30));
 
         txtIP.setFont(new java.awt.Font("Segoe UI Light", 0, 20)); // NOI18N
         txtIP.setForeground(new java.awt.Color(102, 102, 102));
         txtIP.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(102, 102, 102)));
+        txtIP.setSelectionColor(new java.awt.Color(110, 89, 222));
         txtIP.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtIPFocusGained(evt);
@@ -215,13 +217,14 @@ public class Login extends javax.swing.JFrame {
         RightPanel.add(txtIP, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 180, 30));
 
         PortLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
-        PortLabel.setForeground(new java.awt.Color(0, 181, 204));
+        PortLabel.setForeground(new java.awt.Color(54, 33, 89));
         PortLabel.setText("Port");
         RightPanel.add(PortLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 50, 30));
 
         txtPort.setFont(new java.awt.Font("Segoe UI Light", 0, 20)); // NOI18N
         txtPort.setForeground(new java.awt.Color(102, 102, 102));
         txtPort.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(102, 102, 102)));
+        txtPort.setSelectionColor(new java.awt.Color(110, 89, 222));
         txtPort.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtPortFocusGained(evt);
@@ -237,11 +240,11 @@ public class Login extends javax.swing.JFrame {
         });
         RightPanel.add(txtPort, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 130, 120, 30));
 
-        ConnectButton.setBackground(new java.awt.Color(0, 181, 204));
+        ConnectButton.setBackground(new java.awt.Color(54, 33, 89));
         ConnectButton.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
-        ConnectButton.setForeground(new java.awt.Color(0, 181, 204));
+        ConnectButton.setForeground(new java.awt.Color(54, 33, 89));
         ConnectButton.setText("Connect");
-        ConnectButton.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 181, 204)));
+        ConnectButton.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(54, 33, 89)));
         ConnectButton.setContentAreaFilled(false);
         ConnectButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         ConnectButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
