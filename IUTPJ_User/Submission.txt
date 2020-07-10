@@ -1,0 +1,13 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{  
+	long long i,a,b,tst;
+	cin>>tst;
+	while(tst--){
+	cin>>a>>b;
+	cout<<a+b<<'\n';
+	}
+      return 0;
+}
