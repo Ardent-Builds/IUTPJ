@@ -44,7 +44,7 @@
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
   <SubComponents>
-    <Container class="javax.swing.JDesktopPane" name="jDesktopPane1">
+    <Container class="javax.swing.JDesktopPane" name="ContestDashboardDesktopPane">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -58,13 +58,13 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
       <SubComponents>
-        <Container class="javax.swing.JTabbedPane" name="UserDashboardTabSwitcher">
+        <Container class="javax.swing.JTabbedPane" name="ContestDashboardTabSwitcher">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="cc" green="b5" red="0" type="rgb"/>
+              <Color blue="59" green="21" red="36" type="rgb"/>
             </Property>
             <Property name="tabPlacement" type="int" value="2"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -72,7 +72,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="UserDashboardTabSwitcherMouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ContestDashboardTabSwitcherMouseClicked"/>
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -104,10 +104,10 @@
                       <Font name="Segoe UI Emoji" size="36" style="1"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="cc" green="b5" red="0" type="rgb"/>
+                      <Color blue="59" green="21" red="36" type="rgb"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="Welcome To IUTOJ"/>
+                    <Property name="text" type="java.lang.String" value="Contest Area"/>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
@@ -118,19 +118,19 @@
                 <Component class="javax.swing.JButton" name="LogOutButton">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="cc" green="b5" red="0" type="rgb"/>
+                      <Color blue="59" green="21" red="36" type="rgb"/>
                     </Property>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI Emoji" size="18" style="1"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="cc" green="b5" red="0" type="rgb"/>
+                      <Color blue="59" green="21" red="36" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Log Out"/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
                         <MatteColorBorder>
-                          <Color PropertyName="color" blue="cc" green="b5" red="0" type="rgb"/>
+                          <Color PropertyName="color" blue="59" green="21" red="36" type="rgb"/>
                         </MatteColorBorder>
                       </Border>
                     </Property>
@@ -153,8 +153,8 @@
             <Container class="javax.swing.JPanel" name="ProblemsetPanel">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Problemset">
-                    <Property name="tabTitle" type="java.lang.String" value="Problemset"/>
+                  <JTabbedPaneConstraints tabName="Problems">
+                    <Property name="tabTitle" type="java.lang.String" value="Problems"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -257,7 +257,7 @@
                       <Font name="Segoe UI Emoji" size="18" style="0"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="cc" green="b5" red="0" type="rgb"/>
+                      <Color blue="59" green="21" red="36" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Or choose File:"/>
                   </Properties>
@@ -285,7 +285,7 @@
                       <Font name="Segoe UI Emoji" size="18" style="0"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="cc" green="b5" red="0" type="rgb"/>
+                      <Color blue="59" green="21" red="36" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Problem ID: "/>
                   </Properties>
@@ -301,7 +301,7 @@
                       <Font name="Segoe UI Emoji" size="18" style="0"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="cc" green="b5" red="0" type="rgb"/>
+                      <Color blue="59" green="21" red="36" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Language: "/>
                   </Properties>
@@ -359,7 +359,7 @@
                       <Font name="Segoe UI Emoji" size="18" style="0"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="cc" green="b5" red="0" type="rgb"/>
+                      <Color blue="59" green="21" red="36" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Source Code:"/>
                   </Properties>
@@ -388,19 +388,19 @@
                 <Component class="javax.swing.JButton" name="SubmitButton">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="cc" green="b5" red="0" type="rgb"/>
+                      <Color blue="59" green="21" red="36" type="rgb"/>
                     </Property>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI Emoji" size="18" style="1"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="cc" green="b5" red="0" type="rgb"/>
+                      <Color blue="59" green="21" red="36" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Submit"/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
                         <MatteColorBorder>
-                          <Color PropertyName="color" blue="cc" green="b5" red="0" type="rgb"/>
+                          <Color PropertyName="color" blue="59" green="21" red="36" type="rgb"/>
                         </MatteColorBorder>
                       </Border>
                     </Property>

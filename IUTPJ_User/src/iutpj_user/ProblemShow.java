@@ -58,22 +58,22 @@ public class ProblemShow extends javax.swing.JFrame {
         problemshow.setPreferredSize(new java.awt.Dimension(1280, 720));
 
         ProblemNameLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 36)); // NOI18N
-        ProblemNameLabel.setForeground(new java.awt.Color(0, 181, 204));
+        ProblemNameLabel.setForeground(new java.awt.Color(54, 33, 89));
         ProblemNameLabel.setText("Problem Name");
 
         TimeLimitLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 24)); // NOI18N
-        TimeLimitLabel.setForeground(new java.awt.Color(0, 181, 204));
+        TimeLimitLabel.setForeground(new java.awt.Color(54, 33, 89));
         TimeLimitLabel.setText("Time Limit:");
 
         MemoryLimitLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 24)); // NOI18N
-        MemoryLimitLabel.setForeground(new java.awt.Color(0, 181, 204));
+        MemoryLimitLabel.setForeground(new java.awt.Color(54, 33, 89));
         MemoryLimitLabel.setText("Memory Limit:");
 
-        SubmitButton.setBackground(new java.awt.Color(153, 255, 255));
+        SubmitButton.setBackground(new java.awt.Color(54, 33, 89));
         SubmitButton.setFont(new java.awt.Font("Segoe UI Emoji", 1, 24)); // NOI18N
-        SubmitButton.setForeground(new java.awt.Color(0, 181, 204));
+        SubmitButton.setForeground(new java.awt.Color(54, 33, 89));
         SubmitButton.setText("Submit");
-        SubmitButton.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 181, 204)));
+        SubmitButton.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(54, 33, 89)));
         SubmitButton.setContentAreaFilled(false);
         SubmitButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         SubmitButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);

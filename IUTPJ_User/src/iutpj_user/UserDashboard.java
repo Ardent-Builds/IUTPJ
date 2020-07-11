@@ -247,6 +247,14 @@ public class UserDashboard extends javax.swing.JFrame {
         StandingsPanel = new javax.swing.JPanel();
         StandingsScrollPane = new javax.swing.JScrollPane();
         StandingsTable = new javax.swing.JTable();
+        ContestsPanel = new javax.swing.JPanel();
+        ContestsPanelTabSwitcher = new javax.swing.JTabbedPane();
+        PrevContestsPanel = new javax.swing.JPanel();
+        PrevContestsjScrollPane = new javax.swing.JScrollPane();
+        PrevContestsTable = new javax.swing.JTable();
+        UpContestsPanel = new javax.swing.JPanel();
+        UpContestsjScrollPane = new javax.swing.JScrollPane();
+        UpContestsTable = new javax.swing.JTable();
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -267,7 +275,7 @@ public class UserDashboard extends javax.swing.JFrame {
         jDesktopPane1.setLayout(new java.awt.BorderLayout());
 
         UserDashboardTabSwitcher.setBackground(new java.awt.Color(255, 255, 255));
-        UserDashboardTabSwitcher.setForeground(new java.awt.Color(0, 181, 204));
+        UserDashboardTabSwitcher.setForeground(new java.awt.Color(54, 33, 89));
         UserDashboardTabSwitcher.setTabPlacement(javax.swing.JTabbedPane.LEFT);
         UserDashboardTabSwitcher.setFont(new java.awt.Font("Segoe UI Emoji", 0, 29)); // NOI18N
         UserDashboardTabSwitcher.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -280,7 +288,7 @@ public class UserDashboard extends javax.swing.JFrame {
         HomePanel.setLayout(new java.awt.GridBagLayout());
 
         WelcomeLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 36)); // NOI18N
-        WelcomeLabel.setForeground(new java.awt.Color(0, 181, 204));
+        WelcomeLabel.setForeground(new java.awt.Color(54, 33, 89));
         WelcomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         WelcomeLabel.setText("Welcome To IUTOJ");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -289,11 +297,11 @@ public class UserDashboard extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(43, 40, 95, 40);
         HomePanel.add(WelcomeLabel, gridBagConstraints);
 
-        LogOutButton.setBackground(new java.awt.Color(0, 181, 204));
+        LogOutButton.setBackground(new java.awt.Color(54, 33, 89));
         LogOutButton.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
-        LogOutButton.setForeground(new java.awt.Color(0, 181, 204));
+        LogOutButton.setForeground(new java.awt.Color(54, 33, 89));
         LogOutButton.setText("Log Out");
-        LogOutButton.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 181, 204)));
+        LogOutButton.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(54, 33, 89)));
         LogOutButton.setContentAreaFilled(false);
         LogOutButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         LogOutButton.addActionListener(new java.awt.event.ActionListener() {
@@ -387,7 +395,7 @@ public class UserDashboard extends javax.swing.JFrame {
         SubmitSolPanel.setLayout(new java.awt.GridBagLayout());
 
         ChooseFileLabel.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
-        ChooseFileLabel.setForeground(new java.awt.Color(0, 181, 204));
+        ChooseFileLabel.setForeground(new java.awt.Color(54, 33, 89));
         ChooseFileLabel.setText("Or choose File:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -411,7 +419,7 @@ public class UserDashboard extends javax.swing.JFrame {
         SubmitSolPanel.add(txtProblemID, gridBagConstraints);
 
         ProblemIDLabel.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
-        ProblemIDLabel.setForeground(new java.awt.Color(0, 181, 204));
+        ProblemIDLabel.setForeground(new java.awt.Color(54, 33, 89));
         ProblemIDLabel.setText("Problem ID: ");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -423,7 +431,7 @@ public class UserDashboard extends javax.swing.JFrame {
         SubmitSolPanel.add(ProblemIDLabel, gridBagConstraints);
 
         LanguageLabel.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
-        LanguageLabel.setForeground(new java.awt.Color(0, 181, 204));
+        LanguageLabel.setForeground(new java.awt.Color(54, 33, 89));
         LanguageLabel.setText("Language: ");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -469,7 +477,7 @@ public class UserDashboard extends javax.swing.JFrame {
         SubmitSolPanel.add(LanguageComboBox, gridBagConstraints);
 
         SourceCodeLabel.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
-        SourceCodeLabel.setForeground(new java.awt.Color(0, 181, 204));
+        SourceCodeLabel.setForeground(new java.awt.Color(54, 33, 89));
         SourceCodeLabel.setText("Source Code:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -497,11 +505,11 @@ public class UserDashboard extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(20, 0, 0, 0);
         SubmitSolPanel.add(ChooseFileButton, gridBagConstraints);
 
-        SubmitButton.setBackground(new java.awt.Color(0, 181, 204));
+        SubmitButton.setBackground(new java.awt.Color(54, 33, 89));
         SubmitButton.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
-        SubmitButton.setForeground(new java.awt.Color(0, 181, 204));
+        SubmitButton.setForeground(new java.awt.Color(54, 33, 89));
         SubmitButton.setText("Submit");
-        SubmitButton.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 181, 204)));
+        SubmitButton.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(54, 33, 89)));
         SubmitButton.setContentAreaFilled(false);
         SubmitButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         SubmitButton.addActionListener(new java.awt.event.ActionListener() {
@@ -679,6 +687,168 @@ public class UserDashboard extends javax.swing.JFrame {
         StandingsPanel.add(StandingsScrollPane, java.awt.BorderLayout.CENTER);
 
         UserDashboardTabSwitcher.addTab("Standings", StandingsPanel);
+
+        ContestsPanel.setBackground(new java.awt.Color(255, 255, 255));
+        ContestsPanel.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
+
+        ContestsPanelTabSwitcher.setForeground(new java.awt.Color(54, 33, 89));
+        ContestsPanelTabSwitcher.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
+        ContestsPanelTabSwitcher.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ContestsPanelTabSwitcherMouseClicked(evt);
+            }
+        });
+
+        PrevContestsjScrollPane.setBackground(new java.awt.Color(255, 255, 255));
+        PrevContestsjScrollPane.setFont(new java.awt.Font("Segoe UI Emoji", 1, 25)); // NOI18N
+
+        PrevContestsTable.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        PrevContestsTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Contest ID", "Contest Name", "Author"
+            }
+        ));
+        PrevContestsTable.setFocusable(false);
+        PrevContestsTable.setGridColor(new java.awt.Color(255, 255, 255));
+        PrevContestsTable.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        PrevContestsTable.setOpaque(false);
+        PrevContestsTable.setRequestFocusEnabled(false);
+        PrevContestsTable.setRowHeight(25);
+        PrevContestsTable.setRowSelectionAllowed(false);
+        PrevContestsTable.setSelectionBackground(new java.awt.Color(0, 181, 204));
+        PrevContestsTable.setShowHorizontalLines(false);
+        PrevContestsTable.getTableHeader().setReorderingAllowed(false);
+        PrevContestsTable.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                PrevContestsTableComponentResized(evt);
+            }
+        });
+        PrevContestsjScrollPane.setViewportView(PrevContestsTable);
+
+        javax.swing.GroupLayout PrevContestsPanelLayout = new javax.swing.GroupLayout(PrevContestsPanel);
+        PrevContestsPanel.setLayout(PrevContestsPanelLayout);
+        PrevContestsPanelLayout.setHorizontalGroup(
+            PrevContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 808, Short.MAX_VALUE)
+            .addGroup(PrevContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(PrevContestsjScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 808, Short.MAX_VALUE))
+        );
+        PrevContestsPanelLayout.setVerticalGroup(
+            PrevContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 261, Short.MAX_VALUE)
+            .addGroup(PrevContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(PrevContestsjScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE))
+        );
+
+        ContestsPanelTabSwitcher.addTab("Previous Contests", PrevContestsPanel);
+
+        UpContestsjScrollPane.setBackground(new java.awt.Color(255, 255, 255));
+        UpContestsjScrollPane.setFont(new java.awt.Font("Segoe UI Emoji", 1, 25)); // NOI18N
+
+        UpContestsTable.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        UpContestsTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Contest ID", "Contest Name", "Author"
+            }
+        ));
+        UpContestsTable.setFocusable(false);
+        UpContestsTable.setGridColor(new java.awt.Color(255, 255, 255));
+        UpContestsTable.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        UpContestsTable.setOpaque(false);
+        UpContestsTable.setRequestFocusEnabled(false);
+        UpContestsTable.setRowHeight(25);
+        UpContestsTable.setRowSelectionAllowed(false);
+        UpContestsTable.setSelectionBackground(new java.awt.Color(0, 181, 204));
+        UpContestsTable.setShowHorizontalLines(false);
+        UpContestsTable.getTableHeader().setReorderingAllowed(false);
+        UpContestsTable.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                UpContestsTableComponentResized(evt);
+            }
+        });
+        UpContestsjScrollPane.setViewportView(UpContestsTable);
+
+        javax.swing.GroupLayout UpContestsPanelLayout = new javax.swing.GroupLayout(UpContestsPanel);
+        UpContestsPanel.setLayout(UpContestsPanelLayout);
+        UpContestsPanelLayout.setHorizontalGroup(
+            UpContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 808, Short.MAX_VALUE)
+            .addGroup(UpContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(UpContestsjScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 808, Short.MAX_VALUE))
+        );
+        UpContestsPanelLayout.setVerticalGroup(
+            UpContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 261, Short.MAX_VALUE)
+            .addGroup(UpContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(UpContestsjScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE))
+        );
+
+        ContestsPanelTabSwitcher.addTab("Upcoming Contests", UpContestsPanel);
+
+        javax.swing.GroupLayout ContestsPanelLayout = new javax.swing.GroupLayout(ContestsPanel);
+        ContestsPanel.setLayout(ContestsPanelLayout);
+        ContestsPanelLayout.setHorizontalGroup(
+            ContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ContestsPanelLayout.createSequentialGroup()
+                .addComponent(ContestsPanelTabSwitcher)
+                .addGap(0, 0, 0))
+        );
+        ContestsPanelLayout.setVerticalGroup(
+            ContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ContestsPanelLayout.createSequentialGroup()
+                .addComponent(ContestsPanelTabSwitcher)
+                .addGap(0, 0, 0))
+        );
+
+        UserDashboardTabSwitcher.addTab("Contests", ContestsPanel);
 
         jDesktopPane1.add(UserDashboardTabSwitcher, java.awt.BorderLayout.CENTER);
 
@@ -858,10 +1028,24 @@ public class UserDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ProblemsetTableComponentResized
 
+    private void PrevContestsTableComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_PrevContestsTableComponentResized
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PrevContestsTableComponentResized
+
+    private void UpContestsTableComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_UpContestsTableComponentResized
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UpContestsTableComponentResized
+
+    private void ContestsPanelTabSwitcherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ContestsPanelTabSwitcherMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ContestsPanelTabSwitcherMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ChooseFileButton;
     private javax.swing.JLabel ChooseFileLabel;
+    private javax.swing.JPanel ContestsPanel;
+    private javax.swing.JTabbedPane ContestsPanelTabSwitcher;
     private javax.swing.JPanel HomePanel;
     private javax.swing.JComboBox LanguageComboBox;
     private javax.swing.JLabel LanguageLabel;
@@ -869,6 +1053,9 @@ public class UserDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel MySubPanel;
     private javax.swing.JScrollPane MySubScrollPane;
     private javax.swing.JTable MySubTable;
+    private javax.swing.JPanel PrevContestsPanel;
+    private javax.swing.JTable PrevContestsTable;
+    private javax.swing.JScrollPane PrevContestsjScrollPane;
     private javax.swing.JLabel ProblemIDLabel;
     private javax.swing.JScrollPane ProblemSetjScrollPane;
     private javax.swing.JPanel ProblemsetPanel;
@@ -884,6 +1071,9 @@ public class UserDashboard extends javax.swing.JFrame {
     private javax.swing.JTable StatusTable;
     private javax.swing.JButton SubmitButton;
     private javax.swing.JPanel SubmitSolPanel;
+    private javax.swing.JPanel UpContestsPanel;
+    private javax.swing.JTable UpContestsTable;
+    private javax.swing.JScrollPane UpContestsjScrollPane;
     private javax.swing.JTabbedPane UserDashboardTabSwitcher;
     private javax.swing.JLabel WelcomeLabel;
     private javax.swing.JDesktopPane jDesktopPane1;

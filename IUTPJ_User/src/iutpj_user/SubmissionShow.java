@@ -128,7 +128,7 @@ public class SubmissionShow extends javax.swing.JFrame {
         });
 
         SourceCodeLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        SourceCodeLabel.setForeground(new java.awt.Color(0, 181, 204));
+        SourceCodeLabel.setForeground(new java.awt.Color(54, 33, 89));
         SourceCodeLabel.setText("Source Code");
 
         SourceCodeTextArea.setEditable(false);
