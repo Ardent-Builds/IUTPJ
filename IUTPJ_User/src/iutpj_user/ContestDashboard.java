@@ -114,8 +114,8 @@ public class ContestDashboard extends javax.swing.JFrame {
                                 System.out.println("At probshow problem write Err: " + ex.getMessage());
                             }
 
-                            ProblemShow problemshow = new ProblemShow(temporary, problem.getProblemName(), problem.getTimeLimit(), problem.getMemoryLimit());
-                            problemshow.viewPdf(new File(problemid + ".pdf"), problemid);
+                            /*ProblemShow problemshow = new ProblemShow(temporary, problem.getProblemName(), problem.getTimeLimit(), problem.getMemoryLimit());
+                            problemshow.viewPdf(new File(problemid + ".pdf"), problemid);*/
                         }
 
                     }
@@ -128,30 +128,30 @@ public class ContestDashboard extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 if (evt.getClickCount() == 1 && !evt.isConsumed()) {
                     evt.consume();
-                    int row = StatusTable.rowAtPoint(evt.getPoint());
-                    int col = StatusTable.columnAtPoint(evt.getPoint());
-                    if (row >= 0 && col == 3) {
-                        DefaultTableModel tablemodel = (DefaultTableModel) StatusTable.getModel();
-                        if (tablemodel.getValueAt(row, 3) != null) {
-                            String temp = tablemodel.getValueAt(row, 3).toString();
-                            int x = temp.indexOf('-', 28);
-                            String problemid = temp.substring(28, x);
-
-                            usersocket.sendData("ProbFile[" + problemid + "]");
-                            NewProblem problem = usersocket.getProblem();
-                            try {
-                                FileOutputStream fos = new FileOutputStream(problemid + ".pdf");
-                                fos.write(problem.getProb());
-                                fos.close();
-                            } catch (FileNotFoundException ex) {
-                                System.out.println("At probshow problem write Err: " + ex.getMessage());
-                            } catch (IOException ex) {
-                                System.out.println("At probshow problem write Err: " + ex.getMessage());
-                            }
-                            ProblemShow problemshow = new ProblemShow(temporary, problem.getProblemName(), problem.getTimeLimit(), problem.getMemoryLimit());
-                            problemshow.viewPdf(new File(problemid + ".pdf"), problemid);
-                        }
-                    }
+//                    int row = StatusTable.rowAtPoint(evt.getPoint());
+//                    int col = StatusTable.columnAtPoint(evt.getPoint());
+//                    if (row >= 0 && col == 3) {
+//                        DefaultTableModel tablemodel = (DefaultTableModel) StatusTable.getModel();
+//                        if (tablemodel.getValueAt(row, 3) != null) {
+//                            String temp = tablemodel.getValueAt(row, 3).toString();
+//                            int x = temp.indexOf('-', 28);
+//                            String problemid = temp.substring(28, x);
+//
+//                            usersocket.sendData("ProbFile[" + problemid + "]");
+//                            NewProblem problem = usersocket.getProblem();
+//                            try {
+//                                FileOutputStream fos = new FileOutputStream(problemid + ".pdf");
+//                                fos.write(problem.getProb());
+//                                fos.close();
+//                            } catch (FileNotFoundException ex) {
+//                                System.out.println("At probshow problem write Err: " + ex.getMessage());
+//                            } catch (IOException ex) {
+//                                System.out.println("At probshow problem write Err: " + ex.getMessage());
+//                            }
+//                            /*ProblemShow problemshow = new ProblemShow(temporary, problem.getProblemName(), problem.getTimeLimit(), problem.getMemoryLimit());
+//                            problemshow.viewPdf(new File(problemid + ".pdf"), problemid);*/
+//                        }
+//                    }
                 }
             }
         });
@@ -161,46 +161,47 @@ public class ContestDashboard extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 if (evt.getClickCount() == 1 && !evt.isConsumed()) {
                     evt.consume();
-                    int row = MySubTable.rowAtPoint(evt.getPoint());
-                    int col = MySubTable.columnAtPoint(evt.getPoint());
-                    if (row >= 0 && col == 0) {
-                        DefaultTableModel tablemodel = (DefaultTableModel) MySubTable.getModel();
-                        if (tablemodel.getValueAt(row, 0) != null) {
-                            SubmissionShow subshow = new SubmissionShow(usersocket, temporary);
-                            String temp = tablemodel.getValueAt(row, 0).toString();
-                            int x = temp.indexOf('<', 28);
-                            String submissionid = temp.substring(28, x);
-                            subshow.setSubDetailsTable(submissionid, tablemodel.getValueAt(row, 2), tablemodel.getValueAt(row, 3), tablemodel.getValueAt(row, 4), tablemodel.getValueAt(row, 5), tablemodel.getValueAt(row, 6), tablemodel.getValueAt(row, 1));
-
-                            usersocket.sendData("SrcCode-[" + submissionid + "]");
-                            NewSubmission submission = usersocket.getSubmission();
-                            subshow.setSourceCode(submission);
-                        }
-
-                    } else if (row >= 0 && col == 3) {
-                        DefaultTableModel tablemodel = (DefaultTableModel) MySubTable.getModel();
-                        if (tablemodel.getValueAt(row, 3) != null) {
-                            String temp = tablemodel.getValueAt(row, 3).toString();
-                            int x = temp.indexOf('-', 28);
-                            String problemid = temp.substring(28, x);
-
-                            usersocket.sendData("ProbFile[" + problemid + "]");
-                            NewProblem problem = usersocket.getProblem();
-                            try {
-                                FileOutputStream fos = new FileOutputStream(problemid + ".pdf");
-                                fos.write(problem.getProb());
-                                fos.close();
-                            } catch (FileNotFoundException ex) {
-                                System.out.println("At probshow problem write Err: " + ex.getMessage());
-                            } catch (IOException ex) {
-                                System.out.println("At probshow problem write Err: " + ex.getMessage());
-                            }
-
-                            ProblemShow problemshow = new ProblemShow(temporary, problem.getProblemName(), problem.getTimeLimit(), problem.getMemoryLimit());
-                            problemshow.viewPdf(new File(problemid + ".pdf"), problemid);
-                        }
-
-                    }
+//                    int row = MySubTable.rowAtPoint(evt.getPoint());
+//                    int col = MySubTable.columnAtPoint(evt.getPoint());
+//                    if (row >= 0 && col == 0) {
+//                        DefaultTableModel tablemodel = (DefaultTableModel) MySubTable.getModel();
+//                        if (tablemodel.getValueAt(row, 0) != null) {
+//                            SubmissionShow subshow = new SubmissionShow(usersocket, temporary);
+//                            String temp = tablemodel.getValueAt(row, 0).toString();
+//                            int x = temp.indexOf('<', 28);
+//                            String submissionid = temp.substring(28, x);
+//                            subshow.setSubDetailsTable(submissionid, tablemodel.getValueAt(row, 2), tablemodel.getValueAt(row, 3), tablemodel.getValueAt(row, 4), tablemodel.getValueAt(row, 5), tablemodel.getValueAt(row, 6), tablemodel.getValueAt(row, 1));
+//
+//                            usersocket.sendData("SrcCode-[" + submissionid + "]");
+//                            NewSubmission submission = usersocket.getSubmission();
+//                            subshow.setSourceCode(submission);
+//                        }
+//
+//                    } else if (row >= 0 && col == 3) {
+//                        DefaultTableModel tablemodel = (DefaultTableModel) MySubTable.getModel();
+//                        if (tablemodel.getValueAt(row, 3) != null) {
+//                            String temp = tablemodel.getValueAt(row, 3).toString();
+//                            int x = temp.indexOf('-', 28);
+//                            String problemid = temp.substring(28, x);
+//
+//                            usersocket.sendData("ProbFile[" + problemid + "]");
+//                            NewProblem problem = usersocket.getProblem();
+//                            try {
+//                                FileOutputStream fos = new FileOutputStream(problemid + ".pdf");
+//                                fos.write(problem.getProb());
+//                                fos.close();
+//                            } catch (FileNotFoundException ex) {
+//                                System.out.println("At probshow problem write Err: " + ex.getMessage());
+//                            } catch (IOException ex) {
+//                                System.out.println("At probshow problem write Err: " + ex.getMessage());
+//                            }
+///*
+//                            ProblemShow problemshow = new ProblemShow(temporary, problem.getProblemName(), problem.getTimeLimit(), problem.getMemoryLimit());
+//                            problemshow.viewPdf(new File(problemid + ".pdf"), problemid);
+//                            */
+//                        }
+//
+//                    }
                 }
             }
         });

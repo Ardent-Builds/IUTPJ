@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import newproblem.NewProblem;
 import newsubmission.NewSubmission;
 
@@ -18,15 +19,25 @@ import newsubmission.NewSubmission;
  * @author ASADUZZAMAN HEROK
  */
 public class Database {
-
+    
+    private final String dbUserName;
+    private final String dbPassword;
     Connection conn;
     PreparedStatement prprdstmnt;
     Statement stmnt;
 
-    public Database() throws SQLException {
-        conn = DriverManager.getConnection("jdbc:sqlite::resource:Database/database.db");
+    public Database(){
+        dbUserName = "iutpj";
+        dbPassword = "IutPj";
+        conn = null;
         prprdstmnt = null;
         stmnt = null;
+    }
+    
+    public void connectToDatebase() throws ClassNotFoundException, SQLException 
+    { 
+            Class.forName("oracle.jdbc.driver.OracleDriver"); 
+            conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe",this.dbUserName,this.dbPassword);
     }
 
     public synchronized String getAdminPassword(String usrname) {

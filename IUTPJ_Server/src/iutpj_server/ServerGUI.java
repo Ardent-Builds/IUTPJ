@@ -216,16 +216,8 @@ public class ServerGUI extends javax.swing.JFrame {
             port = 0;
             JOptionPane.showMessageDialog(null,"Port Error","Status",JOptionPane.ERROR_MESSAGE);
         }
-        try {
-            server = new Server(port);
-            JOptionPane.showMessageDialog(null,"Server Started Successfully!","Status",JOptionPane.INFORMATION_MESSAGE);
-        } catch (IOException ex) {
-            Logger.getLogger(ServerGUI.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null,"Server Failed To Start!","Status",JOptionPane.ERROR_MESSAGE);
-        } catch (SQLException ex) {
-            Logger.getLogger(ServerGUI.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null,"Server Failed To Start!","Status",JOptionPane.ERROR_MESSAGE);
-        }
+      
+        server = new Server(port);
         service = new Thread(server);
         service.start();
         

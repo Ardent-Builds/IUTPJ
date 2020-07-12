@@ -49,6 +49,7 @@ public class ProblemShow extends javax.swing.JFrame {
         filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(650, 650));
         setSize(new java.awt.Dimension(1920, 1440));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
