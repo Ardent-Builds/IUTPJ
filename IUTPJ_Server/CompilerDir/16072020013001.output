@@ -1,0 +1,111 @@
+drop table TRANSACTION;
+drop table LOAN_TYPE;
+
+create table TRANSACTION(
+    USER_ID number(10),
+    AMOUNT  number(20),
+    T_DATE  date
+);
+
+create table LOAN_TYPE(
+	SCHEMA varchar2(4),
+	INSTALLMENT_NUMBER number(3),
+	CHARGE number(3),
+	MIN_TRANS number(20)
+);
+
+insert into LOAN_TYPE values('S-A',30,5,2000000);
+insert into LOAN_TYPE values('S-B',20,10,1000000);
+insert into LOAN_TYPE values('S-C',15,15,500000);
+
+insert into TRANSACTION values(9872, 7704, to_date('03/31/2019', 'mm/dd/yyyy'));
+insert into TRANSACTION values(8638, 508143, to_date('03/18/2019', 'mm/dd/yyyy'));
+insert into TRANSACTION values(4936, 549231, to_date('02/23/2017', 'mm/dd/yyyy'));
+insert into TRANSACTION values(7404, 74793, to_date('01/27/2017', 'mm/dd/yyyy'));
+insert into TRANSACTION values(4936, 141882, to_date('03/03/2018', 'mm/dd/yyyy'));
+insert into TRANSACTION values(8638, 86028, to_date('04/08/2019', 'mm/dd/yyyy'));
+insert into TRANSACTION values(3702, 578763, to_date('11/09/2018', 'mm/dd/yyyy'));
+insert into TRANSACTION values(6170, 199662, to_date('02/14/2017', 'mm/dd/yyyy'));
+insert into TRANSACTION values(8638, 113955, to_date('07/02/2018', 'mm/dd/yyyy'));
+insert into TRANSACTION values(1234, 313617, to_date('07/24/2018', 'mm/dd/yyyy'));
+insert into TRANSACTION values(9872, 270282, to_date('12/17/2018', 'mm/dd/yyyy'));
+insert into TRANSACTION values(7404, 559503, to_date('01/05/2018', 'mm/dd/yyyy'));
+insert into TRANSACTION values(2468, 171735, to_date('03/08/2019', 'mm/dd/yyyy'));
+insert into TRANSACTION values(4936, 638469, to_date('02/24/2018', 'mm/dd/yyyy'));
+insert into TRANSACTION values(2468, 435918, to_date('04/04/2017', 'mm/dd/yyyy'));
+insert into TRANSACTION values(1234, 174945, to_date('04/16/2018', 'mm/dd/yyyy'));
+insert into TRANSACTION values(7404, 70941, to_date('06/25/2019', 'mm/dd/yyyy'));
+insert into TRANSACTION values(6170, 711336, to_date('08/07/2018', 'mm/dd/yyyy'));
+insert into TRANSACTION values(8638, 78324, to_date('10/19/2017', 'mm/dd/yyyy'));
+insert into TRANSACTION values(4936, 218601, to_date('03/30/2017', 'mm/dd/yyyy'));
+insert into TRANSACTION values(3702, 687582, to_date('01/27/2017', 'mm/dd/yyyy'));
+insert into TRANSACTION values(1234, 477327, to_date('08/16/2018', 'mm/dd/yyyy'));
+insert into TRANSACTION values(7404, 584862, to_date('09/05/2019', 'mm/dd/yyyy'));
+insert into TRANSACTION values(1234, 333840, to_date('09/09/2017', 'mm/dd/yyyy'));
+insert into TRANSACTION values(2468, 598986, to_date('03/04/2018', 'mm/dd/yyyy'));
+insert into TRANSACTION values(7404, 190032, to_date('07/18/2018', 'mm/dd/yyyy'));
+insert into TRANSACTION values(8638, 525477, to_date('05/28/2017', 'mm/dd/yyyy'));
+insert into TRANSACTION values(7404, 222132, to_date('07/14/2019', 'mm/dd/yyyy'));
+insert into TRANSACTION values(4936, 546984, to_date('11/03/2019', 'mm/dd/yyyy'));
+insert into TRANSACTION values(3702, 80250, to_date('02/16/2017', 'mm/dd/yyyy'));
+insert into TRANSACTION values(7404, 350532, to_date('06/17/2018', 'mm/dd/yyyy'));
+insert into TRANSACTION values(4936, 334482, to_date('01/31/2019', 'mm/dd/yyyy'));
+insert into TRANSACTION values(9872, 630765, to_date('11/20/2018', 'mm/dd/yyyy'));
+insert into TRANSACTION values(3702, 277023, to_date('03/16/2019', 'mm/dd/yyyy'));
+insert into TRANSACTION values(4936, 636543, to_date('06/25/2017', 'mm/dd/yyyy'));
+insert into TRANSACTION values(9872, 148944, to_date('06/28/2017', 'mm/dd/yyyy'));
+insert into TRANSACTION values(1234, 367224, to_date('02/03/2017', 'mm/dd/yyyy'));
+insert into TRANSACTION values(8638, 52002, to_date('09/28/2019', 'mm/dd/yyyy'));
+insert into TRANSACTION values(7404, 203193, to_date('01/20/2017', 'mm/dd/yyyy'));
+insert into TRANSACTION values(6170, 454857, to_date('12/15/2019', 'mm/dd/yyyy'));
+
+
+create or replace function GET_LOAN_SCHEMA(USER_ID in number)
+	return LOAN_TYPE.SCHEMA%type 
+	is
+
+	TOTAL_TRANS_LAST_12MONTH number;
+	AMOUNT TRANSACTION.AMOUNT%type;
+	T_DATE TRANSACTION.T_DATE%type;
+	ID     TRANSACTION.USER_ID%type;
+	SCHEMA LOAN_TYPE.SCHEMA%type;
+	MIN_TRANS  LOAN_TYPE.MIN_TRANS%type;
+
+	cursor TRANS_INFO is select * from TRANSACTION order by TRANSACTION.USER_ID;
+	cursor LOAN_SCHEMA is select LOAN_TYPE.SCHEMA as SCHEMA, LOAN_TYPE.MIN_TRANS as MIN_TRANS from LOAN_TYPE order by LOAN_TYPE.MIN_TRANS desc;
+	
+	begin
+	TOTAL_TRANS_LAST_12MONTH := 0;
+	
+	open TRANS_INFO;
+	loop
+	    fetch TRANS_INFO into ID, AMOUNT, T_DATE;
+	    exit when TRANS_INFO%notfound;
+	   
+	    if round(months_between(sysdate,T_DATE)) >= 12 and ID = USER_ID then 
+	        TOTAL_TRANS_LAST_12MONTH := TOTAL_TRANS_LAST_12MONTH + AMOUNT;
+	    end if;
+	end loop;
+	close TRANS_INFO;
+
+	open LOAN_SCHEMA;
+	loop
+	    fetch LOAN_SCHEMA into SCHEMA, MIN_TRANS;
+	    exit when LOAN_SCHEMA%notfound;
+	    if MIN_TRANS<TOTAL_TRANS_LAST_12MONTH then return SCHEMA;
+	    end if;
+	end loop;
+	close LOAN_SCHEMA;
+	return 'User not found / no schema is suitable';
+end GET_LOAN_SCHEMA;
+/
+
+
+declare 
+USER_ID number;
+
+begin
+   USER_ID := &USER_ID;
+   dbms_output.put_line('Loan Schema for user '||USER_ID||': '||GET_LOAN_SCHEMA(USER_ID));
+end;
+/

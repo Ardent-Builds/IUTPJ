@@ -19,7 +19,7 @@ public class Multi_Thread implements Runnable {
     private final SocketForClient sc;
     private final Database database;
     private String clienttype;
-    private String username;
+    private String userID;
 
     Multi_Thread(Socket sc, Database db) throws IOException {
         this.sc = new SocketForClient(sc);
@@ -47,7 +47,7 @@ public class Multi_Thread implements Runnable {
                     if (loginhandler.isValid()) {
                         sc.sendData("LoginTrue");
                         int x = data.indexOf(']', 9);
-                        username = data.substring(9, x);
+                        userID = loginhandler.getUserID();
 
                     } else {
                         sc.sendData("LoginFalse");
@@ -66,17 +66,15 @@ public class Multi_Thread implements Runnable {
                     break;
                     
                 case "AddProb-":
-
                     System.out.println("AddProb- called");
-
                     NewProblem newproblem;
-
                     try {
                         newproblem = sc.saveProblem();
-                        if (database.addProblemToDB(newproblem, username)) {
+                        String status = database.addProblemToDB(newproblem, userID);
+                        if (status.equals("SUCCESS")) {
                             System.out.println("Problem Added");
                         } else {
-                            System.out.println("Problem adding failed");
+                            System.out.println("Problem adding failed "+status);
                         }
                     } catch (IOException | ClassNotFoundException ex) {
                         System.out.println("Problem Object reading err "+ex.getMessage());
@@ -85,24 +83,24 @@ public class Multi_Thread implements Runnable {
                     
                 case "AddSub--":
                    System.out.println("AddSub-- called");
-                   int submissionID;
+                   String submissionID;
 
                     NewSubmission newsubmission=null;
                 
                     try {
                         newsubmission = sc.saveSubmission();
-                        submissionID = database.addSubmissionToDB(newsubmission, username);
-                        if(submissionID>-1) {
+                        submissionID = database.addSubmissionToDB(newsubmission, userID);
+                        if(submissionID!=null&&submissionID.length()==14) {
                          System.out.println("submission Added");
                         } else {
                             System.out.println("submission adding failed");
                         }   
                     } catch (IOException | ClassNotFoundException ex) {
                         System.out.println("Submission Object reading err "+ex.getMessage());
-                        submissionID = -1;
+                        submissionID = null;
                     }
                     if(newsubmission!=null){
-                        NewProblem problem = database.getProblem(Integer.parseInt(newsubmission.getProblemID()));
+                        NewProblem problem = database.getProblem(newsubmission.getProblemID());
                         if(problem!=null){
                         Thread t = new Thread(new CompileAndRun(problem,newsubmission,submissionID,database));
                         t.start();
@@ -114,12 +112,9 @@ public class Multi_Thread implements Runnable {
                     
                     int x = data.indexOf(']', 9);
                     
-                    String identifier = data.substring(9,x);
-                    String identifier2 = identifier;
-                    System.out.println(identifier); 
-                    if(identifier.equals("My") || identifier.equals("MyDel")) identifier = username;
+                    String tableForWhom= data.substring(9,x);
                     
-                    if(sc.sendProblemTable(database.getProblemTable(identifier, identifier2))){
+                    if(sc.sendProblemTable(database.getProblemTable((tableForWhom.equals("MyDel")||tableForWhom.equals("My"))? userID:null))){
                         System.out.println("ProblemTable Sent");
                     }
                     else{
@@ -130,12 +125,9 @@ public class Multi_Thread implements Runnable {
                 case "StTable-":
                     
                     x = data.indexOf(']', 9);
-                    identifier = data.substring(9,x);
-                    System.out.println(identifier);
+                    tableForWhom = data.substring(9,x);
                     
-                    if(identifier.equals("My")) identifier = username;
-                    
-                    if(sc.sendStatusTable(database.getStatusTable(identifier))){
+                    if(sc.sendStatusTable(database.getStatusTable((tableForWhom.equals("My")? userID:null),clienttype))){
                         System.out.println("StatusTable Sent");
                     }
                     else{
@@ -146,10 +138,10 @@ public class Multi_Thread implements Runnable {
                  case "StdTable":
                     
                     x = data.indexOf(']', 9);
-                    identifier = data.substring(9,x);
+                    String identifier = data.substring(9,x);
                     System.out.println(identifier);
                     
-                    if(sc.sendStandingsTable(database.getStandingsTable(identifier))){
+                    if(sc.sendStandingsTable(database.getStandingsTable())){
                         System.out.println("StandingsTable Sent");
                     }
                     else{
@@ -159,10 +151,9 @@ public class Multi_Thread implements Runnable {
                 
                 case "SrcCode-":
                     x = data.indexOf(']', 9);
-                    identifier = data.substring(9,x);
-                    System.out.println(identifier);
+                    submissionID = data.substring(9,x);
                     
-                    if(sc.sendSubmission(database.getSubmission(Integer.parseInt(identifier))))
+                    if(sc.sendSubmission(database.getSubmission(submissionID)))
                     {
                         System.out.println("Submission Sent");
                     }else{
@@ -172,10 +163,9 @@ public class Multi_Thread implements Runnable {
                     
                 case "ProbFile":
                     x = data.indexOf(']', 9);
-                    identifier = data.substring(9,x);
-                    System.out.println(identifier);
+                    String problemID = data.substring(9,x);
                     
-                    if(sc.sendProblem(database.getProblem(Integer.parseInt(identifier)))){
+                    if(sc.sendProblem(database.getProblem(problemID))){
                         System.out.println("Problem Sent");
                     }else{
                         System.out.println("Problem Sending Failed");
@@ -183,12 +173,11 @@ public class Multi_Thread implements Runnable {
                     break;
                 case "DelProb-":
                     x = data.indexOf(']', 9);
-                    identifier = data.substring(9,x);
-                    System.out.println(identifier);
+                    problemID = data.substring(9,x);
                     
-                    database.deleteProblem(Integer.parseInt(identifier));
-                    
-                    if(sc.sendProblemTable(database.getProblemTable(username, "MyDel"))){
+                    String status = database.deleteProblem(problemID,userID);
+                    System.out.println(status);
+                    if(sc.sendProblemTable(database.getProblemTable(userID))){
                         System.out.println("ProblemTable Sent");
                     }
                     else{
@@ -201,7 +190,7 @@ public class Multi_Thread implements Runnable {
             }
 
         }
-        System.out.println("Thread is done");
+        System.out.println("A user is Disconnected");
     }
 
 }

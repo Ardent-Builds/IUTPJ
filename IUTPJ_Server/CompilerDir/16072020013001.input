@@ -1,0 +1,44 @@
+drop table EMPLOYEE;
+create table EMPLOYEE(
+ID          number(10) primary key,
+NAME        varchar2(20),
+SALARY      number(20,2),
+DESIGNATION varchar2(20)
+);
+
+insert into EMPLOYEE values(1234, 'Ingeborg', 20000, 'assistant-manager');
+insert into EMPLOYEE values(1235, 'Luigi', 30000, 'assistant-manager');
+insert into EMPLOYEE values(1236, 'Sachiko', 40000, 'executive-manager');
+insert into EMPLOYEE values(1237, 'Rachal', 50000, 'assistant-manager');
+insert into EMPLOYEE values(1238, 'Veronique', 10000, 'assistant-manager');
+insert into EMPLOYEE values(1239, 'Palmer', 60000, 'executive-manager');
+insert into EMPLOYEE values(1240, 'Merna', 80000, 'assistant-manager');
+insert into EMPLOYEE values(1241, 'Sebastian', 90000, 'executive-manager');
+insert into EMPLOYEE values(1242, 'Aisha', 80000, 'manager');
+insert into EMPLOYEE values(1243, 'Ines', 70000, 'executive-manager');
+insert into EMPLOYEE values(1244, 'Marinda', 20000, 'executive-manager');
+insert into EMPLOYEE values(1245, 'Petra', 40000, 'assistant-manager');
+insert into EMPLOYEE values(1246, 'Vanita', 40000, 'manager');
+insert into EMPLOYEE values(1247, 'Angelia', 20000, 'assistant-manager');
+insert into EMPLOYEE values(1248, 'Joline', 10000, 'assistant-manager');
+insert into EMPLOYEE values(1249, 'Edmond', 20000, 'manager');
+insert into EMPLOYEE values(1250, 'Rayna', 15000, 'executive-manager');
+insert into EMPLOYEE values(1251, 'Altagracia', 18000, 'manager');
+insert into EMPLOYEE values(1252, 'Jackelyn', 17000, 'manager');
+insert into EMPLOYEE values(1253, 'Ozella', 25000, 'executive-manager');
+
+SET SERVEROUTPUT ON 
+
+begin
+update EMPLOYEE
+set SALARY = case 
+when DESIGNATION ='manager' and SALARY <30000 then SALARY+SALARY*10/100
+when DESIGNATION ='assistant-manager' and SALARY>20000 then SALARY - SALARY*10/100
+else SALARY
+end
+where (DESIGNATION = 'manager' and SALARY<30000) or (DESIGNATION ='assistant-manager' and SALARY>20000);
+dbms_output.put_line('________________________________');
+dbms_output.put_line('number of Updated employee = ' || sql%rowcount);
+end;
+/
+

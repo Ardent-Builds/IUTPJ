@@ -35,6 +35,7 @@ public class SubmissionShow extends javax.swing.JFrame {
     
     UserSocket usersocket;
     UserDashboard temporary;
+    private Object problemID;
     public SubmissionShow(UserSocket usersocket, UserDashboard dashboard) {
         initComponents();
 
@@ -53,15 +54,10 @@ public class SubmissionShow extends javax.swing.JFrame {
                     int row = SubDetailsTable.rowAtPoint(evt.getPoint());
                     int col = SubDetailsTable.columnAtPoint(evt.getPoint());
                     if (row >= 0 && col == 2) {
-                        DefaultTableModel tablemodel = (DefaultTableModel) SubDetailsTable.getModel();
-                        String temp = tablemodel.getValueAt(row, 2).toString();
-                        int x = temp.indexOf('-',28);
-                        String problemid = temp.substring(28, x);
-
-                        usersocket.sendData("ProbFile[" + problemid + "]");
+                        usersocket.sendData("ProbFile[" + problemID.toString() + "]");
                         NewProblem problem = usersocket.getProblem();
                         try {
-                            FileOutputStream fos = new FileOutputStream(problemid + ".pdf");
+                            FileOutputStream fos = new FileOutputStream(problemID.toString() + ".pdf");
                             fos.write(problem.getProb());
                             fos.close();
                         } catch (FileNotFoundException ex) {
@@ -70,7 +66,7 @@ public class SubmissionShow extends javax.swing.JFrame {
                             System.out.println("At probshow problem write Err: " + ex.getMessage());
                         }
                         ProblemShow problemshow = new ProblemShow(temporary, problem.getProblemName(), problem.getTimeLimit(),problem.getMemoryLimit());
-                        problemshow.viewPdf(new File(problemid + ".pdf"),problemid);
+                        problemshow.viewPdf(new File(problemID.toString() + ".pdf"),problemID.toString());
                     }
                 }
             }
@@ -198,9 +194,10 @@ public class SubmissionShow extends javax.swing.JFrame {
 
     }//GEN-LAST:event_CopyButtonActionPerformed
 
-    public void setSubDetailsTable(Object subID, Object author, Object problem, Object lang, Object verdict, Object time, Object submitted) {
+    public void setSubDetailsTable(Object subID, Object author, Object problem, Object lang, Object verdict, Object time, Object submitted, Object PID) {
+        problemID = PID;
         Object[][] table = {{subID, author, problem, lang, verdict, time, submitted}};
-        Object[] columns = { "#", "Author", "Problem ID", "Lang", "Verdict", "Time", "Submitted"};
+        Object[] columns = { "#", "Author", "Problem Name", "Lang", "Verdict", "Time", "Submitted"};
         DefaultTableModel tablemodel = new DefaultTableModel(table, columns){
 
             public boolean isCellEditable(int row, int col) {

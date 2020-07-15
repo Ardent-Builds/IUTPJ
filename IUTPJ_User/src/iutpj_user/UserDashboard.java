@@ -37,6 +37,7 @@ public class UserDashboard extends javax.swing.JFrame {
     private File codefile;
     private UserDashboard temporary;
     private Login login;
+    private Object[][] problemTable, statusTable, myStatusTable, standingTable;
 
     public UserDashboard(UserSocket usersocket, Login login) {
         initComponents();
@@ -44,6 +45,10 @@ public class UserDashboard extends javax.swing.JFrame {
         this.codefile = null;
         temporary = this;
         this.login = login;
+        problemTable=null;
+        statusTable=null;
+        myStatusTable=null;
+        standingTable = null;
 
         setBackground(new Color(0, 0, 0));
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer() {
@@ -98,9 +103,8 @@ public class UserDashboard extends javax.swing.JFrame {
                     if (row >= 0 && (col == 0 || col == 1)) {
                         DefaultTableModel tablemodel = (DefaultTableModel) ProblemsetTable.getModel();
                         if (tablemodel.getValueAt(row, 0) != null) {
-                            String temp = tablemodel.getValueAt(row, 0).toString();
-                            int x = temp.indexOf('<', 28);
-                            String problemid = temp.substring(28, x);
+                            String problemid = problemTable[row][4].toString();
+                            
 
                             usersocket.sendData("ProbFile[" + problemid + "]");
                             NewProblem problem = usersocket.getProblem();
@@ -133,9 +137,7 @@ public class UserDashboard extends javax.swing.JFrame {
                     if (row >= 0 && col == 3) {
                         DefaultTableModel tablemodel = (DefaultTableModel) StatusTable.getModel();
                         if (tablemodel.getValueAt(row, 3) != null) {
-                            String temp = tablemodel.getValueAt(row, 3).toString();
-                            int x = temp.indexOf('-', 28);
-                            String problemid = temp.substring(28, x);
+                            String problemid = statusTable[row][7].toString();
 
                             usersocket.sendData("ProbFile[" + problemid + "]");
                             NewProblem problem = usersocket.getProblem();
@@ -166,11 +168,9 @@ public class UserDashboard extends javax.swing.JFrame {
                     if (row >= 0 && col == 0) {
                         DefaultTableModel tablemodel = (DefaultTableModel) MySubTable.getModel();
                         if (tablemodel.getValueAt(row, 0) != null) {
+                            String submissionid = myStatusTable[row][8].toString();
                             SubmissionShow subshow = new SubmissionShow(usersocket, temporary);
-                            String temp = tablemodel.getValueAt(row, 0).toString();
-                            int x = temp.indexOf('<', 28);
-                            String submissionid = temp.substring(28, x);
-                            subshow.setSubDetailsTable(submissionid, tablemodel.getValueAt(row, 2), tablemodel.getValueAt(row, 3), tablemodel.getValueAt(row, 4), tablemodel.getValueAt(row, 5), tablemodel.getValueAt(row, 6), tablemodel.getValueAt(row, 1));
+                            subshow.setSubDetailsTable(submissionid, tablemodel.getValueAt(row, 2), tablemodel.getValueAt(row, 3), tablemodel.getValueAt(row, 4), tablemodel.getValueAt(row, 5), tablemodel.getValueAt(row, 6), tablemodel.getValueAt(row, 1),myStatusTable[row][7]);
 
                             usersocket.sendData("SrcCode-[" + submissionid + "]");
                             NewSubmission submission = usersocket.getSubmission();
@@ -180,9 +180,7 @@ public class UserDashboard extends javax.swing.JFrame {
                     } else if (row >= 0 && col == 3) {
                         DefaultTableModel tablemodel = (DefaultTableModel) MySubTable.getModel();
                         if (tablemodel.getValueAt(row, 3) != null) {
-                            String temp = tablemodel.getValueAt(row, 3).toString();
-                            int x = temp.indexOf('-', 28);
-                            String problemid = temp.substring(28, x);
+                            String problemid = myStatusTable[row][7].toString();
 
                             usersocket.sendData("ProbFile[" + problemid + "]");
                             NewProblem problem = usersocket.getProblem();
@@ -900,13 +898,14 @@ public class UserDashboard extends javax.swing.JFrame {
     private void SubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitButtonActionPerformed
 
         String problemid = txtProblemID.getText();
+        System.out.println(problemid);
         try {
-            if (Integer.parseInt(problemid) < 0) {
+            if (Long.parseLong(problemid) < 0) {
                 JOptionPane.showMessageDialog(null, "Problem ID cannot be negative", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Invalid Problem ID", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Invalid Problem ID: "+ex.toString(), "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         String language = (String) LanguageComboBox.getSelectedItem();
@@ -944,18 +943,17 @@ public class UserDashboard extends javax.swing.JFrame {
         SourceCodeTextArea.setText(null);
 
         int x = UserDashboardTabSwitcher.getSelectedIndex();
-        Object[][] table;
         switch (x) {
 
             case 1:
 
                 usersocket.sendData("PrbTable[null]");
-                table = usersocket.getProblemTable();
-                if (table == null) {
+                problemTable = usersocket.getProblemTable();
+                if (problemTable == null) {
                     JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
                 } else {
                     String[] columns = {"Problem ID", "Problem Name", "ProblemSetter"};
-                    DefaultTableModel tablemodel = new DefaultTableModel(table, columns) {
+                    DefaultTableModel tablemodel = new DefaultTableModel(problemTable, columns) {
                         public boolean isCellEditable(int row, int col) {
                             return false;
                         }
@@ -971,12 +969,12 @@ public class UserDashboard extends javax.swing.JFrame {
             case 3:
 
                 usersocket.sendData("StTable-[nullus]");
-                table = usersocket.getStatusTable();
-                if (table == null) {
+                statusTable = usersocket.getStatusTable();
+                if (statusTable == null) {
                     JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
                 } else {
                     String[] columns = {"#", "When", "Who", "Problem", "Lang", "Verdict", "Time"};
-                    DefaultTableModel tablemodel = new DefaultTableModel(table, columns) {
+                    DefaultTableModel tablemodel = new DefaultTableModel(statusTable, columns) {
                         public boolean isCellEditable(int row, int col) {
                             return false;
                         }
@@ -988,12 +986,12 @@ public class UserDashboard extends javax.swing.JFrame {
                 break;
             case 4:
                 usersocket.sendData("StTable-[My]");
-                table = usersocket.getStatusTable();
-                if (table == null) {
+                myStatusTable = usersocket.getStatusTable();
+                if (myStatusTable == null) {
                     JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
                 } else {
                     String[] columns = {"#", "When", "Who", "Problem", "Lang", "Verdict", "Time"};
-                    DefaultTableModel tablemodel = new DefaultTableModel(table, columns) {
+                    DefaultTableModel tablemodel = new DefaultTableModel(myStatusTable, columns) {
                         public boolean isCellEditable(int row, int col) {
                             return false;
                         }
@@ -1004,12 +1002,12 @@ public class UserDashboard extends javax.swing.JFrame {
                 break;
             case 5:
                 usersocket.sendData("StdTable[null]");
-                table = usersocket.getStandingsTable();
-                if (table == null) {
+                standingTable = usersocket.getStandingsTable();
+                if (standingTable == null) {
                     JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
                 } else {
                     String[] columns = {"#", "ID", "Problems Solved"};
-                    DefaultTableModel tablemodel = new DefaultTableModel(table, columns) {
+                    DefaultTableModel tablemodel = new DefaultTableModel(standingTable, columns) {
                         public boolean isCellEditable(int row, int col) {
                             return false;
                         }

@@ -126,7 +126,7 @@ public class ContestDashboard extends javax.swing.JFrame {
                             System.out.println(temp);
                             int x = temp.indexOf('<', 28);
                             String submissionid = temp.substring(28, x);
-                            subshow.setSubDetailsTable(submissionid, tablemodel.getValueAt(row, 2), tablemodel.getValueAt(row, 3), tablemodel.getValueAt(row, 4), tablemodel.getValueAt(row, 5), tablemodel.getValueAt(row, 6), tablemodel.getValueAt(row, 1));
+                            subshow.setSubDetailsTable(submissionid, tablemodel.getValueAt(row, 2), tablemodel.getValueAt(row, 3), tablemodel.getValueAt(row, 4), tablemodel.getValueAt(row, 5), tablemodel.getValueAt(row, 6), tablemodel.getValueAt(row, 1),null);
 
                             adminsocket.sendData("SrcCode-[" + submissionid + "]");
                             NewSubmission submission = adminsocket.getSubmission();

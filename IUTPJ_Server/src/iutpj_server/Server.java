@@ -34,8 +34,8 @@ public class Server implements Runnable {
     private boolean startServer() {
         try {
             this.serverSocket = new ServerSocket(port);
-            serverSocket.setSoTimeout(5000);
             database.connectToDatebase();
+            serverSocket.setSoTimeout(5000);
             JOptionPane.showMessageDialog(null, "Server Started on Port: " + port, null, JOptionPane.INFORMATION_MESSAGE);
             return true;
 

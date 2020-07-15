@@ -11,94 +11,64 @@ package iutpj_server;
  */
 public class LoginSignUpHandler {
 
-    private final String data, clienttype;
+    private final String userName, password, clienttype;
     private final Database database;
 
     public LoginSignUpHandler(String data, String clienttype, Database db) {
 
-        this.data = data;
+        int x = data.indexOf(']', 9);
+        int y = data.lastIndexOf(']');
+
+        this.userName = data.substring(9, x);
+        this.password = data.substring(x + 2, y);
         this.clienttype = clienttype;
         this.database = db;
     }
 
+    public String getUserID(){
+        if(clienttype.equals("Admin"))
+        return database.getAdminID(userName);
+        else return database.getUserID(userName);
+    }
+
     public boolean isValid() {
-
-        int x = data.indexOf(']', 9);
-        int y = data.lastIndexOf(']');
-        String usrnm = data.substring(9, x);
-        String pswd = data.substring(x + 2, y);
-        System.out.println(usrnm + " " + pswd);
-
-        if (clienttype.equals("Admin")) {
-            String tmp = database.getAdminPassword(usrnm);
-            
-            if(tmp.equals(pswd))
-                return true;
-            else
-                return false;
-        }
-        else if( clienttype.equals("User"))
-        {
-            String tmp = database.getUserPassword(usrnm);
-            
-            if(tmp.equals(pswd))
-                return true;
-            else
-                return false;
-        }
-        else
-            return false;
-    }
-    
-    
-    public boolean SignUp(){
-        int x = data.indexOf(']', 9);
-        int y = data.lastIndexOf(']');
-        String usrnm = data.substring(9, x);
-        String pswd = data.substring(x + 2, y);
-        System.out.println(usrnm + " " + pswd);
-        
-        if (clienttype.equals("Admin")) {
-           if(database.updateAdmin(usrnm, pswd)){
-               return true;
-           } 
-        }
-        else if( clienttype.equals("User"))
-        {
-            if(database.updateUser(usrnm, pswd)) {
-                return true;
+        switch (clienttype) {
+            case "Admin": {
+                return database.getAdminPassword(userName).equals(password);
             }
+            case "User": {
+                return database.getUserPassword(userName).equals(password);
+            }
+            default:
+                return false;
         }
-        return false;
     }
-    
+
+    public boolean SignUp() {
+
+        switch (clienttype) {
+            case "Admin": {
+                return database.updateAdmin(userName, password).equals("SUCCESS");
+            }
+            case "User": {
+                return database.updateUser(userName, password).equals("SUCCESS");
+            }
+            default:
+                return false;
+        }
+    }
+
     public boolean doesExist() {
-
-        int x = data.indexOf(']', 9);
-        int y = data.lastIndexOf(']');
-        String usrnm = data.substring(9, x);
-        String pswd = data.substring(x + 2, y);
-        System.out.println(usrnm + " " + pswd);
-
-        if (clienttype.equals("Admin")) {
-            String tmp = database.getAdminPassword(usrnm);
-            
-            if(tmp.equals("No#Data"))
+        switch (clienttype) {
+            case "Admin": {
+                return !database.getAdminPassword(userName).equals("No#Data");
+            }
+            case "User": {
+                return !database.getUserPassword(password).equals("No#Data");
+            }
+            default:
                 return false;
-            else
-                return true;
         }
-        else if( clienttype.equals("User"))
-        {
-            String tmp = database.getUserPassword(usrnm);
-            
-            if(tmp.equals("No#Data"))
-                return false;
-            else
-                return true;
-        }
-        else
-            return false;
     }
 
 }

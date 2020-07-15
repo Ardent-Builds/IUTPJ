@@ -5,6 +5,7 @@
  */
 package iutpj_user;
 
+import java.util.List;
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
@@ -67,11 +68,16 @@ public class UserSocket {
         }
     }
 
-    public String[][] getProblemTable(){
-        String[][] table;
+    public Object[][] getProblemTable(){
+        Object[][] table;
+        List<String[]> rowData;
+        int index = 0;
         
         try{
-            table = (String[][]) objectin.readObject();
+            rowData = (List<String[]>) objectin.readObject();
+            table = new Object[rowData.size()][];
+            for(String[] row:rowData)
+                table[index++]=row;
             return table;
         } catch (IOException ex) {
             System.out.println("SocketGetProblem I/O Err "+ex.getMessage());
@@ -113,11 +119,16 @@ public class UserSocket {
         
     }
 
-    public String[][] getStatusTable() {
-        String[][] table;
+    public Object[][] getStatusTable() {
+        Object[][] table;
+        List<String[]> rowData;
+        int index = 0;
         
         try{
-            table = (String[][]) objectin.readObject();
+            rowData = (List<String[]>) objectin.readObject();
+            table = new Object[rowData.size()][];
+            for(String[] row:rowData)
+                table[index++]=row;
             return table;
         } catch (IOException ex) {
             System.out.println("SocketGetProblem I/O Err "+ex.getMessage());
@@ -128,11 +139,16 @@ public class UserSocket {
         }
     }
     
-     public String[][] getStandingsTable() {
-        String[][] table;
+     public Object[][] getStandingsTable() {
+        Object[][] table;
+        List<String[]> rowData;
+        int index = 0;
         
         try{
-            table = (String[][]) objectin.readObject();
+            rowData = (List<String[]>) objectin.readObject();
+            table = new Object[rowData.size()][];
+            for(String[] row:rowData)
+                table[index++]=row;
             return table;
         } catch (IOException ex) {
             System.out.println("SocketGetProblem I/O Err "+ex.getMessage());

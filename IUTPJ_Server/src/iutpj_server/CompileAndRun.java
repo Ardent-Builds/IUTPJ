@@ -26,11 +26,11 @@ public class CompileAndRun implements Runnable {
     private ProcessBuilder compile, run, compare;
     private File inputs, validoutputs, useroutputs, submissionfile;
     final String folderpath;
-    int submissionID;
+    String submissionID;
     long timetaken;
     Database db;
 
-    public CompileAndRun(NewProblem problem, NewSubmission submission, int submissionID, Database db) {
+    public CompileAndRun(NewProblem problem, NewSubmission submission, String submissionID, Database db) {
         this.problem = problem;
         this.submission = submission;
         this.submissionID = submissionID;
@@ -54,7 +54,7 @@ public class CompileAndRun implements Runnable {
             System.out.println("At CompileCPP FWrite Err " + ex.getMessage());
         }
 
-        compile = new ProcessBuilder("g++", folderpath + submissionID + ".cpp", "-o", folderpath + submissionID);
+        compile = new ProcessBuilder("g++", folderpath + submissionID + ".cpp", "-o", folderpath + submissionID+".out");
         try {
             Process p = compile.start();
             try {
@@ -73,7 +73,7 @@ public class CompileAndRun implements Runnable {
     }
 
     private int compileJava() {
-        new File(Integer.toString(submissionID)).mkdir();
+        new File(submissionID).mkdir();
         submissionfile = new File(submissionID+"/"+ submissionID + ".java");
         try {
             FileOutputStream fos = new FileOutputStream(submissionfile);
@@ -85,7 +85,7 @@ public class CompileAndRun implements Runnable {
             System.out.println("At CompileJava FWrite Err " + ex.getMessage());
         }
 
-        compile = new ProcessBuilder("javac",submissionID + ".java").directory( new File(Integer.toString(submissionID)));
+        compile = new ProcessBuilder("javac",submissionID + ".java").directory( new File(submissionID));
         try {
             Process p = compile.start();
             try {
@@ -115,7 +115,7 @@ public class CompileAndRun implements Runnable {
             System.out.println("At CompileJava FWrite Err " + ex.getMessage());
         }
 
-        compile = new ProcessBuilder("gcc", folderpath + submissionID + ".c", "-o", folderpath + submissionID);
+        compile = new ProcessBuilder("gcc", folderpath + submissionID + ".c", "-o", folderpath + submissionID+".out");
         try {
             Process p = compile.start();
             try {
@@ -135,7 +135,7 @@ public class CompileAndRun implements Runnable {
 
     private int runCppC() {
 
-        run = new ProcessBuilder(folderpath + submissionID + ".exe");
+        run = new ProcessBuilder(folderpath + submissionID + ".out");
         run.redirectInput(inputs);
         run.redirectOutput(useroutputs);
         System.out.println(Integer.parseInt(problem.getTimeLimit()));
@@ -164,7 +164,7 @@ public class CompileAndRun implements Runnable {
     }
 
     private int runJava() {
-        File dir = new File(Integer.toString(submissionID));
+        File dir = new File(submissionID);
         File[] classfiles = dir.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
@@ -174,7 +174,7 @@ public class CompileAndRun implements Runnable {
         String classname = classfiles[0].getName().substring(0,classfiles[0].getName().lastIndexOf("."));
         System.out.println(classname);
         
-        run = new ProcessBuilder("java",classname).directory( new File(Integer.toString(submissionID)));
+        run = new ProcessBuilder("java",classname).directory( new File(submissionID));
         run.redirectInput(inputs);
         run.redirectOutput(useroutputs);
 
@@ -211,9 +211,9 @@ public class CompileAndRun implements Runnable {
         System.out.println(submission.getLanguage());
         int iofilestate;
 
-        inputs = new File(folderpath + submissionID + ".in");
-        validoutputs = new File(folderpath + submissionID + ".out");
-        useroutputs = new File(folderpath + "u" + submissionID + ".out");
+        inputs = new File(folderpath + submissionID + ".input");
+        validoutputs = new File(folderpath + submissionID + ".output");
+        useroutputs = new File(folderpath + "u" + submissionID + ".output");
 
         try {
             FileOutputStream fosInp = new FileOutputStream(inputs);
@@ -319,7 +319,7 @@ public class CompileAndRun implements Runnable {
         useroutputs.delete();
         submissionfile.delete();
         new File(folderpath + submissionID + ".exe").delete();
-        new File(Integer.toString(submissionID)).delete();
+        new File(submissionID).delete();
     }
 
 }

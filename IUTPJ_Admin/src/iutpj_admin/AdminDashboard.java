@@ -35,6 +35,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     private final AdminSocket adminsocket;
     private File problem, inputs, outputs;
     Login parent;
+    private Object[][] problemTable, statusTable, myProblemTable, standingTable;
 
     public AdminDashboard(AdminSocket adminsocket, Login parent) {
         initComponents();
@@ -103,10 +104,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                     if (row >= 0 && (col == 0 || col == 1)) {
                         DefaultTableModel tablemodel = (DefaultTableModel) ProblemsetTable.getModel();
                         if (tablemodel.getValueAt(row, 0) != null) {
-                            String temp = tablemodel.getValueAt(row, 0).toString();
-                            int x = temp.indexOf('<', 28);
-                            System.out.println(temp + '\n' + x);
-                            String problemid = temp.substring(28, x);
+                            String problemid = problemTable[row][4].toString();
 
                             adminsocket.sendData("ProbFile[" + problemid + "]");
                             NewProblem problem = adminsocket.getProblem();
@@ -139,9 +137,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                     if (row >= 0 && (col == 0 || col == 1)) {
                         DefaultTableModel tablemodel = (DefaultTableModel) MyProblemsTable.getModel();
                         if (tablemodel.getValueAt(row, 0) != null) {
-                            String temp = tablemodel.getValueAt(row, 0).toString();
-                            int x = temp.indexOf('<', 28);
-                            String problemid = temp.substring(28, x);
+                            String problemid = myProblemTable[row][4].toString();
 
                             adminsocket.sendData("ProbFile[" + problemid + "]");
                             NewProblem problem = adminsocket.getProblem();
@@ -173,11 +169,8 @@ public class AdminDashboard extends javax.swing.JFrame {
                         DefaultTableModel tablemodel = (DefaultTableModel) StatusTable.getModel();
                         if (tablemodel.getValueAt(row, 0) != null) {
                             SubmissionShow subshow = new SubmissionShow(adminsocket);
-                            String temp = tablemodel.getValueAt(row, 0).toString();
-                            System.out.println(temp);
-                            int x = temp.indexOf('<', 28);
-                            String submissionid = temp.substring(28, x);
-                            subshow.setSubDetailsTable(submissionid, tablemodel.getValueAt(row, 2), tablemodel.getValueAt(row, 3), tablemodel.getValueAt(row, 4), tablemodel.getValueAt(row, 5), tablemodel.getValueAt(row, 6), tablemodel.getValueAt(row, 1));
+                            String submissionid = statusTable[row][8].toString();
+                            subshow.setSubDetailsTable(submissionid, tablemodel.getValueAt(row, 2), tablemodel.getValueAt(row, 3), tablemodel.getValueAt(row, 4), tablemodel.getValueAt(row, 5), tablemodel.getValueAt(row, 6), tablemodel.getValueAt(row, 1), statusTable[row][7]);
 
                             adminsocket.sendData("SrcCode-[" + submissionid + "]");
                             NewSubmission submission = adminsocket.getSubmission();
@@ -220,9 +213,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                     if (row >= 0 && (col == 0 || col == 1)) {
                         DefaultTableModel tablemodel = (DefaultTableModel) DelProblemsetTable.getModel();
                         if (tablemodel.getValueAt(row, 0) != null) {
-                            String temp = tablemodel.getValueAt(row, 0).toString();
-                            int x = temp.indexOf('<', 28);
-                            String problemid = temp.substring(28, x);
+                            String problemid = myProblemTable[row][4].toString();
 
                             adminsocket.sendData("ProbFile[" + problemid + "]");
                             NewProblem problem = adminsocket.getProblem();
@@ -244,9 +235,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                         String temp;
                         int x;
                         if (tablemodel.getValueAt(row, 0) != null) {
-                            temp = tablemodel.getValueAt(row, 0).toString();
-                            x = temp.indexOf('<', 28);
-                            String problemid = temp.substring(28, x);
+                            String problemid = myProblemTable[row][4].toString();
                             temp = tablemodel.getValueAt(row, 1).toString();
                             x = temp.indexOf('<', 28);
                             String problemname = temp.substring(28, x);
@@ -1277,12 +1266,12 @@ public class AdminDashboard extends javax.swing.JFrame {
             case 1:
 
                 adminsocket.sendData("PrbTable[null]");
-                Object[][] table = adminsocket.getProblemTable();
-                if (table == null) {
+                problemTable = adminsocket.getProblemTable();
+                if (problemTable == null) {
                     JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
                 } else {
                     String[] columns = {"Problem ID", "Problem Name", "Problem Setter"};
-                    DefaultTableModel tablemodel = new DefaultTableModel(table, columns) {
+                    DefaultTableModel tablemodel = new DefaultTableModel(problemTable, columns) {
 
                         public boolean isCellEditable(int row, int col) {
                             return false;
@@ -1294,12 +1283,12 @@ public class AdminDashboard extends javax.swing.JFrame {
                 break;
             case 2:
                 adminsocket.sendData("PrbTable[My]");
-                table = adminsocket.getProblemTable();
-                if (table == null) {
+                myProblemTable = adminsocket.getProblemTable();
+                if (myProblemTable == null) {
                     JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
                 } else {
                     String[] columns = {"Problem ID", "Problem Name", "Problem Setter"};
-                    DefaultTableModel tablemodel = new DefaultTableModel(table, columns) {
+                    DefaultTableModel tablemodel = new DefaultTableModel(myProblemTable, columns) {
                         public boolean isCellEditable(int row, int col) {
                             return false;
                         }
@@ -1309,12 +1298,12 @@ public class AdminDashboard extends javax.swing.JFrame {
                 break;
             case 4:
                 adminsocket.sendData("StTable-[nullad]");
-                table = adminsocket.getStatusTable();
-                if (table == null) {
+                statusTable = adminsocket.getStatusTable();
+                if (statusTable == null) {
                     JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
                 } else {
                     String[] columns = {"#", "When", "Who", "Problem", "Lang", "Verdict", "Time"};
-                    DefaultTableModel tablemodel = new DefaultTableModel(table, columns) {
+                    DefaultTableModel tablemodel = new DefaultTableModel(statusTable, columns) {
                         public boolean isCellEditable(int row, int col) {
                             return false;
                         }
@@ -1325,12 +1314,12 @@ public class AdminDashboard extends javax.swing.JFrame {
                 break;
             case 5:
                 adminsocket.sendData("StdTable[null]");
-                table = adminsocket.getStandingsTable();
-                if (table == null) {
+                standingTable = adminsocket.getStandingsTable();
+                if (standingTable == null) {
                     JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
                 } else {
                     String[] columns = {"#", "ID", "Problems Solved"};
-                    DefaultTableModel tablemodel = new DefaultTableModel(table, columns) {
+                    DefaultTableModel tablemodel = new DefaultTableModel(standingTable, columns) {
                         public boolean isCellEditable(int row, int col) {
                             return false;
                         }

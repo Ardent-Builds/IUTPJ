@@ -8,6 +8,8 @@ package iutpj_admin;
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.List;
+import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import newproblem.NewProblem;
@@ -84,11 +86,17 @@ public class AdminSocket {
         
     }
     
-    public String[][] getProblemTable(){
-        String[][] table;
+    public Object[][] getProblemTable(){
+        List<String[]> rowData;
+        Object[][] table;
+        int idx = 0;
         
         try{
-            table = (String[][]) objectin.readObject();
+            rowData = (List<String[]>) objectin.readObject();
+            table = new Object[(rowData.size())][];
+            
+            for(String[] row:rowData)
+                table[idx++]=row;
             return table;
         } catch (IOException ex) {
             System.out.println("SocketGetProblem I/O Err "+ex.getMessage());
@@ -99,11 +107,16 @@ public class AdminSocket {
         }
     }
     
-    public String[][] getStatusTable() {
-        String[][] table;
+    public Object[][] getStatusTable() {
+        List<String[]> rowData;
+        Object[][] table;
+        int idx = 0;
         
         try{
-            table = (String[][]) objectin.readObject();
+            rowData = (List<String[]>) objectin.readObject();
+            table = new Object[(rowData.size())][];
+            for(String[] row:rowData)
+                table[idx++]=row;
             return table;
         } catch (IOException ex) {
             System.out.println("SocketGetProblem I/O Err "+ex.getMessage());
@@ -114,11 +127,16 @@ public class AdminSocket {
         }
     }
     
-    public String[][] getStandingsTable() {
-        String[][] table;
+    public Object[][] getStandingsTable() {
+        List<String[]> rowData;
+        Object[][] table;
+        int idx = 0;
         
         try{
-            table = (String[][]) objectin.readObject();
+            rowData = (List<String[]>) objectin.readObject();
+            table = new Object[(rowData.size())][];
+            for(String[] row:rowData)
+                table[idx++]=row;
             return table;
         } catch (IOException ex) {
             System.out.println("SocketGetProblem I/O Err "+ex.getMessage());

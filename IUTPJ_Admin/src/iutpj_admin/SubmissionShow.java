@@ -30,7 +30,7 @@ import newsubmission.NewSubmission;
  * @author KAWSAR
  */
 public class SubmissionShow extends javax.swing.JFrame {
-
+    private Object problemID;
     public SubmissionShow(AdminSocket adminsocket) {
         initComponents();
 
@@ -48,10 +48,7 @@ public class SubmissionShow extends javax.swing.JFrame {
                     int row = SubDetailsTable.rowAtPoint(evt.getPoint());
                     int col = SubDetailsTable.columnAtPoint(evt.getPoint());
                     if (row >= 0 && col == 2) {
-                        DefaultTableModel tablemodel = (DefaultTableModel) SubDetailsTable.getModel();
-                        String temp = tablemodel.getValueAt(row, 2).toString();
-                        int x = temp.indexOf('-',28);
-                        String problemid = temp.substring(28, x);
+                        String problemid = problemID.toString();
 
                         adminsocket.sendData("ProbFile[" + problemid + "]");
                         NewProblem problem = adminsocket.getProblem();
@@ -190,7 +187,8 @@ public class SubmissionShow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_CopyButtonActionPerformed
 
-    public void setSubDetailsTable(Object subID, Object author, Object problem, Object lang, Object verdict, Object time, Object submitted) {
+    public void setSubDetailsTable(Object subID, Object author, Object problem, Object lang, Object verdict, Object time, Object submitted, Object PID) {
+        problemID = PID;
         Object[][] table = {{subID, author, problem, lang, verdict, time, submitted}};
         Object[] columns = { "#", "Author", "Problem ID", "Lang", "Verdict", "Time", "Submitted"};
         DefaultTableModel tablemodel = new DefaultTableModel(table, columns){

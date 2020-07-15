@@ -6,11 +6,11 @@
 package iutpj_server;
 
 import java.sql.*;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import newproblem.NewProblem;
 import newsubmission.NewSubmission;
 
@@ -19,30 +19,50 @@ import newsubmission.NewSubmission;
  * @author ASADUZZAMAN HEROK
  */
 public class Database {
-    
+
     private final String dbUserName;
     private final String dbPassword;
     Connection conn;
     PreparedStatement prprdstmnt;
+    CallableStatement callableStatement;
     Statement stmnt;
 
-    public Database(){
+    public Database() {
         dbUserName = "iutpj";
         dbPassword = "IutPj";
         conn = null;
         prprdstmnt = null;
+        callableStatement = null;
         stmnt = null;
     }
-    
-    public void connectToDatebase() throws ClassNotFoundException, SQLException 
-    { 
-            Class.forName("oracle.jdbc.driver.OracleDriver"); 
-            conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe",this.dbUserName,this.dbPassword);
+
+    public void connectToDatebase() throws ClassNotFoundException, SQLException {
+        Class.forName("oracle.jdbc.driver.OracleDriver");
+        conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", this.dbUserName, this.dbPassword);
     }
 
+// Client manupulation:
     public synchronized String getAdminPassword(String usrname) {
-        String query = "select password from Teacher where username = '" + usrname + "'";
+        String query = "select PASSWORD from ADMIN_INFO where USER_NAME = '" + usrname + "'";
 
+        try {
+            stmnt = conn.createStatement();
+            ResultSet rs = stmnt.executeQuery(query);
+            if (rs.next() == false) {
+                return "No#Data";
+            }
+            return rs.getString(1);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Statement error " + ex);
+            return "No#Data";
+        }
+
+    }
+
+    public synchronized String getAdminID(String usrname) {
+        String query = "select ID from ADMIN_INFO where USER_NAME = '" + usrname + "'";
         try {
             stmnt = conn.createStatement();
             ResultSet rs = stmnt.executeQuery(query);
@@ -57,21 +77,33 @@ public class Database {
             System.out.println("Statement error " + ex);
             return "No#Data";
         }
+    }
 
+    public synchronized String getUserID(String usrname) {
+        String query = "select ID from USER_INFO where USER_NAME = '" + usrname + "'";
+        try {
+            stmnt = conn.createStatement();
+            ResultSet rs = stmnt.executeQuery(query);
+            if (rs.next() == false) {
+                return "No#Data";
+            }
+            return rs.getString(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Statement error " + ex);
+            return "No#Data";
+        }
     }
 
     public synchronized String getUserPassword(String usrname) {
-        String query = "select password from Student where username = '" + usrname + "'";
-
+        String query = "select PASSWORD from USER_INFO where USER_NAME = '" + usrname + "'";
         try {
             stmnt = conn.createStatement();
             ResultSet rs = stmnt.executeQuery(query);
             if (rs.next() == false) {
                 return "No#Data";
             }
-
             return rs.getString(1);
-
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Statement error " + ex);
@@ -79,163 +111,110 @@ public class Database {
         }
     }
 
-    public synchronized boolean updateAdmin(String usrname, String password) {
+    public synchronized String updateAdmin(String usrname, String password) {
 
-        String update = "INSERT INTO teacher(username,password) values(?,?)";
-
+        String sql = "{? = call INSERT_ADMIN(?,?,?,?,?)}";
         try {
-            prprdstmnt = conn.prepareStatement(update);
-            prprdstmnt.setString(1, usrname);
-            prprdstmnt.setString(2, password);
-            prprdstmnt.executeUpdate();
-            return true;
+            callableStatement = conn.prepareCall(sql);
+            callableStatement.registerOutParameter(1, Types.VARCHAR);
+            callableStatement.setString(2, usrname);
+            callableStatement.setString(3, password);
+            callableStatement.setString(4, usrname + password);
+            callableStatement.setString(5, usrname + password);
+            callableStatement.setString(6, usrname + password);
+            callableStatement.execute();
+            String status = callableStatement.getString(1);
+            callableStatement.close();
+            return status;
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+            return ex.toString();
         }
     }
 
-    public synchronized boolean updateUser(String usrname, String password) {
+    public synchronized String updateUser(String usrname, String password) {
 
-        String update = "INSERT INTO student(username,password) values(?,?)";
+        String sql = "{? = call INSERT_USER(?,?,?,?,?)}";
 
         try {
-            prprdstmnt = conn.prepareStatement(update);
-            prprdstmnt.setString(1, usrname);
-            prprdstmnt.setString(2, password);
-            prprdstmnt.executeUpdate();
-            return true;
+            callableStatement = conn.prepareCall(sql);
+            callableStatement.registerOutParameter(1, Types.VARCHAR);
+            callableStatement.setString(2, usrname);
+            callableStatement.setString(3, password);
+            callableStatement.setString(4, usrname + password);
+            callableStatement.setString(5, usrname + password);
+            callableStatement.setString(6, usrname + password);
+            callableStatement.execute();
+            String status = callableStatement.getString(1);
+            callableStatement.close();
+            return status;
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println(ex.getMessage());
-            return false;
+            return ex.toString();
         }
     }
 
-    public synchronized boolean addProblemToDB(NewProblem problem, String username) {
-
-        String rowcountquery = "SELECT MAX(ProblemID) AS ROWCOUNT FROM problemset";
-        String update = "INSERT INTO problemset(ProblemID, ProblemName, ProblemSetter, TimeLimit, MemoryLimit, ProblemStatement, Inputs, Outputs) VALUES(?,?,?,?,?,?,?,?)";
-        int rowcount = 0;
+// Problem manupulation
+    public synchronized String addProblemToDB(NewProblem problem, String setter) {
+        /*
+        CREATE TABLE PROBLEM_SET(
+        ID VARCHAR2(15) PRIMARY KEY,
+        PROBLEM_NAME VARCHAR2(50) NOT NULL,
+        SETTER_ID VARCHAR2(15) NOT NULL,
+        TIME_LIMIT NUMBER(5) NOT NULL,
+        MEMORY_LIMIT NUMBER(10) NOT NULL,
+        LOCKED VARCHAR2(3) NOT NULL,
+        STATEMENT BLOB NOT NULL,
+        DATASET_IN BLOB NOT NULL,
+        DATASET_OUT BLOB NOT NULL,
+        FOREIGN KEY(SETTER_ID) REFERENCES ADMIN_INFO(ID)
+        );
+        INSERT_PROBLEM_SET(
+        PNAME IN PROBLEM_SET.PROBLEM_NAME%TYPE,
+        SETTER IN PROBLEM_SET.SETTER_ID%TYPE,
+        TL IN PROBLEM_SET.TIME_LIMIT%TYPE,
+        ML IN PROBLEM_SET.MEMORY_LIMIT%TYPE,
+        LKD IN PROBLEM_SET.LOCKED%TYPE,
+        STMNT IN PROBLEM_SET.STATEMENT%TYPE,
+        DIN IN PROBLEM_SET.DATASET_IN%TYPE,
+        DOUT IN PROBLEM_SET.DATASET_OUT%TYPE
+        )
+         */
+        String sql = "{? = call INSERT_PROBLEM_SET(?,?,?,?,?,?,?,?)}";
 
         try {
-            stmnt = conn.createStatement();
-            ResultSet rs = stmnt.executeQuery(rowcountquery);
+            Blob problemStatement = conn.createBlob();
+            problemStatement.setBytes(1, problem.getProb());
+            Blob dataSetIn = conn.createBlob();
+            dataSetIn.setBytes(1, problem.getInp());
+            Blob dataSetOut = conn.createBlob();
+            dataSetOut.setBytes(1, problem.getOutp());
 
-            if (rs.next()) {
-                rowcount = rs.getInt("rowcount");
-            }
-        } catch (SQLException ex) {
-            System.out.println("RowCountErr " + ex.getMessage());
-        }
+            callableStatement = conn.prepareCall(sql);
+            callableStatement.registerOutParameter(1, Types.VARCHAR);
+            callableStatement.setString(2, problem.getProblemName());
+            callableStatement.setString(3, setter);
+            callableStatement.setInt(4, Integer.parseInt(problem.getTimeLimit()));
+            callableStatement.setInt(5, Integer.parseInt(problem.getMemoryLimit()));
+            callableStatement.setString(6, "YES");
+            callableStatement.setBlob(7, problemStatement);
+            callableStatement.setBlob(8, dataSetIn);
+            callableStatement.setBlob(9, dataSetOut);
 
-        try {
-            System.out.println(username + ' ' + problem.getOutp().length);
-
-            prprdstmnt = conn.prepareStatement(update);
-
-            prprdstmnt.setInt(1, rowcount + 1);
-            prprdstmnt.setString(2, problem.getProblemName());
-            prprdstmnt.setString(3, username);
-            prprdstmnt.setInt(4, Integer.parseInt(problem.getTimeLimit()));
-            prprdstmnt.setInt(5, Integer.parseInt(problem.getMemoryLimit()));
-            prprdstmnt.setBytes(6, problem.getProb());
-            prprdstmnt.setBytes(7, problem.getInp());
-            prprdstmnt.setBytes(8, problem.getOutp());
-
-            prprdstmnt.executeUpdate();
-            return true;
+            callableStatement.execute();
+            String status = callableStatement.getString(1);
+            callableStatement.close();
+            return status;
 
         } catch (SQLException ex) {
-            System.out.println("Insert problem Err " + ex.getMessage());
-            return false;
+            System.out.println("Databasse.java: " + ex.toString());
+            return ex.toString();
         }
     }
-    
-    public synchronized void deleteProblem(int problemid){
-        String update = "DELETE FROM PROBLEMSET WHERE PROBLEMID = ?";
-        System.out.println(update);
-        try{
-            prprdstmnt = conn.prepareStatement(update);
-            prprdstmnt.setInt(1, problemid);
-            prprdstmnt.executeUpdate();
-        } catch (SQLException ex) {
-            System.out.println("Delete Problem " + ex.getMessage());
-        }
-        update = "DELETE FROM SUBMISSIONS WHERE PROBLEMID = ?";
-        System.out.println(update);
-        try{
-            prprdstmnt = conn.prepareStatement(update);
-            prprdstmnt.setInt(1, problemid);
-            prprdstmnt.executeUpdate();
-        } catch (SQLException ex) {
-            System.out.println("Delete Problem " + ex.getMessage());
-        }
-        
-    }
-    public synchronized int addSubmissionToDB(NewSubmission submission, String username) {
-         String rowcountquery = "SELECT COUNT(*) AS ROWCOUNT FROM submissions";
-         String update = "INSERT INTO Submissions(SubmissionID, ProblemID, Language, SubmittedBy, CodeFile, TimeOfSubmission, TimeTaken, Verdict) VALUES(?,?,?,?,?,?,?,?)";
-         int rowcount = 0;
-         
-          try {
-            stmnt = conn.createStatement();
-            ResultSet rs = stmnt.executeQuery(rowcountquery);
 
-            if (rs.next()) {
-                rowcount = rs.getInt("rowcount");
-            }
-        } catch (SQLException ex) {
-            System.out.println("RowCountErr " + ex.getMessage());
-        }
+    public synchronized NewProblem getProblem(String problemID) {
 
-        try {
-            String timeStamp = new SimpleDateFormat("yyyy:MM:dd_HH:mm:ss").format(Calendar.getInstance().getTime());
-
-            prprdstmnt = conn.prepareStatement(update);
-
-            prprdstmnt.setInt(1, rowcount + 1);
-            prprdstmnt.setInt(2, Integer.parseInt(submission.getProblemID()));
-            prprdstmnt.setString(3, submission.getLanguage());
-            prprdstmnt.setString(4, username);
-            prprdstmnt.setBytes(5, submission.getCodeF());
-            prprdstmnt.setString(6,timeStamp);
-            prprdstmnt.setInt(7, -1);
-            prprdstmnt.setString(8, "Not Judged");
-           
-
-            prprdstmnt.executeUpdate();
-            return rowcount+1;
-
-        } catch (SQLException ex) {
-            System.out.println("Insert problem Err " + ex.getMessage());
-            return -1;
-        }
-         
-    }
-    
-    public synchronized void updateVerdict(int sumbimmissionID, String verdict, int timetaken){
-        String update = "UPDATE Submissions SET Verdict = ?, TimeTaken = ? WHERE SubmissionID = ?";
-        System.out.println("DB Update verdict called");
-        
-        try{
-            prprdstmnt = conn.prepareStatement(update);
-            prprdstmnt.setString(1, verdict);
-            prprdstmnt.setInt(3, sumbimmissionID);
-            prprdstmnt.setInt(2, timetaken);
-            
-            prprdstmnt.executeUpdate();
-            
-        } catch (SQLException ex) {
-            System.out.println("DB updateVerdict Err: "+ex.getMessage());
-        }
-        
-        
-    }
-
-    public synchronized NewProblem getProblem(int problemID) {
-
-        String query = "SELECT * FROM PROBLEMSET WHERE PROBLEMID = " + problemID;
+        String query = "SELECT * FROM PROBLEM_SET WHERE ID = '" + problemID+"'";
 
         try {
             stmnt = conn.createStatement();
@@ -246,26 +225,122 @@ public class Database {
             }
 
             NewProblem problem = new NewProblem();
-            problem.setProblemName(rs.getString("ProblemName"));
-            problem.setProblemID(Integer.toString(rs.getInt("ProblemID")));
-            problem.setTimeLimit(Integer.toString(rs.getInt("TimeLimit")));
-            problem.setMemoryLimit(Integer.toString(rs.getInt("MemoryLimit")));
-            problem.setProb(rs.getBytes("ProblemStatement"));
-            problem.setInp(rs.getBytes("inputs"));
-            problem.setOutp(rs.getBytes("outputs"));
-
+            problem.setProblemName(rs.getString("PROBLEM_NAME"));
+            problem.setProblemID(rs.getString("ID"));
+            problem.setTimeLimit(Integer.toString(rs.getInt("TIME_LIMIT")));
+            problem.setMemoryLimit(Integer.toString(rs.getInt("MEMORY_LIMIT")));
+            problem.setProb(rs.getBytes("STATEMENT"));
+            problem.setInp(rs.getBytes("DATASET_IN"));
+            problem.setOutp(rs.getBytes("DATASET_OUT"));
             return problem;
 
         } catch (SQLException ex) {
-            System.out.println("problem query Err " + ex.getMessage());
+            System.out.println("DB GET PROBLEM: " + ex.toString());
             return null;
         }
 
     }
-    
-    public synchronized NewSubmission getSubmission(int submissionID) {
 
-        String query = "SELECT * FROM Submissions WHERE SubmissionID = " + submissionID;
+    public synchronized String deleteProblem(String problemID, String userID) {
+        /*
+        CREATE OR REPLACE FUNCTION DELETE_PROBLEM(
+        PROBLEM_ID IN PROBLEM_SET.ID%TYPE,
+        SETTER IN PROBLEM_SET.SETTER_ID%TYPE
+        )
+        */
+        String sql = "{? = call DELETE_PROBLEM(?,?)}";
+        try {
+            callableStatement = conn.prepareCall(sql);
+            callableStatement.registerOutParameter(1, Types.VARCHAR);
+            callableStatement.setString(2, problemID);
+            callableStatement.setString(3, userID);
+            
+            callableStatement.execute();
+            String status = callableStatement.getString(1);
+            callableStatement.close();
+            return status;
+        } catch (SQLException ex) {
+            System.out.println("DB Delete Problem " + ex.toString());
+            return ex.toString();
+        }
+    }
+
+    public synchronized String addSubmissionToDB(NewSubmission submission, String userID) {
+        /*
+        CREATE OR REPLACE FUNCTION INSERT_SUBMISSION(
+        PID IN PROBLEM_SET.ID%TYPE,
+        USID IN USER_INFO.ID%TYPE,
+        CL IN SUBMISSION.CODE_LANGUAGE%TYPE,
+        VR IN SUBMISSION.VERDICT%TYPE,
+        RT IN SUBMISSION.RUNNING_TIME%TYPE,
+        CDF IN SUBMISSION.CODE_FILE%TYPE
+        )
+        RETURN VARCHAR2
+        */
+        System.out.println(submission.getProblemID()+" "+userID);
+        String sql = "{? = call INSERT_SUBMISSION(?,?,?,?,?,?)}";
+        try {
+            Blob codeFile= conn.createBlob();
+            codeFile.setBytes(1, submission.getCodeF());
+            
+            callableStatement = conn.prepareCall(sql);
+            
+            callableStatement.registerOutParameter(1, Types.VARCHAR);
+
+            callableStatement.setString(2,submission.getProblemID());
+            callableStatement.setString(3, userID);
+            callableStatement.setString(4, submission.getLanguage());
+            callableStatement.setString(5, "Not Judged");
+            callableStatement.setInt(6, -1);
+            callableStatement.setBlob(7, codeFile);
+            
+            callableStatement.execute();
+            String status = callableStatement.getString(1);
+            System.out.println(status);
+            callableStatement.close();
+            
+            return status;
+
+        } catch (SQLException ex) {
+            System.out.println("DB add Submission: " + ex.toString());
+            return ex.toString();
+        }
+
+    }
+
+    public synchronized String updateVerdict(String submissionID, String verdict, int timetaken) {
+        /*
+        CREATE OR REPLACE FUNCTION UPDATE_SUBMISSION(
+        SID IN SUBMISSION.ID%TYPE,
+        VR IN SUBMISSION.VERDICT%TYPE,
+        RT IN SUBMISSION.RUNNING_TIME%TYPE
+        )
+         RETURN VARCHAR2
+        */
+        String sql = "{? = call UPDATE_SUBMISSION(?,?,?)}";
+  
+        try {
+            callableStatement = conn.prepareCall(sql);
+            callableStatement.registerOutParameter(1, Types.VARCHAR);
+            
+            callableStatement.setString(2, submissionID);
+            callableStatement.setString(3, verdict);
+            callableStatement.setInt(4, timetaken);
+            
+            callableStatement.execute();
+            String status = callableStatement.getString(1);
+            callableStatement.close();
+            return status;
+
+        } catch (SQLException ex) {
+            System.out.println("DB updateVerdict Err: " + ex.getMessage());
+            return ex.toString();
+        }
+    }
+
+    public synchronized NewSubmission getSubmission(String submissionID) {
+
+        String query = "SELECT PROBLEM_ID, CODE_LANGUAGE, CODE_FILE FROM SUBMISSION WHERE ID = '" + submissionID+"'";
 
         try {
             stmnt = conn.createStatement();
@@ -276,10 +351,10 @@ public class Database {
             }
 
             NewSubmission submission = new NewSubmission();
-            
-            submission.setProblemID(rs.getString("ProblemID"));
-            submission.setLanguage(rs.getString("Language"));
-            submission.setCodeF(rs.getBytes("CodeFile"));
+
+            submission.setProblemID(rs.getString("PROBLEM_ID"));
+            submission.setLanguage(rs.getString("CODE_LANGUAGE"));
+            submission.setCodeF(rs.getBytes("CODE_FILE"));
 
             return submission;
 
@@ -290,134 +365,106 @@ public class Database {
 
     }
 
-    public synchronized String[][] getProblemTable(String identifier, String identifier2) {
-        String query;
-        if (identifier.equals("null")) {
-            query = "SELECT ProblemID, ProblemName, ProblemSetter FROM Problemset";
-        } else {
-            query = "SELECT ProblemID, ProblemName, ProblemSetter FROM Problemset WHERE ProblemSetter = '" + identifier + "'";
+    public synchronized List<String[]> getProblemTable(String userID) {
+        
+        List<String[]> table = new ArrayList<>();
+        String[] rowData = new String[5];
+        
+        String query = "SELECT PROBLEM_SET.ID AS ID, PROBLEM_NAME, USER_NAME FROM PROBLEM_SET INNER JOIN ADMIN_INFO ON SETTER_ID = ADMIN_INFO.ID WHERE SETTER_ID = "+((userID==null)? "SETTER_ID":"'"+userID+"'");
+        System.out.println(query);
+        ResultSet rs;
+        try {
+            stmnt = conn.createStatement();
+            rs = stmnt.executeQuery(query);
+
+            while (rs.next()) {
+                rowData[0] = "<HTML><U><FONT COLOR='BLUE'>" + rs.getString("ID") + "</FONT></U></HTML>";
+                rowData[1] = "<HTML><U><FONT COLOR='BLUE'>" + rs.getString("PROBLEM_NAME") + "</FONT></U></HTML>";
+                rowData[2] = rs.getString("USER_NAME");
+                rowData[3] = "<HTML><U><FONT COLOR='RED'>DELETE</FONT></U></HTML>";
+                rowData[4] = rs.getString("ID");
+                table.add(rowData.clone());
+                System.out.println(Arrays.toString(rowData));
+            }
+            return table;
+        } catch (SQLException ex) {
+            System.out.println("DB getProblemTable err" + ex.getMessage());
+            return null;
         }
+
+    }
+
+    public synchronized List<String[]> getStatusTable(String userID, String clientType) {
+        
+        List<String[]> tableData = new ArrayList<>();
+        String[] rowData = new String[9];
+        
+        
+        String query = "SELECT SUBMISSION.ID AS SID, CODE_LANGUAGE AS CL, VERDICT AS VR, RUNNING_TIME AS RT, "
+                + "PROBLEM_SET.PROBLEM_NAME AS PNAME, PROBLEM_SET.ID AS PID, "
+                + "USER_INFO.USER_NAME AS UNAME "
+                + "FROM SUBMISSION, PROBLEM_SET, USER_INFO "
+                + "WHERE PROBLEM_SET.ID = PROBLEM_ID AND USER_INFO.ID = USER_ID AND USER_ID = "+((userID==null)? "USER_ID":"'"+userID+"'");
+        ResultSet rs;
+        try {
+            stmnt = conn.createStatement();
+            rs = stmnt.executeQuery(query);
+            
+            while (rs.next()) {
+                
+                rowData[0]=rs.getString("SID");
+                rowData[1] = rowData[0].substring(0,2)+"/"
+                        +rowData[0].substring(2,4)+"/"
+                        +rowData[0].substring(4,8)+":"
+                        +rowData[0].substring(8,10)+":"
+                        +rowData[0].substring(10,12)+":"
+                        +rowData[0].substring(12,14);
+                rowData[2] = rs.getString("UNAME");
+                rowData[3] = "<HTML><U><FONT COLOR='BLUE'>" + rs.getString("PNAME") + "</FONT></U></HTML>";
+                rowData[4] = rs.getString("CL");
+                rowData[5] = rs.getString("VR");
+                rowData[6] = Integer.toString(rs.getInt("RT"));
+                rowData[7] = rs.getString("PID");
+                rowData[8] = rs.getString("SID");
+                
+                if(userID!=null||clientType.equals("Admin"))
+                    rowData[0]="<HTML><U><FONT COLOR='BLUE'>"+rowData[0]+"</FONT></U></HTML>";
+                tableData.add(rowData.clone());
+                System.out.println(Arrays.toString(rowData)); 
+            }
+            return tableData;
+
+        } catch (SQLException ex) {
+            System.out.println("DB Fetch Status Table err" + ex.toString());
+            return null;
+        }
+
+    }
+
+    public synchronized List<String[]> getStandingsTable() {
+        List<String[]> tableData = new ArrayList<>();
+        String[] rowData = new String[3];
+ 
+        String query = "SELECT USER_INFO.USER_NAME AS UNAME, Count(DISTINCT PROBLEM_id) AS PROBLEMS FROM SUBMISSION, USER_INFO WHERE VERDICT = 'Accepted' AND USER_ID = USER_INFO.ID GROUP BY USER_INFO.USER_NAME ORDER BY PROBLEMS DESC";
         
         ResultSet rs;
-        try{
+        try {
             stmnt = conn.createStatement();
             rs = stmnt.executeQuery(query);
-            
-            int x;
-            if(identifier2.equals("MyDel")){
-                String[][] table = new String[40][4];
-                while(rs.next()){
-                    x = rs.getRow()-1;
-                    table[x][0] ="<HTML><U><FONT COLOR='BLUE'>"+Integer.toString(rs.getInt("ProblemID"))+"</FONT></U></HTML>";
-                    table[x][1] ="<HTML><U><FONT COLOR='BLUE'>"+rs.getString("ProblemName")+"</FONT></U></HTML>";
-                    table[x][2] = rs.getString("ProblemSetter");
-                    table[x][3] = "<HTML><U><FONT COLOR='RED'>DELETE</FONT></U></HTML>";
-                
-                System.out.println(table[x][0]+" "+table[x][1]+" "+table[x][2]+" "+table[x][3]);
-                }
-                return table;
+            int position = 1;
+            while (rs.next()) {
+                rowData[0] = Integer.toString(position++);
+                rowData[1] = rs.getString("UNAME");
+                rowData[2] = rs.getString("Problems");
+                tableData.add(rowData.clone());
+                System.out.println(rowData);
             }
-            else{
-                String[][] table = new String[40][3];
-            
-                while(rs.next()){
-                    x = rs.getRow()-1;
-                    table[x][0] ="<HTML><U><FONT COLOR='BLUE'>"+Integer.toString(rs.getInt("ProblemID"))+"</FONT></U></HTML>";
-                    table[x][1] ="<HTML><U><FONT COLOR='BLUE'>"+rs.getString("ProblemName")+"</FONT></U></HTML>";
-                    table[x][2] = rs.getString("ProblemSetter");
-                
-                System.out.println(table[x][0]+" "+table[x][1]+" "+table[x][2]);
-                }
-                return table;
-            }
-            
-            
-            
+            return tableData;
             
         } catch (SQLException ex) {
-            System.out.println("DB getProblemTable err"+ ex.getMessage());
+            System.out.println("DB getProblemTable err" + ex.toString());
             return null;
         }
-
     }
-    
-    public synchronized String[][] getStatusTable(String identifier) {
-        String query;
-        System.out.println(identifier);
-        if (identifier.equals("nullad") || identifier.equals("nullus")) {
-            query = "SELECT Submissions.SubmissionID AS SubmissionID, Submissions.SubmittedBy AS SubmittedBy, Submissions.ProblemID AS ProblemID, Problemset.ProblemName AS ProblemName, Submissions.Language AS Language, Submissions.TimeOfSubmission AS TimeOfSubmission, Submissions.Verdict AS Verdict, Submissions.TimeTaken AS TimeTaken FROM Submissions, Problemset WHERE Submissions.ProblemID=Problemset.ProblemID";
-        } else {
-            query = "SELECT Submissions.SubmissionID AS SubmissionID, Submissions.SubmittedBy AS SubmittedBy, Submissions.ProblemID AS ProblemID, Problemset.ProblemName AS ProblemName, Submissions.Language AS Language, Submissions.TimeOfSubmission AS TimeOfSubmission, Submissions.Verdict AS Verdict, Submissions.TimeTaken AS TimeTaken FROM Submissions, Problemset WHERE Submissions.ProblemID=Problemset.ProblemID and Submissions.Submittedby = '"+identifier+"'";
-        }
-        
-        ResultSet rs;
-        try{
-            stmnt = conn.createStatement();
-            rs = stmnt.executeQuery(query);
-            
-            int x;
-            String[][] table = new String[40][7];
-            
-            while(rs.next()){
-                x = rs.getRow()-1;
-                if(identifier.equals("nullus")){
-                    table[x][0] = Integer.toString(rs.getInt("SubmissionID"));
-                }
-                else{
-                    table[x][0] ="<HTML><U><FONT COLOR='BLUE'>"+Integer.toString(rs.getInt("SubmissionID"))+"</FONT></U></HTML>";
-                }
-                table[x][1] = rs.getString("TimeOfSubmission");
-                table[x][2] = rs.getString("SubmittedBy");
-                table[x][3] ="<HTML><U><FONT COLOR='BLUE'>"+Integer.toString(rs.getInt("ProblemID"))+"-"+ rs.getString("ProblemName")+"</FONT></U></HTML>";
-                table[x][4] = rs.getString("Language");
-                table[x][5] = rs.getString("Verdict");
-                table[x][6] = rs.getString("TimeTaken");
-                System.out.println(table[x][0]+" "+table[x][1]+" "+table[x][2]+" "+table[x][3]+" "+table[x][4]+" "+table[x][5]+" "+table[x][6]);
-            }
-            
-            return table;
-            
-            
-        } catch (SQLException ex) {
-            System.out.println("DB getProblemTable err"+ ex.getMessage());
-            return null;
-        }
-
-    }
-    
-        public synchronized String[][] getStandingsTable(String identifier) {
-        String query;
-        System.out.println(identifier);
-        query = "SELECT SubmittedBy AS ID, Count(DISTINCT ProblemID) AS Problems FROM Submissions WHERE Verdict='Accepted' GROUP BY ID ORDER BY Problems DESC";
-       // query = "SELECT SubmittedBy AS ID, Count(*) AS Problems FROM Submissions WHERE Verdict='Accepted' GROUP BY SubmittedBy";
-     
-        ResultSet rs;
-        try{
-            stmnt = conn.createStatement();
-            rs = stmnt.executeQuery(query);
-            
-            int x;
-            String[][] table = new String[40][3];
-            
-            while(rs.next()){
-                x = rs.getRow()-1;
-               
-                table[x][0] = Integer.toString(x+1);
-                table[x][1] = rs.getString("ID");
-                table[x][2] = rs.getString("Problems");
-                System.out.println(table[x][0]+" "+table[x][1]+" "+table[x][2]);
-            }
-            
-            return table;
-            
-            
-        } catch (SQLException ex) {
-            System.out.println("DB getProblemTable err"+ ex.getMessage());
-            return null;
-        }
-
-    }
-
-    
 
 }

@@ -8,6 +8,7 @@ package iutpj_server;
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import newproblem.NewProblem;
@@ -100,7 +101,7 @@ public class SocketForClient {
         }
     }
     
-    public boolean sendProblemTable(String[][] table){
+    public boolean sendProblemTable(List<String[]> table){
         try{
             objectout.writeObject(table);
             return true;
@@ -110,7 +111,7 @@ public class SocketForClient {
         }
     }
     
-    public boolean sendStatusTable(String[][] table){
+    public boolean sendStatusTable(List<String[]> table){
         try{
             objectout.writeObject(table);
             return true;
@@ -120,7 +121,7 @@ public class SocketForClient {
         }
     }
     
-     public boolean sendStandingsTable(String[][] table){
+     public boolean sendStandingsTable(List<String[]> table){
         try{
             objectout.writeObject(table);
             return true;
