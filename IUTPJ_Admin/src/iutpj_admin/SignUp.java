@@ -45,9 +45,13 @@ public class SignUp extends javax.swing.JFrame {
         leftSeparator = new javax.swing.JSeparator();
         ConfirmPasswordField = new javax.swing.JPasswordField();
         ConfirmPasswordLabel = new javax.swing.JLabel();
-        StudentIDLabel = new javax.swing.JLabel();
+        UsernameLabel = new javax.swing.JLabel();
         PasswordLabel = new javax.swing.JLabel();
         PasswordField = new javax.swing.JPasswordField();
+        EmailLabel = new javax.swing.JLabel();
+        txtStudentID1 = new javax.swing.JTextField();
+        InstitutionLabel = new javax.swing.JLabel();
+        txtStudentID2 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -77,7 +81,7 @@ public class SignUp extends javax.swing.JFrame {
 
         WelcomeLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 38)); // NOI18N
         WelcomeLabel.setForeground(new java.awt.Color(54, 33, 89));
-        WelcomeLabel.setText("Sign up As An Admin");
+        WelcomeLabel.setText("Sign up As Admin");
         RightPanel.add(WelcomeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, 400, 70));
 
         closeLabel.setFont(new java.awt.Font("Tahoma", 1, 25)); // NOI18N
@@ -112,7 +116,7 @@ public class SignUp extends javax.swing.JFrame {
                 txtStudentIDFocusLost(evt);
             }
         });
-        RightPanel.add(txtStudentID, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 150, 270, 50));
+        RightPanel.add(txtStudentID, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 140, 270, 30));
 
         SignUpButton.setBackground(new java.awt.Color(54, 33, 89));
         SignUpButton.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
@@ -149,28 +153,50 @@ public class SignUp extends javax.swing.JFrame {
         ConfirmPasswordField.setForeground(new java.awt.Color(102, 102, 102));
         ConfirmPasswordField.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         ConfirmPasswordField.setSelectionColor(new java.awt.Color(110, 89, 222));
-        RightPanel.add(ConfirmPasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 310, 200, 30));
+        RightPanel.add(ConfirmPasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, 200, 30));
 
         ConfirmPasswordLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
         ConfirmPasswordLabel.setForeground(new java.awt.Color(54, 33, 89));
         ConfirmPasswordLabel.setText("Confirm Password");
-        RightPanel.add(ConfirmPasswordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, 180, 30));
+        RightPanel.add(ConfirmPasswordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 180, 30));
 
-        StudentIDLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
-        StudentIDLabel.setForeground(new java.awt.Color(54, 33, 89));
-        StudentIDLabel.setText("Username");
-        RightPanel.add(StudentIDLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 120, 30));
+        UsernameLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
+        UsernameLabel.setForeground(new java.awt.Color(54, 33, 89));
+        UsernameLabel.setText("Username");
+        RightPanel.add(UsernameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 120, 30));
 
         PasswordLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
         PasswordLabel.setForeground(new java.awt.Color(54, 33, 89));
         PasswordLabel.setText("Password");
-        RightPanel.add(PasswordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, 120, 30));
+        RightPanel.add(PasswordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 120, 30));
 
         PasswordField.setFont(new java.awt.Font("Segoe UI Light", 0, 20)); // NOI18N
         PasswordField.setForeground(new java.awt.Color(102, 102, 102));
         PasswordField.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         PasswordField.setSelectionColor(new java.awt.Color(110, 89, 222));
-        RightPanel.add(PasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 237, 270, 30));
+        RightPanel.add(PasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 180, 270, 30));
+
+        EmailLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
+        EmailLabel.setForeground(new java.awt.Color(54, 33, 89));
+        EmailLabel.setText("Email");
+        RightPanel.add(EmailLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, 120, 30));
+
+        txtStudentID1.setFont(new java.awt.Font("Segoe UI Light", 0, 20)); // NOI18N
+        txtStudentID1.setForeground(new java.awt.Color(102, 102, 102));
+        txtStudentID1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(102, 102, 102)));
+        txtStudentID1.setSelectionColor(new java.awt.Color(110, 89, 222));
+        RightPanel.add(txtStudentID1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 270, 30));
+
+        InstitutionLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
+        InstitutionLabel.setForeground(new java.awt.Color(54, 33, 89));
+        InstitutionLabel.setText("Institution");
+        RightPanel.add(InstitutionLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, 120, 30));
+
+        txtStudentID2.setFont(new java.awt.Font("Segoe UI Light", 0, 20)); // NOI18N
+        txtStudentID2.setForeground(new java.awt.Color(102, 102, 102));
+        txtStudentID2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(102, 102, 102)));
+        txtStudentID2.setSelectionColor(new java.awt.Color(110, 89, 222));
+        RightPanel.add(txtStudentID2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 300, 270, 30));
 
         getContentPane().add(RightPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 0, 530, 560));
 
@@ -258,17 +284,21 @@ public class SignUp extends javax.swing.JFrame {
     private javax.swing.JButton AlreadyAccButton;
     private javax.swing.JPasswordField ConfirmPasswordField;
     private javax.swing.JLabel ConfirmPasswordLabel;
+    private javax.swing.JLabel EmailLabel;
+    private javax.swing.JLabel InstitutionLabel;
     private javax.swing.JPanel LeftPanel;
     private javax.swing.JPasswordField PasswordField;
     private javax.swing.JLabel PasswordLabel;
     private javax.swing.JPanel RightPanel;
     private javax.swing.JButton SignUpButton;
-    private javax.swing.JLabel StudentIDLabel;
+    private javax.swing.JLabel UsernameLabel;
     private javax.swing.JLabel WelcomeLabel;
     private javax.swing.JLabel closeLabel;
     private javax.swing.JSeparator leftSeparator;
     private javax.swing.JLabel logoLabel;
     private javax.swing.JLabel minimizeLabel;
     private javax.swing.JTextField txtStudentID;
+    private javax.swing.JTextField txtStudentID1;
+    private javax.swing.JTextField txtStudentID2;
     // End of variables declaration//GEN-END:variables
 }

@@ -64,7 +64,7 @@ public class LoginSignUpHandler {
                 return !database.getAdminPassword(userName).equals("No#Data");
             }
             case "User": {
-                return !database.getUserPassword(password).equals("No#Data");
+                return !database.getUserPassword(userName).equals("No#Data");
             }
             default:
                 return false;

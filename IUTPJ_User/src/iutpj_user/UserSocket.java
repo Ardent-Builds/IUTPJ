@@ -9,8 +9,6 @@ import java.util.List;
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import newproblem.NewProblem;
 import newsubmission.NewSubmission;
 
@@ -75,7 +73,7 @@ public class UserSocket {
         
         try{
             rowData = (List<String[]>) objectin.readObject();
-            table = new Object[rowData.size()][];
+            table = new Object[Math.max(40, rowData.size())][];
             for(String[] row:rowData)
                 table[index++]=row;
             return table;
@@ -126,7 +124,7 @@ public class UserSocket {
         
         try{
             rowData = (List<String[]>) objectin.readObject();
-            table = new Object[rowData.size()][];
+            table = new Object[Math.max(40, rowData.size())][];
             for(String[] row:rowData)
                 table[index++]=row;
             return table;
@@ -139,14 +137,14 @@ public class UserSocket {
         }
     }
     
-     public Object[][] getStandingsTable() {
+    public Object[][] getStandingsTable() {
         Object[][] table;
         List<String[]> rowData;
         int index = 0;
         
         try{
             rowData = (List<String[]>) objectin.readObject();
-            table = new Object[rowData.size()][];
+            table = new Object[Math.max(40, rowData.size())][];
             for(String[] row:rowData)
                 table[index++]=row;
             return table;
@@ -158,7 +156,26 @@ public class UserSocket {
             return null;
         }
     }
-    
+     
+    public Object[][] getContestTable() {
+        Object[][] table;
+        List<String[]> rowData;
+        int index = 0;
+        
+        try{
+            rowData = (List<String[]>) objectin.readObject();
+            table = new Object[Math.max(40, rowData.size())][];
+            for(String[] row:rowData)
+                table[index++]=row;
+            return table;
+        } catch (IOException ex) {
+            System.out.println("SocketGetProblem I/O Err "+ex.getMessage());
+            return null;
+        } catch (ClassNotFoundException ex) {
+            System.out.println("SocketGetProblem ClassNotFound Err "+ex.getMessage());
+            return null;
+        }
+    }
     
     NewSubmission getSubmission() {
         try {

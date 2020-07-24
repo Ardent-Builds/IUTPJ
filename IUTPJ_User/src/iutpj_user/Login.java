@@ -49,7 +49,7 @@ public class Login extends javax.swing.JFrame {
         WelcomeLabel = new javax.swing.JLabel();
         closeLabel = new javax.swing.JLabel();
         minimizeLabel = new javax.swing.JLabel();
-        txtStudentID = new javax.swing.JTextField();
+        txtUsername = new javax.swing.JTextField();
         LoginButton = new javax.swing.JButton();
         CrNewAccButton = new javax.swing.JButton();
         leftSeparator = new javax.swing.JSeparator();
@@ -115,24 +115,19 @@ public class Login extends javax.swing.JFrame {
         });
         RightPanel.add(minimizeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, -10, 30, 40));
 
-        txtStudentID.setFont(new java.awt.Font("Segoe UI Light", 0, 20)); // NOI18N
-        txtStudentID.setForeground(new java.awt.Color(102, 102, 102));
-        txtStudentID.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(102, 102, 102)));
-        txtStudentID.setSelectionColor(new java.awt.Color(110, 89, 222));
-        txtStudentID.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtUsername.setFont(new java.awt.Font("Segoe UI Light", 0, 20)); // NOI18N
+        txtUsername.setForeground(new java.awt.Color(102, 102, 102));
+        txtUsername.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(102, 102, 102)));
+        txtUsername.setSelectionColor(new java.awt.Color(110, 89, 222));
+        txtUsername.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txtStudentIDFocusGained(evt);
+                txtUsernameFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtStudentIDFocusLost(evt);
+                txtUsernameFocusLost(evt);
             }
         });
-        txtStudentID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtStudentIDActionPerformed(evt);
-            }
-        });
-        RightPanel.add(txtStudentID, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 230, 270, 50));
+        RightPanel.add(txtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 250, 270, 30));
 
         LoginButton.setBackground(new java.awt.Color(54, 33, 89));
         LoginButton.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
@@ -174,11 +169,6 @@ public class Login extends javax.swing.JFrame {
         PasswordField.setForeground(new java.awt.Color(102, 102, 102));
         PasswordField.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         PasswordField.setSelectionColor(new java.awt.Color(110, 89, 222));
-        PasswordField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PasswordFieldActionPerformed(evt);
-            }
-        });
         RightPanel.add(PasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 290, 270, 30));
 
         PasswordLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
@@ -188,7 +178,7 @@ public class Login extends javax.swing.JFrame {
 
         StudentIDLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
         StudentIDLabel.setForeground(new java.awt.Color(54, 33, 89));
-        StudentIDLabel.setText("Student ID");
+        StudentIDLabel.setText("Username");
         RightPanel.add(StudentIDLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 120, 30));
         RightPanel.add(rightSeparator, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 430, 170, 40));
 
@@ -201,19 +191,6 @@ public class Login extends javax.swing.JFrame {
         txtIP.setForeground(new java.awt.Color(102, 102, 102));
         txtIP.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(102, 102, 102)));
         txtIP.setSelectionColor(new java.awt.Color(110, 89, 222));
-        txtIP.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtIPFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtIPFocusLost(evt);
-            }
-        });
-        txtIP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIPActionPerformed(evt);
-            }
-        });
         RightPanel.add(txtIP, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 180, 30));
 
         PortLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
@@ -225,19 +202,6 @@ public class Login extends javax.swing.JFrame {
         txtPort.setForeground(new java.awt.Color(102, 102, 102));
         txtPort.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(102, 102, 102)));
         txtPort.setSelectionColor(new java.awt.Color(110, 89, 222));
-        txtPort.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtPortFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtPortFocusLost(evt);
-            }
-        });
-        txtPort.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPortActionPerformed(evt);
-            }
-        });
         RightPanel.add(txtPort, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 130, 120, 30));
 
         ConnectButton.setBackground(new java.awt.Color(54, 33, 89));
@@ -275,7 +239,7 @@ public class Login extends javax.swing.JFrame {
              JOptionPane.showMessageDialog(null,"Connection Error!","Connection Status",JOptionPane.ERROR_MESSAGE);
              return;
         }
-        String studentid = txtStudentID.getText();
+        String studentid = txtUsername.getText();
         String password = PasswordField.getText();
         String dataout = "Login---["+studentid+"]["+password+"]";
         System.out.println(dataout);
@@ -295,7 +259,7 @@ public class Login extends javax.swing.JFrame {
                 this.setVisible(false);
             }
             else if(datain.equals("LoginFalse")){
-                JOptionPane.showMessageDialog(null,"Incorrect Student ID Or Password!","Status",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Incorrect Username Or Password!","Status",JOptionPane.ERROR_MESSAGE);
             }
         }
         else{
@@ -316,24 +280,24 @@ public class Login extends javax.swing.JFrame {
         this.setExtendedState(JFrame.ICONIFIED);      // TODO add your handling code here:
     }//GEN-LAST:event_minimizeLabelMouseClicked
 
-    private void txtStudentIDFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtStudentIDFocusGained
-        if(txtStudentID.getText().equals("Enter Student ID")) 
+    private void txtUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsernameFocusGained
+        if(txtUsername.getText().equals("Enter Username")) 
         {
-            txtStudentID.setText("");
+            txtUsername.setText("");
         }
         
         
 // TODO add your handling code here:
-    }//GEN-LAST:event_txtStudentIDFocusGained
+    }//GEN-LAST:event_txtUsernameFocusGained
 
-    private void txtStudentIDFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtStudentIDFocusLost
-        if(txtStudentID.getText().equals("")) 
+    private void txtUsernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsernameFocusLost
+        if(txtUsername.getText().equals("")) 
         {
-            txtStudentID.setText("Enter Student ID");
+            txtUsername.setText("Enter Username");
         }
         
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtStudentIDFocusLost
+    }//GEN-LAST:event_txtUsernameFocusLost
     static int xx, yy;
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
         // TODO add your handling code here:
@@ -348,38 +312,6 @@ public class Login extends javax.swing.JFrame {
         y=evt.getYOnScreen();
         this.setLocation(x-xx, y-yy);// TODO add your handling code here:
     }//GEN-LAST:event_formMouseDragged
-
-    private void PasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PasswordFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PasswordFieldActionPerformed
-
-    private void txtStudentIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStudentIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtStudentIDActionPerformed
-
-    private void txtIPFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIPFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIPFocusGained
-
-    private void txtIPFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIPFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIPFocusLost
-
-    private void txtIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIPActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIPActionPerformed
-
-    private void txtPortFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPortFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPortFocusGained
-
-    private void txtPortFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPortFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPortFocusLost
-
-    private void txtPortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPortActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPortActionPerformed
 
     private void ConnectButtonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConnectButtonButtonActionPerformed
         int port;
@@ -423,6 +355,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JSeparator rightSeparator;
     private javax.swing.JTextField txtIP;
     private javax.swing.JTextField txtPort;
-    private javax.swing.JTextField txtStudentID;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }

@@ -183,7 +183,13 @@ public class Multi_Thread implements Runnable {
                     else{
                         System.out.println("ProblemTable Sending Failed");
                     }
-                    
+                case "CntstTab":
+                    if(sc.sendContestTable(database.getContestTable())){
+                        System.out.println("ProblemTable Sent");
+                    }
+                    else{
+                        System.out.println("ProblemTable Sending Failed");
+                    }
                     
                 default:
                     break;

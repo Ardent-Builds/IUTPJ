@@ -35,7 +35,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     private final AdminSocket adminsocket;
     private File problem, inputs, outputs;
     Login parent;
-    private Object[][] problemTable, statusTable, myProblemTable, standingTable;
+    private Object[][] problemTable, statusTable, myProblemTable, standingTable, contestTable;
 
     public AdminDashboard(AdminSocket adminsocket, Login parent) {
         initComponents();
@@ -290,13 +290,8 @@ public class AdminDashboard extends javax.swing.JFrame {
         MyProblemsjScrollPane = new javax.swing.JScrollPane();
         MyProblemsTable = new javax.swing.JTable();
         ContestsPanel = new javax.swing.JPanel();
-        ContestsPanelTabSwitcher = new javax.swing.JTabbedPane();
-        PrevContestsPanel = new javax.swing.JPanel();
-        PrevContestsjScrollPane = new javax.swing.JScrollPane();
-        PrevContestsTable = new javax.swing.JTable();
-        UpContestsPanel = new javax.swing.JPanel();
-        UpContestsjScrollPane = new javax.swing.JScrollPane();
-        UpContestsTable = new javax.swing.JTable();
+        ContestTableScrollPane = new javax.swing.JScrollPane();
+        ContestTable = new javax.swing.JTable();
         ManagePanel = new javax.swing.JPanel();
         ManagePanelTabSwitcher = new javax.swing.JTabbedPane();
         AddProblemPanel = new javax.swing.JPanel();
@@ -310,19 +305,16 @@ public class AdminDashboard extends javax.swing.JFrame {
         SubmitButton = new javax.swing.JButton();
         txtTimeLimit = new javax.swing.JFormattedTextField();
         txtMemoryLimit = new javax.swing.JFormattedTextField();
+        jCheckBox1 = new javax.swing.JCheckBox();
         DeleteProblemPanel = new javax.swing.JPanel();
         DelProblemSetjScrollPane = new javax.swing.JScrollPane();
         DelProblemsetTable = new javax.swing.JTable();
         AddContestPanel = new javax.swing.JPanel();
-        AddOutputButton1 = new javax.swing.JButton();
-        ChProblemStatementButton1 = new javax.swing.JButton();
-        AddInputButton1 = new javax.swing.JButton();
         MemoryLimitLabel1 = new javax.swing.JLabel();
         ProblemNameLabel1 = new javax.swing.JLabel();
         TimeLimitLabel1 = new javax.swing.JLabel();
         txtProblemName1 = new javax.swing.JTextField();
         SubmitButton1 = new javax.swing.JButton();
-        txtTimeLimit1 = new javax.swing.JFormattedTextField();
         txtMemoryLimit1 = new javax.swing.JFormattedTextField();
         DeleteContestPanel = new javax.swing.JPanel();
         DelProblemSetjScrollPane1 = new javax.swing.JScrollPane();
@@ -390,16 +382,16 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addComponent(WelcomeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HomePanelLayout.createSequentialGroup()
-                .addContainerGap(383, Short.MAX_VALUE)
+                .addContainerGap(382, Short.MAX_VALUE)
                 .addComponent(LogOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(383, Short.MAX_VALUE))
+                .addContainerGap(382, Short.MAX_VALUE))
         );
         HomePanelLayout.setVerticalGroup(
             HomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HomePanelLayout.createSequentialGroup()
                 .addGap(200, 200, 200)
                 .addComponent(WelcomeLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
                 .addComponent(LogOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(100, 100, 100))
         );
@@ -453,11 +445,6 @@ public class AdminDashboard extends javax.swing.JFrame {
         ProblemsetTable.setSelectionBackground(new java.awt.Color(0, 181, 204));
         ProblemsetTable.setShowHorizontalLines(false);
         ProblemsetTable.getTableHeader().setReorderingAllowed(false);
-        ProblemsetTable.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentResized(java.awt.event.ComponentEvent evt) {
-                ProblemsetTableComponentResized(evt);
-            }
-        });
         ProblemSetjScrollPane.setViewportView(ProblemsetTable);
         ProblemsetTable.getAccessibleContext().setAccessibleDescription("");
 
@@ -466,13 +453,13 @@ public class AdminDashboard extends javax.swing.JFrame {
         ProblemsetPanelLayout.setHorizontalGroup(
             ProblemsetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ProblemsetPanelLayout.createSequentialGroup()
-                .addComponent(ProblemSetjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 856, Short.MAX_VALUE)
+                .addComponent(ProblemSetjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 854, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         ProblemsetPanelLayout.setVerticalGroup(
             ProblemsetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ProblemsetPanelLayout.createSequentialGroup()
-                .addComponent(ProblemSetjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 569, Short.MAX_VALUE)
+                .addComponent(ProblemSetjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
@@ -526,11 +513,6 @@ public class AdminDashboard extends javax.swing.JFrame {
         MyProblemsTable.setSelectionBackground(new java.awt.Color(0, 181, 204));
         MyProblemsTable.setShowHorizontalLines(false);
         MyProblemsTable.getTableHeader().setReorderingAllowed(false);
-        MyProblemsTable.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentResized(java.awt.event.ComponentEvent evt) {
-                MyProblemsTableComponentResized(evt);
-            }
-        });
         MyProblemsjScrollPane.setViewportView(MyProblemsTable);
 
         javax.swing.GroupLayout MyProblemsPanelLayout = new javax.swing.GroupLayout(MyProblemsPanel);
@@ -538,13 +520,13 @@ public class AdminDashboard extends javax.swing.JFrame {
         MyProblemsPanelLayout.setHorizontalGroup(
             MyProblemsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MyProblemsPanelLayout.createSequentialGroup()
-                .addComponent(MyProblemsjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 856, Short.MAX_VALUE)
+                .addComponent(MyProblemsjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 854, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         MyProblemsPanelLayout.setVerticalGroup(
             MyProblemsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MyProblemsPanelLayout.createSequentialGroup()
-                .addComponent(MyProblemsjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 569, Short.MAX_VALUE)
+                .addComponent(MyProblemsjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
@@ -553,161 +535,50 @@ public class AdminDashboard extends javax.swing.JFrame {
         ContestsPanel.setBackground(new java.awt.Color(255, 255, 255));
         ContestsPanel.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
 
-        ContestsPanelTabSwitcher.setForeground(new java.awt.Color(54, 33, 89));
-        ContestsPanelTabSwitcher.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
-        ContestsPanelTabSwitcher.addMouseListener(new java.awt.event.MouseAdapter() {
+        ContestTable.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        ContestTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        ContestTable.setFocusable(false);
+        ContestTable.setRowSelectionAllowed(false);
+        ContestTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ContestsPanelTabSwitcherMouseClicked(evt);
+                ContestTableMouseClicked(evt);
             }
         });
-
-        PrevContestsjScrollPane.setBackground(new java.awt.Color(255, 255, 255));
-        PrevContestsjScrollPane.setFont(new java.awt.Font("Segoe UI Emoji", 1, 25)); // NOI18N
-
-        PrevContestsTable.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
-        PrevContestsTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Contest ID", "Contest Name", "Author"
-            }
-        ));
-        PrevContestsTable.setFocusable(false);
-        PrevContestsTable.setGridColor(new java.awt.Color(255, 255, 255));
-        PrevContestsTable.setIntercellSpacing(new java.awt.Dimension(0, 0));
-        PrevContestsTable.setOpaque(false);
-        PrevContestsTable.setRequestFocusEnabled(false);
-        PrevContestsTable.setRowHeight(25);
-        PrevContestsTable.setRowSelectionAllowed(false);
-        PrevContestsTable.setSelectionBackground(new java.awt.Color(0, 181, 204));
-        PrevContestsTable.setShowHorizontalLines(false);
-        PrevContestsTable.getTableHeader().setReorderingAllowed(false);
-        PrevContestsTable.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentResized(java.awt.event.ComponentEvent evt) {
-                PrevContestsTableComponentResized(evt);
-            }
-        });
-        PrevContestsjScrollPane.setViewportView(PrevContestsTable);
-
-        javax.swing.GroupLayout PrevContestsPanelLayout = new javax.swing.GroupLayout(PrevContestsPanel);
-        PrevContestsPanel.setLayout(PrevContestsPanelLayout);
-        PrevContestsPanelLayout.setHorizontalGroup(
-            PrevContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 851, Short.MAX_VALUE)
-            .addGroup(PrevContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(PrevContestsjScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 851, Short.MAX_VALUE))
-        );
-        PrevContestsPanelLayout.setVerticalGroup(
-            PrevContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 535, Short.MAX_VALUE)
-            .addGroup(PrevContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(PrevContestsjScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE))
-        );
-
-        ContestsPanelTabSwitcher.addTab("Previous Contests", PrevContestsPanel);
-
-        UpContestsjScrollPane.setBackground(new java.awt.Color(255, 255, 255));
-        UpContestsjScrollPane.setFont(new java.awt.Font("Segoe UI Emoji", 1, 25)); // NOI18N
-
-        UpContestsTable.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
-        UpContestsTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Contest ID", "Contest Name", "Author"
-            }
-        ));
-        UpContestsTable.setFocusable(false);
-        UpContestsTable.setGridColor(new java.awt.Color(255, 255, 255));
-        UpContestsTable.setIntercellSpacing(new java.awt.Dimension(0, 0));
-        UpContestsTable.setOpaque(false);
-        UpContestsTable.setRequestFocusEnabled(false);
-        UpContestsTable.setRowHeight(25);
-        UpContestsTable.setRowSelectionAllowed(false);
-        UpContestsTable.setSelectionBackground(new java.awt.Color(0, 181, 204));
-        UpContestsTable.setShowHorizontalLines(false);
-        UpContestsTable.getTableHeader().setReorderingAllowed(false);
-        UpContestsTable.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentResized(java.awt.event.ComponentEvent evt) {
-                UpContestsTableComponentResized(evt);
-            }
-        });
-        UpContestsjScrollPane.setViewportView(UpContestsTable);
-
-        javax.swing.GroupLayout UpContestsPanelLayout = new javax.swing.GroupLayout(UpContestsPanel);
-        UpContestsPanel.setLayout(UpContestsPanelLayout);
-        UpContestsPanelLayout.setHorizontalGroup(
-            UpContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 851, Short.MAX_VALUE)
-            .addGroup(UpContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(UpContestsjScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 851, Short.MAX_VALUE))
-        );
-        UpContestsPanelLayout.setVerticalGroup(
-            UpContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 535, Short.MAX_VALUE)
-            .addGroup(UpContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(UpContestsjScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE))
-        );
-
-        ContestsPanelTabSwitcher.addTab("Upcoming Contests", UpContestsPanel);
+        ContestTableScrollPane.setViewportView(ContestTable);
 
         javax.swing.GroupLayout ContestsPanelLayout = new javax.swing.GroupLayout(ContestsPanel);
         ContestsPanel.setLayout(ContestsPanelLayout);
         ContestsPanelLayout.setHorizontalGroup(
             ContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ContestsPanelLayout.createSequentialGroup()
-                .addComponent(ContestsPanelTabSwitcher)
-                .addGap(0, 0, 0))
+                .addContainerGap()
+                .addComponent(ContestTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 834, Short.MAX_VALUE)
+                .addContainerGap())
         );
         ContestsPanelLayout.setVerticalGroup(
             ContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ContestsPanelLayout.createSequentialGroup()
-                .addComponent(ContestsPanelTabSwitcher)
-                .addGap(0, 0, 0))
+                .addContainerGap()
+                .addComponent(ContestTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         AdminDashboardTabSwitcher.addTab("Contests", ContestsPanel);
@@ -780,33 +651,47 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         txtMemoryLimit.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
+        jCheckBox1.setBackground(new java.awt.Color(255, 255, 255));
+        jCheckBox1.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
+        jCheckBox1.setForeground(new java.awt.Color(54, 33, 89));
+        jCheckBox1.setSelected(true);
+        jCheckBox1.setText("Lock Problem For Contest");
+        jCheckBox1.setFocusPainted(false);
+        jCheckBox1.setFocusable(false);
+        jCheckBox1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jCheckBox1.setIconTextGap(160);
+        jCheckBox1.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jCheckBox1.setPreferredSize(new java.awt.Dimension(376, 28));
+
         javax.swing.GroupLayout AddProblemPanelLayout = new javax.swing.GroupLayout(AddProblemPanel);
         AddProblemPanel.setLayout(AddProblemPanelLayout);
         AddProblemPanelLayout.setHorizontalGroup(
             AddProblemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(AddProblemPanelLayout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addGroup(AddProblemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ChProblemStatementButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(AddInputButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(AddOutputButton, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
-                    .addGroup(AddProblemPanelLayout.createSequentialGroup()
-                        .addComponent(ProblemNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtProblemName, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
-                    .addGroup(AddProblemPanelLayout.createSequentialGroup()
-                        .addComponent(TimeLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTimeLimit))
-                    .addGroup(AddProblemPanelLayout.createSequentialGroup()
-                        .addComponent(MemoryLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtMemoryLimit)))
-                .addGap(367, 367, 367))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AddProblemPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(SubmitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(AddProblemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(AddProblemPanelLayout.createSequentialGroup()
+                        .addGap(290, 290, 290)
+                        .addComponent(SubmitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(AddProblemPanelLayout.createSequentialGroup()
+                        .addGap(100, 100, 100)
+                        .addGroup(AddProblemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(ChProblemStatementButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(AddInputButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(AddOutputButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, AddProblemPanelLayout.createSequentialGroup()
+                                .addComponent(ProblemNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtProblemName, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, AddProblemPanelLayout.createSequentialGroup()
+                                .addComponent(TimeLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtTimeLimit))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, AddProblemPanelLayout.createSequentialGroup()
+                                .addComponent(MemoryLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtMemoryLimit))
+                            .addComponent(jCheckBox1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(367, 367, 367))
         );
         AddProblemPanelLayout.setVerticalGroup(
             AddProblemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -817,7 +702,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addComponent(AddInputButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
                 .addComponent(AddOutputButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(100, 100, 100)
+                .addGap(109, 109, 109)
                 .addGroup(AddProblemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ProblemNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtProblemName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -829,9 +714,11 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addGroup(AddProblemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(MemoryLimitLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                     .addComponent(txtMemoryLimit))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SubmitButton)
-                .addGap(50, 50, 50))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         ManagePanelTabSwitcher.addTab("Add Problem", AddProblemPanel);
@@ -879,26 +766,21 @@ public class AdminDashboard extends javax.swing.JFrame {
         DelProblemsetTable.setSelectionBackground(new java.awt.Color(0, 181, 204));
         DelProblemsetTable.setShowHorizontalLines(false);
         DelProblemsetTable.getTableHeader().setReorderingAllowed(false);
-        DelProblemsetTable.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentResized(java.awt.event.ComponentEvent evt) {
-                DelProblemsetTableComponentResized(evt);
-            }
-        });
         DelProblemSetjScrollPane.setViewportView(DelProblemsetTable);
 
         javax.swing.GroupLayout DeleteProblemPanelLayout = new javax.swing.GroupLayout(DeleteProblemPanel);
         DeleteProblemPanel.setLayout(DeleteProblemPanelLayout);
         DeleteProblemPanelLayout.setHorizontalGroup(
             DeleteProblemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 851, Short.MAX_VALUE)
+            .addGap(0, 849, Short.MAX_VALUE)
             .addGroup(DeleteProblemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(DelProblemSetjScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 851, Short.MAX_VALUE))
+                .addComponent(DelProblemSetjScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 849, Short.MAX_VALUE))
         );
         DeleteProblemPanelLayout.setVerticalGroup(
             DeleteProblemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 535, Short.MAX_VALUE)
+            .addGap(0, 522, Short.MAX_VALUE)
             .addGroup(DeleteProblemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(DelProblemSetjScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE))
+                .addComponent(DelProblemSetjScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE))
         );
 
         ManagePanelTabSwitcher.addTab("Delete Problem", DeleteProblemPanel);
@@ -906,41 +788,17 @@ public class AdminDashboard extends javax.swing.JFrame {
         AddContestPanel.setBackground(new java.awt.Color(255, 255, 255));
         AddContestPanel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
-        AddOutputButton1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        AddOutputButton1.setText("Add Output (*.txt)");
-        AddOutputButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddOutputButton1ActionPerformed(evt);
-            }
-        });
-
-        ChProblemStatementButton1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        ChProblemStatementButton1.setText("Choose Problem Statement (*.pdf,*.txt)");
-        ChProblemStatementButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ChProblemStatementButton1ActionPerformed(evt);
-            }
-        });
-
-        AddInputButton1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        AddInputButton1.setText("Add Input (*.txt)");
-        AddInputButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddInputButton1ActionPerformed(evt);
-            }
-        });
-
         MemoryLimitLabel1.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
         MemoryLimitLabel1.setForeground(new java.awt.Color(54, 33, 89));
         MemoryLimitLabel1.setText("Memory Limit (KB):");
 
         ProblemNameLabel1.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
         ProblemNameLabel1.setForeground(new java.awt.Color(54, 33, 89));
-        ProblemNameLabel1.setText("Problem Name:");
+        ProblemNameLabel1.setText("Contest Name:");
 
         TimeLimitLabel1.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
         TimeLimitLabel1.setForeground(new java.awt.Color(54, 33, 89));
-        TimeLimitLabel1.setText("Time Limit (ms):");
+        TimeLimitLabel1.setText("Start Time");
 
         SubmitButton1.setBackground(new java.awt.Color(54, 33, 89));
         SubmitButton1.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
@@ -956,60 +814,47 @@ public class AdminDashboard extends javax.swing.JFrame {
             }
         });
 
-        txtTimeLimit1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-
         txtMemoryLimit1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
         javax.swing.GroupLayout AddContestPanelLayout = new javax.swing.GroupLayout(AddContestPanel);
         AddContestPanel.setLayout(AddContestPanelLayout);
         AddContestPanelLayout.setHorizontalGroup(
             AddContestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(AddContestPanelLayout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addGroup(AddContestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ChProblemStatementButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(AddInputButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(AddOutputButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
-                    .addGroup(AddContestPanelLayout.createSequentialGroup()
-                        .addComponent(ProblemNameLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtProblemName1, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE))
-                    .addGroup(AddContestPanelLayout.createSequentialGroup()
-                        .addComponent(TimeLimitLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTimeLimit1))
-                    .addGroup(AddContestPanelLayout.createSequentialGroup()
-                        .addComponent(MemoryLimitLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtMemoryLimit1)))
-                .addGap(367, 367, 367))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AddContestPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(SubmitButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(AddContestPanelLayout.createSequentialGroup()
+                .addGap(100, 100, 100)
+                .addGroup(AddContestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(AddContestPanelLayout.createSequentialGroup()
+                        .addComponent(MemoryLimitLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtMemoryLimit1)
+                        .addGap(367, 367, 367))
+                    .addGroup(AddContestPanelLayout.createSequentialGroup()
+                        .addGroup(AddContestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TimeLimitLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(AddContestPanelLayout.createSequentialGroup()
+                                .addComponent(ProblemNameLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtProblemName1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 61, Short.MAX_VALUE))))
         );
         AddContestPanelLayout.setVerticalGroup(
             AddContestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AddContestPanelLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(ChProblemStatementButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(AddInputButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(AddOutputButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(100, 100, 100)
+                .addContainerGap()
                 .addGroup(AddContestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ProblemNameLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtProblemName1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(AddContestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(TimeLimitLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                    .addComponent(txtTimeLimit1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addComponent(TimeLimitLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(294, 294, 294)
                 .addGroup(AddContestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(MemoryLimitLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                     .addComponent(txtMemoryLimit1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addComponent(SubmitButton1)
                 .addGap(50, 50, 50))
         );
@@ -1059,26 +904,21 @@ public class AdminDashboard extends javax.swing.JFrame {
         DelProblemsetTable1.setSelectionBackground(new java.awt.Color(0, 181, 204));
         DelProblemsetTable1.setShowHorizontalLines(false);
         DelProblemsetTable1.getTableHeader().setReorderingAllowed(false);
-        DelProblemsetTable1.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentResized(java.awt.event.ComponentEvent evt) {
-                DelProblemsetTable1ComponentResized(evt);
-            }
-        });
         DelProblemSetjScrollPane1.setViewportView(DelProblemsetTable1);
 
         javax.swing.GroupLayout DeleteContestPanelLayout = new javax.swing.GroupLayout(DeleteContestPanel);
         DeleteContestPanel.setLayout(DeleteContestPanelLayout);
         DeleteContestPanelLayout.setHorizontalGroup(
             DeleteContestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 844, Short.MAX_VALUE)
+            .addGap(0, 849, Short.MAX_VALUE)
             .addGroup(DeleteContestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(DelProblemSetjScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 844, Short.MAX_VALUE))
+                .addComponent(DelProblemSetjScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 849, Short.MAX_VALUE))
         );
         DeleteContestPanelLayout.setVerticalGroup(
             DeleteContestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 520, Short.MAX_VALUE)
+            .addGap(0, 522, Short.MAX_VALUE)
             .addGroup(DeleteContestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(DelProblemSetjScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE))
+                .addComponent(DelProblemSetjScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE))
         );
 
         ManagePanelTabSwitcher.addTab("Delete Contest", DeleteContestPanel);
@@ -1145,11 +985,6 @@ public class AdminDashboard extends javax.swing.JFrame {
         StatusTable.setSelectionBackground(new java.awt.Color(0, 181, 204));
         StatusTable.setShowHorizontalLines(false);
         StatusTable.getTableHeader().setReorderingAllowed(false);
-        StatusTable.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentResized(java.awt.event.ComponentEvent evt) {
-                StatusTableComponentResized(evt);
-            }
-        });
         StatusScrollPane.setViewportView(StatusTable);
         if (StatusTable.getColumnModel().getColumnCount() > 0) {
             StatusTable.getColumnModel().getColumn(1).setHeaderValue("When");
@@ -1162,11 +997,11 @@ public class AdminDashboard extends javax.swing.JFrame {
         StatusPanel.setLayout(StatusPanelLayout);
         StatusPanelLayout.setHorizontalGroup(
             StatusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(StatusScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 856, Short.MAX_VALUE)
+            .addComponent(StatusScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 854, Short.MAX_VALUE)
         );
         StatusPanelLayout.setVerticalGroup(
             StatusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(StatusScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 569, Short.MAX_VALUE)
+            .addComponent(StatusScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
         );
 
         AdminDashboardTabSwitcher.addTab("Status", StatusPanel);
@@ -1216,22 +1051,17 @@ public class AdminDashboard extends javax.swing.JFrame {
         StandingsTable.setSelectionBackground(new java.awt.Color(0, 181, 204));
         StandingsTable.setShowHorizontalLines(false);
         StandingsTable.getTableHeader().setReorderingAllowed(false);
-        StandingsTable.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentResized(java.awt.event.ComponentEvent evt) {
-                StandingsTableComponentResized(evt);
-            }
-        });
         StandingsScrollPane.setViewportView(StandingsTable);
 
         javax.swing.GroupLayout StandingsPanelLayout = new javax.swing.GroupLayout(StandingsPanel);
         StandingsPanel.setLayout(StandingsPanelLayout);
         StandingsPanelLayout.setHorizontalGroup(
             StandingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(StandingsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 856, Short.MAX_VALUE)
+            .addComponent(StandingsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 854, Short.MAX_VALUE)
         );
         StandingsPanelLayout.setVerticalGroup(
             StandingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(StandingsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 569, Short.MAX_VALUE)
+            .addComponent(StandingsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
         );
 
         AdminDashboardTabSwitcher.addTab("Standings", StandingsPanel);
@@ -1335,14 +1165,6 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     }//GEN-LAST:event_AdminDashboardTabSwitcherMouseClicked
 
-    private void StatusTableComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_StatusTableComponentResized
-        // TODO add your handling code here:
-    }//GEN-LAST:event_StatusTableComponentResized
-
-    private void DelProblemsetTableComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_DelProblemsetTableComponentResized
-        // TODO add your handling code here:
-    }//GEN-LAST:event_DelProblemsetTableComponentResized
-
     private void SubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitButtonActionPerformed
 
         String problemname = txtProblemName.getText();
@@ -1424,6 +1246,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Problem file missing", "Error", JOptionPane.ERROR_MESSAGE);
         }
+        
 
     }//GEN-LAST:event_ChProblemStatementButtonActionPerformed
 
@@ -1452,14 +1275,6 @@ public class AdminDashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_AddOutputButtonActionPerformed
 
-    private void MyProblemsTableComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_MyProblemsTableComponentResized
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MyProblemsTableComponentResized
-
-    private void ProblemsetTableComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_ProblemsetTableComponentResized
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ProblemsetTableComponentResized
-
     private void LogOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogOutButtonActionPerformed
         parent.setVisible(true);
         this.dispose();
@@ -1485,56 +1300,37 @@ public class AdminDashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ManagePanelTabSwitcherMouseClicked
 
-    private void StandingsTableComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_StandingsTableComponentResized
-        // TODO add your handling code here:
-    }//GEN-LAST:event_StandingsTableComponentResized
-
-    private void PrevContestsTableComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_PrevContestsTableComponentResized
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PrevContestsTableComponentResized
-
-    private void ContestsPanelTabSwitcherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ContestsPanelTabSwitcherMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ContestsPanelTabSwitcherMouseClicked
-
-    private void UpContestsTableComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_UpContestsTableComponentResized
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UpContestsTableComponentResized
-
-    private void AddOutputButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddOutputButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AddOutputButton1ActionPerformed
-
-    private void ChProblemStatementButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChProblemStatementButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ChProblemStatementButton1ActionPerformed
-
-    private void AddInputButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddInputButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AddInputButton1ActionPerformed
-
     private void SubmitButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_SubmitButton1ActionPerformed
 
-    private void DelProblemsetTable1ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_DelProblemsetTable1ComponentResized
-        // TODO add your handling code here:
-    }//GEN-LAST:event_DelProblemsetTable1ComponentResized
+    private void ContestTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ContestTableMouseClicked
+        if (evt.getClickCount() == 1 & !evt.isConsumed()) {
+            evt.consume();
+            int row = ContestTable.rowAtPoint(evt.getPoint());
+            int col = ContestTable.columnAtPoint(evt.getPoint());
+            if (row >= 0 && col == 0) {
+                DefaultTableModel tablemodel = (DefaultTableModel) ContestTable.getModel();
+                if (tablemodel.getValueAt(row, 0) != null) {
+                    String contestID = contestTable[row][6].toString();
+                    System.out.println(contestID);
+                }
+            }
+        }
+    }//GEN-LAST:event_ContestTableMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel AddContestPanel;
     private javax.swing.JButton AddInputButton;
-    private javax.swing.JButton AddInputButton1;
     private javax.swing.JButton AddOutputButton;
-    private javax.swing.JButton AddOutputButton1;
     private javax.swing.JPanel AddProblemPanel;
     private javax.swing.JDesktopPane AdminDashboardDesktopPane;
     private javax.swing.JTabbedPane AdminDashboardTabSwitcher;
     private javax.swing.JButton ChProblemStatementButton;
-    private javax.swing.JButton ChProblemStatementButton1;
+    private javax.swing.JTable ContestTable;
+    private javax.swing.JScrollPane ContestTableScrollPane;
     private javax.swing.JPanel ContestsPanel;
-    private javax.swing.JTabbedPane ContestsPanelTabSwitcher;
     private javax.swing.JScrollPane DelProblemSetjScrollPane;
     private javax.swing.JScrollPane DelProblemSetjScrollPane1;
     private javax.swing.JTable DelProblemsetTable;
@@ -1550,9 +1346,6 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel MyProblemsPanel;
     private javax.swing.JTable MyProblemsTable;
     private javax.swing.JScrollPane MyProblemsjScrollPane;
-    private javax.swing.JPanel PrevContestsPanel;
-    private javax.swing.JTable PrevContestsTable;
-    private javax.swing.JScrollPane PrevContestsjScrollPane;
     private javax.swing.JLabel ProblemNameLabel;
     private javax.swing.JLabel ProblemNameLabel1;
     private javax.swing.JScrollPane ProblemSetjScrollPane;
@@ -1568,16 +1361,13 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JButton SubmitButton1;
     private javax.swing.JLabel TimeLimitLabel;
     private javax.swing.JLabel TimeLimitLabel1;
-    private javax.swing.JPanel UpContestsPanel;
-    private javax.swing.JTable UpContestsTable;
-    private javax.swing.JScrollPane UpContestsjScrollPane;
     private javax.swing.JLabel WelcomeLabel;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JFormattedTextField txtMemoryLimit;
     private javax.swing.JFormattedTextField txtMemoryLimit1;
     private javax.swing.JTextField txtProblemName;
     private javax.swing.JTextField txtProblemName1;
     private javax.swing.JFormattedTextField txtTimeLimit;
-    private javax.swing.JFormattedTextField txtTimeLimit1;
     // End of variables declaration//GEN-END:variables
 }

@@ -93,7 +93,7 @@ public class AdminSocket {
         
         try{
             rowData = (List<String[]>) objectin.readObject();
-            table = new Object[(rowData.size())][];
+            table = new Object[Math.max(40,rowData.size())][];
             
             for(String[] row:rowData)
                 table[idx++]=row;
@@ -114,7 +114,7 @@ public class AdminSocket {
         
         try{
             rowData = (List<String[]>) objectin.readObject();
-            table = new Object[(rowData.size())][];
+            table = new Object[Math.max(40,rowData.size())][];
             for(String[] row:rowData)
                 table[idx++]=row;
             return table;
@@ -134,7 +134,7 @@ public class AdminSocket {
         
         try{
             rowData = (List<String[]>) objectin.readObject();
-            table = new Object[(rowData.size())][];
+            table = new Object[Math.max(40,rowData.size())][];
             for(String[] row:rowData)
                 table[idx++]=row;
             return table;

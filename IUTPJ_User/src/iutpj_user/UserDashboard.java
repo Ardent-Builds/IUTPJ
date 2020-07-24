@@ -37,7 +37,7 @@ public class UserDashboard extends javax.swing.JFrame {
     private File codefile;
     private UserDashboard temporary;
     private Login login;
-    private Object[][] problemTable, statusTable, myStatusTable, standingTable;
+    private Object[][] problemTable, statusTable, myStatusTable, standingTable, contestTable;
 
     public UserDashboard(UserSocket usersocket, Login login) {
         initComponents();
@@ -45,10 +45,11 @@ public class UserDashboard extends javax.swing.JFrame {
         this.codefile = null;
         temporary = this;
         this.login = login;
-        problemTable=null;
-        statusTable=null;
-        myStatusTable=null;
+        problemTable = null;
+        statusTable = null;
+        myStatusTable = null;
         standingTable = null;
+        contestTable = null;
 
         setBackground(new Color(0, 0, 0));
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer() {
@@ -74,7 +75,7 @@ public class UserDashboard extends javax.swing.JFrame {
         MySubTable.setRowHeight(25);
         JTableHeader mysubtableheader = MySubTable.getTableHeader();
         ((DefaultTableCellRenderer) mysubtableheader.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
-        
+
         StandingsTable.setDefaultRenderer(Object.class, centerRenderer);
         StandingsTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 20));
         StandingsTable.setRowHeight(25);
@@ -88,9 +89,12 @@ public class UserDashboard extends javax.swing.JFrame {
         ProblemsetTable.setRowHeight(25);
         JTableHeader problemsettableheader = ProblemsetTable.getTableHeader();
         ((DefaultTableCellRenderer) problemsettableheader.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
-        //ProblemsetTable.setPreferredSize(new Dimension(920, 620));
-        //ProblemsetTable.setPreferredScrollableViewportSize(ProblemsetTable.getParent().getPreferredSize());
-        //ProblemsetTable.setFillsViewportHeight(true);
+
+        ContestTable.setDefaultRenderer(Object.class, centerRenderer);
+        ContestTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 18));
+        ContestTable.setRowHeight(25);
+        JTableHeader contesttableheader = ContestTable.getTableHeader();
+        ((DefaultTableCellRenderer) contesttableheader.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
 
         ProblemsetTable.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -104,7 +108,6 @@ public class UserDashboard extends javax.swing.JFrame {
                         DefaultTableModel tablemodel = (DefaultTableModel) ProblemsetTable.getModel();
                         if (tablemodel.getValueAt(row, 0) != null) {
                             String problemid = problemTable[row][4].toString();
-                            
 
                             usersocket.sendData("ProbFile[" + problemid + "]");
                             NewProblem problem = usersocket.getProblem();
@@ -170,7 +173,7 @@ public class UserDashboard extends javax.swing.JFrame {
                         if (tablemodel.getValueAt(row, 0) != null) {
                             String submissionid = myStatusTable[row][8].toString();
                             SubmissionShow subshow = new SubmissionShow(usersocket, temporary);
-                            subshow.setSubDetailsTable(submissionid, tablemodel.getValueAt(row, 2), tablemodel.getValueAt(row, 3), tablemodel.getValueAt(row, 4), tablemodel.getValueAt(row, 5), tablemodel.getValueAt(row, 6), tablemodel.getValueAt(row, 1),myStatusTable[row][7]);
+                            subshow.setSubDetailsTable(submissionid, tablemodel.getValueAt(row, 2), tablemodel.getValueAt(row, 3), tablemodel.getValueAt(row, 4), tablemodel.getValueAt(row, 5), tablemodel.getValueAt(row, 6), tablemodel.getValueAt(row, 1), myStatusTable[row][7]);
 
                             usersocket.sendData("SrcCode-[" + submissionid + "]");
                             NewSubmission submission = usersocket.getSubmission();
@@ -246,13 +249,8 @@ public class UserDashboard extends javax.swing.JFrame {
         StandingsScrollPane = new javax.swing.JScrollPane();
         StandingsTable = new javax.swing.JTable();
         ContestsPanel = new javax.swing.JPanel();
-        ContestsPanelTabSwitcher = new javax.swing.JTabbedPane();
-        PrevContestsPanel = new javax.swing.JPanel();
-        PrevContestsjScrollPane = new javax.swing.JScrollPane();
-        PrevContestsTable = new javax.swing.JTable();
-        UpContestsPanel = new javax.swing.JPanel();
-        UpContestsjScrollPane = new javax.swing.JScrollPane();
-        UpContestsTable = new javax.swing.JTable();
+        ContestTableScrollPane = new javax.swing.JScrollPane();
+        ContestTable = new javax.swing.JTable();
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -383,7 +381,7 @@ public class UserDashboard extends javax.swing.JFrame {
         ProblemsetPanelLayout.setVerticalGroup(
             ProblemsetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ProblemsetPanelLayout.createSequentialGroup()
-                .addComponent(ProblemSetjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
+                .addComponent(ProblemSetjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
@@ -584,7 +582,7 @@ public class UserDashboard extends javax.swing.JFrame {
 
         MySubScrollPane.setFont(new java.awt.Font("Segoe UI Emoji", 1, 25)); // NOI18N
 
-        MySubTable.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        MySubTable.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
         MySubTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -637,7 +635,7 @@ public class UserDashboard extends javax.swing.JFrame {
 
         StandingsScrollPane.setFont(new java.awt.Font("Segoe UI Emoji", 1, 25)); // NOI18N
 
-        StandingsTable.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        StandingsTable.setFont(new java.awt.Font("Segoe UI Emoji", 1, 16)); // NOI18N
         StandingsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -689,164 +687,53 @@ public class UserDashboard extends javax.swing.JFrame {
         ContestsPanel.setBackground(new java.awt.Color(255, 255, 255));
         ContestsPanel.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
 
-        ContestsPanelTabSwitcher.setForeground(new java.awt.Color(54, 33, 89));
-        ContestsPanelTabSwitcher.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
-        ContestsPanelTabSwitcher.addMouseListener(new java.awt.event.MouseAdapter() {
+        ContestTable.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        ContestTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        ContestTable.setFocusable(false);
+        ContestTable.setRowSelectionAllowed(false);
+        ContestTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ContestsPanelTabSwitcherMouseClicked(evt);
+                ContestTableMouseClicked(evt);
             }
         });
-
-        PrevContestsjScrollPane.setBackground(new java.awt.Color(255, 255, 255));
-        PrevContestsjScrollPane.setFont(new java.awt.Font("Segoe UI Emoji", 1, 25)); // NOI18N
-
-        PrevContestsTable.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
-        PrevContestsTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Contest ID", "Contest Name", "Author"
-            }
-        ));
-        PrevContestsTable.setFocusable(false);
-        PrevContestsTable.setGridColor(new java.awt.Color(255, 255, 255));
-        PrevContestsTable.setIntercellSpacing(new java.awt.Dimension(0, 0));
-        PrevContestsTable.setOpaque(false);
-        PrevContestsTable.setRequestFocusEnabled(false);
-        PrevContestsTable.setRowHeight(25);
-        PrevContestsTable.setRowSelectionAllowed(false);
-        PrevContestsTable.setSelectionBackground(new java.awt.Color(0, 181, 204));
-        PrevContestsTable.setShowHorizontalLines(false);
-        PrevContestsTable.getTableHeader().setReorderingAllowed(false);
-        PrevContestsTable.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentResized(java.awt.event.ComponentEvent evt) {
-                PrevContestsTableComponentResized(evt);
-            }
-        });
-        PrevContestsjScrollPane.setViewportView(PrevContestsTable);
-
-        javax.swing.GroupLayout PrevContestsPanelLayout = new javax.swing.GroupLayout(PrevContestsPanel);
-        PrevContestsPanel.setLayout(PrevContestsPanelLayout);
-        PrevContestsPanelLayout.setHorizontalGroup(
-            PrevContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 808, Short.MAX_VALUE)
-            .addGroup(PrevContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(PrevContestsjScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 808, Short.MAX_VALUE))
-        );
-        PrevContestsPanelLayout.setVerticalGroup(
-            PrevContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 261, Short.MAX_VALUE)
-            .addGroup(PrevContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(PrevContestsjScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE))
-        );
-
-        ContestsPanelTabSwitcher.addTab("Previous Contests", PrevContestsPanel);
-
-        UpContestsjScrollPane.setBackground(new java.awt.Color(255, 255, 255));
-        UpContestsjScrollPane.setFont(new java.awt.Font("Segoe UI Emoji", 1, 25)); // NOI18N
-
-        UpContestsTable.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
-        UpContestsTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Contest ID", "Contest Name", "Author"
-            }
-        ));
-        UpContestsTable.setFocusable(false);
-        UpContestsTable.setGridColor(new java.awt.Color(255, 255, 255));
-        UpContestsTable.setIntercellSpacing(new java.awt.Dimension(0, 0));
-        UpContestsTable.setOpaque(false);
-        UpContestsTable.setRequestFocusEnabled(false);
-        UpContestsTable.setRowHeight(25);
-        UpContestsTable.setRowSelectionAllowed(false);
-        UpContestsTable.setSelectionBackground(new java.awt.Color(0, 181, 204));
-        UpContestsTable.setShowHorizontalLines(false);
-        UpContestsTable.getTableHeader().setReorderingAllowed(false);
-        UpContestsTable.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentResized(java.awt.event.ComponentEvent evt) {
-                UpContestsTableComponentResized(evt);
-            }
-        });
-        UpContestsjScrollPane.setViewportView(UpContestsTable);
-
-        javax.swing.GroupLayout UpContestsPanelLayout = new javax.swing.GroupLayout(UpContestsPanel);
-        UpContestsPanel.setLayout(UpContestsPanelLayout);
-        UpContestsPanelLayout.setHorizontalGroup(
-            UpContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 808, Short.MAX_VALUE)
-            .addGroup(UpContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(UpContestsjScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 808, Short.MAX_VALUE))
-        );
-        UpContestsPanelLayout.setVerticalGroup(
-            UpContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 261, Short.MAX_VALUE)
-            .addGroup(UpContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(UpContestsjScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE))
-        );
-
-        ContestsPanelTabSwitcher.addTab("Upcoming Contests", UpContestsPanel);
+        ContestTableScrollPane.setViewportView(ContestTable);
 
         javax.swing.GroupLayout ContestsPanelLayout = new javax.swing.GroupLayout(ContestsPanel);
         ContestsPanel.setLayout(ContestsPanelLayout);
         ContestsPanelLayout.setHorizontalGroup(
             ContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ContestsPanelLayout.createSequentialGroup()
-                .addComponent(ContestsPanelTabSwitcher)
-                .addGap(0, 0, 0))
+                .addContainerGap()
+                .addComponent(ContestTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 793, Short.MAX_VALUE)
+                .addContainerGap())
         );
         ContestsPanelLayout.setVerticalGroup(
             ContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ContestsPanelLayout.createSequentialGroup()
-                .addComponent(ContestsPanelTabSwitcher)
-                .addGap(0, 0, 0))
+                .addContainerGap()
+                .addComponent(ContestTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        UserDashboardTabSwitcher.addTab("Contests", ContestsPanel);
+        UserDashboardTabSwitcher.addTab("All Contests", ContestsPanel);
 
         jDesktopPane1.add(UserDashboardTabSwitcher, java.awt.BorderLayout.CENTER);
 
@@ -905,7 +792,7 @@ public class UserDashboard extends javax.swing.JFrame {
                 return;
             }
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Invalid Problem ID: "+ex.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Invalid Problem ID: " + ex.toString(), "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         String language = (String) LanguageComboBox.getSelectedItem();
@@ -946,7 +833,6 @@ public class UserDashboard extends javax.swing.JFrame {
         switch (x) {
 
             case 1:
-
                 usersocket.sendData("PrbTable[null]");
                 problemTable = usersocket.getProblemTable();
                 if (problemTable == null) {
@@ -958,16 +844,13 @@ public class UserDashboard extends javax.swing.JFrame {
                             return false;
                         }
                     };
-
                     ProblemsetTable.setModel(tablemodel);
                 }
-
                 break;
             case 2:
                 txtProblemID.setEditable(true);
                 break;
             case 3:
-
                 usersocket.sendData("StTable-[nullus]");
                 statusTable = usersocket.getStatusTable();
                 if (statusTable == null) {
@@ -979,10 +862,8 @@ public class UserDashboard extends javax.swing.JFrame {
                             return false;
                         }
                     };
-
                     StatusTable.setModel(tablemodel);
                 }
-
                 break;
             case 4:
                 usersocket.sendData("StTable-[My]");
@@ -996,7 +877,6 @@ public class UserDashboard extends javax.swing.JFrame {
                             return false;
                         }
                     };
-
                     MySubTable.setModel(tablemodel);
                 }
                 break;
@@ -1012,10 +892,23 @@ public class UserDashboard extends javax.swing.JFrame {
                             return false;
                         }
                     };
-
                     StandingsTable.setModel(tablemodel);
                 }
                 break;
+            case 6:
+                usersocket.sendData("CntstTab[null]");
+                contestTable = usersocket.getContestTable();
+                if (contestTable == null) {
+                    JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    String[] columns = {"Contest_ID", "Name", "Author", "Start Time", "Duration(minutes)", "Status"};
+                    DefaultTableModel tablemodel = new DefaultTableModel(contestTable, columns) {
+                        public boolean isCellEditable(int row, int col) {
+                            return false;
+                        }
+                    };
+                    ContestTable.setModel(tablemodel);
+                }
             default:
                 break;
 
@@ -1026,24 +919,29 @@ public class UserDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ProblemsetTableComponentResized
 
-    private void PrevContestsTableComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_PrevContestsTableComponentResized
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PrevContestsTableComponentResized
-
-    private void UpContestsTableComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_UpContestsTableComponentResized
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UpContestsTableComponentResized
-
-    private void ContestsPanelTabSwitcherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ContestsPanelTabSwitcherMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ContestsPanelTabSwitcherMouseClicked
+    private void ContestTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ContestTableMouseClicked
+        if (evt.getClickCount() == 1 & !evt.isConsumed()) {
+            evt.consume();
+            int row = ContestTable.rowAtPoint(evt.getPoint());
+            int col = ContestTable.columnAtPoint(evt.getPoint());
+            
+            if (row >= 0 && col == 0) {
+                DefaultTableModel tablemodel = (DefaultTableModel) ContestTable.getModel();
+                if (tablemodel.getValueAt(row, 0) != null) {
+                    String contestID = contestTable[row][6].toString();
+                    System.out.println(contestID);
+                }
+            }
+        }
+    }//GEN-LAST:event_ContestTableMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ChooseFileButton;
     private javax.swing.JLabel ChooseFileLabel;
+    private javax.swing.JTable ContestTable;
+    private javax.swing.JScrollPane ContestTableScrollPane;
     private javax.swing.JPanel ContestsPanel;
-    private javax.swing.JTabbedPane ContestsPanelTabSwitcher;
     private javax.swing.JPanel HomePanel;
     private javax.swing.JComboBox LanguageComboBox;
     private javax.swing.JLabel LanguageLabel;
@@ -1051,9 +949,6 @@ public class UserDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel MySubPanel;
     private javax.swing.JScrollPane MySubScrollPane;
     private javax.swing.JTable MySubTable;
-    private javax.swing.JPanel PrevContestsPanel;
-    private javax.swing.JTable PrevContestsTable;
-    private javax.swing.JScrollPane PrevContestsjScrollPane;
     private javax.swing.JLabel ProblemIDLabel;
     private javax.swing.JScrollPane ProblemSetjScrollPane;
     private javax.swing.JPanel ProblemsetPanel;
@@ -1069,9 +964,6 @@ public class UserDashboard extends javax.swing.JFrame {
     private javax.swing.JTable StatusTable;
     private javax.swing.JButton SubmitButton;
     private javax.swing.JPanel SubmitSolPanel;
-    private javax.swing.JPanel UpContestsPanel;
-    private javax.swing.JTable UpContestsTable;
-    private javax.swing.JScrollPane UpContestsjScrollPane;
     private javax.swing.JTabbedPane UserDashboardTabSwitcher;
     private javax.swing.JLabel WelcomeLabel;
     private javax.swing.JDesktopPane jDesktopPane1;

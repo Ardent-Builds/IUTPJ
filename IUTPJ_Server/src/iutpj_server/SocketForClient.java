@@ -110,7 +110,15 @@ public class SocketForClient {
             return false;
         }
     }
-    
+    public boolean sendContestTable(List<String[]> table){
+        try{
+            objectout.writeObject(table);
+            return true;
+        } catch (IOException ex) {
+            System.out.println("SocketProblemTableSending Err "+ex.getMessage());
+            return false;
+        }
+    }
     public boolean sendStatusTable(List<String[]> table){
         try{
             objectout.writeObject(table);
