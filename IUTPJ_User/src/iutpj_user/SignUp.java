@@ -81,7 +81,7 @@ public class SignUp extends javax.swing.JFrame {
 
         WelcomeLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 38)); // NOI18N
         WelcomeLabel.setForeground(new java.awt.Color(54, 33, 89));
-        WelcomeLabel.setText("Sign up for IUTOJ");
+        WelcomeLabel.setText("Sign up for IUTPJ");
         RightPanel.add(WelcomeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 60, 360, 70));
 
         closeLabel.setFont(new java.awt.Font("Tahoma", 1, 25)); // NOI18N
