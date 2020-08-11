@@ -22,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import newproblem.NewProblem;
 import newsubmission.NewSubmission;
+import iutpj_server.ContestInfo;
 
 /**
  *
@@ -36,11 +37,13 @@ public class AdminDashboard extends javax.swing.JFrame {
     private File problem, inputs, outputs;
     Login parent;
     private Object[][] problemTable, statusTable, myProblemTable, standingTable, contestTable;
+    private ContestInfo contestInfo;
 
     public AdminDashboard(AdminSocket adminsocket, Login parent) {
         initComponents();
         this.adminsocket = adminsocket;
         this.parent = parent;
+        this.contestInfo = new ContestInfo();
 
         setBackground(new Color(0, 0, 0));
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer() {
@@ -55,28 +58,42 @@ public class AdminDashboard extends javax.swing.JFrame {
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
         StatusTable.setDefaultRenderer(Object.class, centerRenderer);
-        StatusTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 20));
+        StatusTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
         StatusTable.setRowHeight(25);
         StatusTable.setRowHeight(25);
         JTableHeader statustableheader = StatusTable.getTableHeader();
         ((DefaultTableCellRenderer) statustableheader.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
         
+        ContestTable.setDefaultRenderer(Object.class, centerRenderer);
+        ContestTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
+        ContestTable.setRowHeight(25);
+        ContestTable.setRowHeight(25);
+        JTableHeader contesttableheader = ContestTable.getTableHeader();
+        ((DefaultTableCellRenderer) contesttableheader.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
+        
+        addContestProblemTable.setDefaultRenderer(Object.class, centerRenderer);
+        addContestProblemTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
+        addContestProblemTable.setRowHeight(25);
+        addContestProblemTable.setRowHeight(25);
+        JTableHeader addContestProblemTabletableheader = addContestProblemTable.getTableHeader();
+        ((DefaultTableCellRenderer) addContestProblemTabletableheader.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
+
         StandingsTable.setDefaultRenderer(Object.class, centerRenderer);
-        StandingsTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 20));
+        StandingsTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
         StandingsTable.setRowHeight(25);
         StandingsTable.setRowHeight(25);
         JTableHeader standingstableheader = StandingsTable.getTableHeader();
         ((DefaultTableCellRenderer) standingstableheader.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
 
         ProblemsetTable.setDefaultRenderer(Object.class, centerRenderer);
-        ProblemsetTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 20));
+        ProblemsetTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
         ProblemsetTable.setRowHeight(25);
         JTableHeader problemsettableheader = ProblemsetTable.getTableHeader();
         ((DefaultTableCellRenderer) problemsettableheader.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
         //ProblemsetTable.getTableHeader().setOpaque(false);
 
         DelProblemsetTable.setDefaultRenderer(Object.class, centerRenderer);
-        DelProblemsetTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 20));
+        DelProblemsetTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
         DelProblemsetTable.setRowHeight(25);
         ProblemsetTable.setRowHeight(25);
         JTableHeader delproblemsettableheader = DelProblemsetTable.getTableHeader();
@@ -85,7 +102,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         //DelProblemsetTable.getTableHeader().setBackground(new Color(255, 255, 255));
 
         MyProblemsTable.setDefaultRenderer(Object.class, centerRenderer);
-        MyProblemsTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 20));
+        MyProblemsTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
         MyProblemsTable.setRowHeight(25);
         ProblemsetTable.setRowHeight(25);
         JTableHeader myproblemstableheader = MyProblemsTable.getTableHeader();
@@ -310,12 +327,19 @@ public class AdminDashboard extends javax.swing.JFrame {
         DelProblemSetjScrollPane = new javax.swing.JScrollPane();
         DelProblemsetTable = new javax.swing.JTable();
         AddContestPanel = new javax.swing.JPanel();
-        MemoryLimitLabel1 = new javax.swing.JLabel();
         ProblemNameLabel1 = new javax.swing.JLabel();
         TimeLimitLabel1 = new javax.swing.JLabel();
-        txtProblemName1 = new javax.swing.JTextField();
-        SubmitButton1 = new javax.swing.JButton();
-        txtMemoryLimit1 = new javax.swing.JFormattedTextField();
+        contestNameTextField = new javax.swing.JTextField();
+        SubmitContest = new javax.swing.JButton();
+        DurationLabel = new javax.swing.JLabel();
+        dateTimeTextField = new javax.swing.JTextField();
+        OpenCalendarButton = new javax.swing.JButton();
+        durationTextField = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        addContestProblemTable = new javax.swing.JTable();
+        addProblemToContestLabel = new javax.swing.JLabel();
+        contestProblemCombo = new javax.swing.JComboBox<>();
+        markContestLabel = new javax.swing.JLabel();
         DeleteContestPanel = new javax.swing.JPanel();
         DelProblemSetjScrollPane1 = new javax.swing.JScrollPane();
         DelProblemsetTable1 = new javax.swing.JTable();
@@ -401,7 +425,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         ProblemSetjScrollPane.setBackground(new java.awt.Color(255, 255, 255));
         ProblemSetjScrollPane.setFont(new java.awt.Font("Segoe UI Emoji", 1, 25)); // NOI18N
 
-        ProblemsetTable.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        ProblemsetTable.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
         ProblemsetTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -468,7 +492,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         MyProblemsjScrollPane.setBackground(new java.awt.Color(255, 255, 255));
         MyProblemsjScrollPane.setFont(new java.awt.Font("Segoe UI Emoji", 1, 25)); // NOI18N
 
-        MyProblemsTable.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        MyProblemsTable.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
         MyProblemsTable.setForeground(new java.awt.Color(0, 0, 51));
         MyProblemsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -726,7 +750,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         DelProblemSetjScrollPane.setBackground(new java.awt.Color(255, 255, 255));
         DelProblemSetjScrollPane.setFont(new java.awt.Font("Segoe UI Emoji", 1, 25)); // NOI18N
 
-        DelProblemsetTable.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        DelProblemsetTable.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
         DelProblemsetTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -788,58 +812,130 @@ public class AdminDashboard extends javax.swing.JFrame {
         AddContestPanel.setBackground(new java.awt.Color(255, 255, 255));
         AddContestPanel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
-        MemoryLimitLabel1.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
-        MemoryLimitLabel1.setForeground(new java.awt.Color(54, 33, 89));
-        MemoryLimitLabel1.setText("Memory Limit (KB):");
-
         ProblemNameLabel1.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
         ProblemNameLabel1.setForeground(new java.awt.Color(54, 33, 89));
         ProblemNameLabel1.setText("Contest Name:");
+        ProblemNameLabel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
         TimeLimitLabel1.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
         TimeLimitLabel1.setForeground(new java.awt.Color(54, 33, 89));
-        TimeLimitLabel1.setText("Start Time");
+        TimeLimitLabel1.setText("Start Time:");
+        TimeLimitLabel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
-        SubmitButton1.setBackground(new java.awt.Color(54, 33, 89));
-        SubmitButton1.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
-        SubmitButton1.setForeground(new java.awt.Color(54, 33, 89));
-        SubmitButton1.setText("Submit");
-        SubmitButton1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(54, 33, 89)));
-        SubmitButton1.setContentAreaFilled(false);
-        SubmitButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        SubmitButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        SubmitButton1.addActionListener(new java.awt.event.ActionListener() {
+        contestNameTextField.setFont(new java.awt.Font("Segoe UI Emoji", 0, 14)); // NOI18N
+        contestNameTextField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        SubmitContest.setBackground(new java.awt.Color(54, 33, 89));
+        SubmitContest.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        SubmitContest.setForeground(new java.awt.Color(54, 33, 89));
+        SubmitContest.setText("Submit");
+        SubmitContest.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 204)), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED)));
+        SubmitContest.setContentAreaFilled(false);
+        SubmitContest.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        SubmitContest.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        SubmitContest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SubmitButton1ActionPerformed(evt);
+                SubmitContestActionPerformed(evt);
             }
         });
 
-        txtMemoryLimit1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        DurationLabel.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
+        DurationLabel.setForeground(new java.awt.Color(54, 33, 89));
+        DurationLabel.setText("Duration:");
+        DurationLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+
+        dateTimeTextField.setEditable(false);
+        dateTimeTextField.setFont(new java.awt.Font("Segoe UI Emoji", 0, 14)); // NOI18N
+        dateTimeTextField.setText("DD/MM/YYYY:HH24:MM");
+        dateTimeTextField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        OpenCalendarButton.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        OpenCalendarButton.setText("Open Calendar");
+        OpenCalendarButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        OpenCalendarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OpenCalendarButtonActionPerformed(evt);
+            }
+        });
+
+        durationTextField.setFont(new java.awt.Font("Segoe UI Emoji", 0, 14)); // NOI18N
+        durationTextField.setText("Minutes");
+        durationTextField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        addContestProblemTable.setFont(new java.awt.Font("Segoe UI Emoji", 0, 14)); // NOI18N
+        addContestProblemTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        addContestProblemTable.setFocusable(false);
+        addContestProblemTable.setRowSelectionAllowed(false);
+        addContestProblemTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addContestProblemTableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(addContestProblemTable);
+
+        addProblemToContestLabel.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
+        addProblemToContestLabel.setForeground(new java.awt.Color(54, 33, 89));
+        addProblemToContestLabel.setText("Added Problems");
+        addProblemToContestLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+
+        contestProblemCombo.setMaximumRowCount(-1);
+        contestProblemCombo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        markContestLabel.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
+        markContestLabel.setForeground(new java.awt.Color(54, 33, 89));
+        markContestLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        markContestLabel.setText("Mark Problem for Contest");
+        markContestLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
         javax.swing.GroupLayout AddContestPanelLayout = new javax.swing.GroupLayout(AddContestPanel);
         AddContestPanel.setLayout(AddContestPanelLayout);
         AddContestPanelLayout.setHorizontalGroup(
             AddContestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AddContestPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(SubmitButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(AddContestPanelLayout.createSequentialGroup()
-                .addGap(100, 100, 100)
+                .addContainerGap()
                 .addGroup(AddContestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(AddContestPanelLayout.createSequentialGroup()
-                        .addComponent(MemoryLimitLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtMemoryLimit1)
-                        .addGap(367, 367, 367))
+                    .addComponent(markContestLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(AddContestPanelLayout.createSequentialGroup()
                         .addGroup(AddContestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TimeLimitLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(AddContestPanelLayout.createSequentialGroup()
-                                .addComponent(ProblemNameLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(AddContestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(DurationLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(ProblemNameLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                                .addComponent(TimeLimitLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(addProblemToContestLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(AddContestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(contestNameTextField)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AddContestPanelLayout.createSequentialGroup()
+                                .addGroup(AddContestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(dateTimeTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+                                    .addComponent(durationTextField))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtProblemName1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 61, Short.MAX_VALUE))))
+                                .addComponent(OpenCalendarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(contestProblemCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AddContestPanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(SubmitContest, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         AddContestPanelLayout.setVerticalGroup(
             AddContestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -847,16 +943,26 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(AddContestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ProblemNameLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtProblemName1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(TimeLimitLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(294, 294, 294)
-                .addGroup(AddContestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(MemoryLimitLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                    .addComponent(txtMemoryLimit1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addComponent(SubmitButton1)
-                .addGap(50, 50, 50))
+                    .addComponent(contestNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(AddContestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(OpenCalendarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TimeLimitLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dateTimeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(AddContestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(DurationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(durationTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(AddContestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(contestProblemCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addProblemToContestLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(markContestLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(SubmitContest))
         );
 
         ManagePanelTabSwitcher.addTab("Add Contest", AddContestPanel);
@@ -864,7 +970,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         DelProblemSetjScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
         DelProblemSetjScrollPane1.setFont(new java.awt.Font("Segoe UI Emoji", 1, 25)); // NOI18N
 
-        DelProblemsetTable1.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        DelProblemsetTable1.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
         DelProblemsetTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -921,7 +1027,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addComponent(DelProblemSetjScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE))
         );
 
-        ManagePanelTabSwitcher.addTab("Delete Contest", DeleteContestPanel);
+        ManagePanelTabSwitcher.addTab("Update Contest", DeleteContestPanel);
 
         javax.swing.GroupLayout ManagePanelLayout = new javax.swing.GroupLayout(ManagePanel);
         ManagePanel.setLayout(ManagePanelLayout);
@@ -942,7 +1048,7 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         StatusScrollPane.setFont(new java.awt.Font("Segoe UI Emoji", 1, 25)); // NOI18N
 
-        StatusTable.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        StatusTable.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
         StatusTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -1008,7 +1114,7 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         StandingsScrollPane.setFont(new java.awt.Font("Segoe UI Emoji", 1, 25)); // NOI18N
 
-        StandingsTable.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        StandingsTable.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
         StandingsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -1094,7 +1200,6 @@ public class AdminDashboard extends javax.swing.JFrame {
         switch (x) {
 
             case 1:
-
                 adminsocket.sendData("PrbTable[null]");
                 problemTable = adminsocket.getProblemTable();
                 if (problemTable == null) {
@@ -1109,7 +1214,6 @@ public class AdminDashboard extends javax.swing.JFrame {
                     };
                     ProblemsetTable.setModel(tablemodel);
                 }
-
                 break;
             case 2:
                 adminsocket.sendData("PrbTable[My]");
@@ -1124,6 +1228,21 @@ public class AdminDashboard extends javax.swing.JFrame {
                         }
                     };
                     MyProblemsTable.setModel(tablemodel);
+                }
+                break;
+            case 3:
+                adminsocket.sendData("CntstTab[null]");
+                contestTable = adminsocket.getContestTable();
+                if (contestTable == null) {
+                    JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    String[] columns = {"Contest_ID", "Name", "Author", "Start Time", "Duration(minutes)", "Status"};
+                    DefaultTableModel tablemodel = new DefaultTableModel(contestTable, columns) {
+                        public boolean isCellEditable(int row, int col) {
+                            return false;
+                        }
+                    };
+                    ContestTable.setModel(tablemodel);
                 }
                 break;
             case 4:
@@ -1246,7 +1365,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Problem file missing", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
+
 
     }//GEN-LAST:event_ChProblemStatementButtonActionPerformed
 
@@ -1282,27 +1401,76 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     private void ManagePanelTabSwitcherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ManagePanelTabSwitcherMouseClicked
         int x = ManagePanelTabSwitcher.getSelectedIndex();
-        if (x == 1) {
-            Object[][] table;
-            adminsocket.sendData("PrbTable[MyDel]");
-            table = adminsocket.getProblemTable();
-            if (table == null) {
-                JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
-            } else {
-                String[] columns = {"Problem ID", "Problem Name", "Problem Setter", " "};
-                DefaultTableModel tablemodel = new DefaultTableModel(table, columns) {
-                    public boolean isCellEditable(int row, int col) {
-                        return false;
-                    }
-                };
-                DelProblemsetTable.setModel(tablemodel);
-            }
+        switch (x) {
+            case 1:
+                Object[][] table;
+                adminsocket.sendData("PrbTable[MyDel]");
+                table = adminsocket.getProblemTable();
+                if (table == null) {
+                    JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    String[] columns = {"Problem ID", "Problem Name", "Problem Setter", " "};
+                    DefaultTableModel tablemodel = new DefaultTableModel(table, columns) {
+                        @Override
+                        public boolean isCellEditable(int row, int col) {
+                            return false;
+                        }
+                    };
+                    DelProblemsetTable.setModel(tablemodel);
+                }
+                break;
+            case 2:
+                adminsocket.sendData("PrbTable[null]");
+                problemTable = adminsocket.getProblemTable();
+                for (int i = 0; problemTable[i] != null; i++) {
+                    problemTable[i][3] = "<HTML><U><FONT COLOR='BLUE'>Not Added</FONT></U></HTML>";
+                }
+                if (problemTable == null) {
+                    JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    String[] columns = {"Problem ID", "Problem Name", "Problem Setter", " "};
+                    DefaultTableModel tablemodel = new DefaultTableModel(problemTable, columns) {
+                        @Override
+                        public boolean isCellEditable(int row, int col) {
+                            return false;
+                        }
+                    };
+
+                    addContestProblemTable.setModel(tablemodel);
+                }
+
         }
     }//GEN-LAST:event_ManagePanelTabSwitcherMouseClicked
 
-    private void SubmitButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SubmitButton1ActionPerformed
+    private void SubmitContestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitContestActionPerformed
+        contestInfo.setContestName(contestNameTextField.getText());
+        try {
+            Integer.parseUnsignedInt(durationTextField.getText());
+            contestInfo.setDurationMinutes(durationTextField.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Duration must be Postive Number", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (contestInfo.getContestName() == null || contestInfo.getStartTime() == null || contestInfo.getdurationMinutes() == null || contestInfo.getProblemIDs().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Some input fields are empty", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        adminsocket.sendData("CntstInf");
+        if (adminsocket.submitContest(contestInfo)) {
+            JOptionPane.showMessageDialog(null, "Submitted", "Status", JOptionPane.INFORMATION_MESSAGE);
+            contestInfo = new ContestInfo();
+            contestNameTextField.setText(null);
+            durationTextField.setText(null);
+            dateTimeTextField.setText(null);
+            contestProblemCombo.removeAllItems();
+            for (int i = 0; problemTable[i] != null; i++) {
+                addContestProblemTable.setValueAt("<HTML><U><FONT COLOR='BLUE'>Not Added</FONT></U></HTML>", i, 3);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Submission Failed", "Status", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_SubmitContestActionPerformed
 
     private void ContestTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ContestTableMouseClicked
         if (evt.getClickCount() == 1 & !evt.isConsumed()) {
@@ -1318,6 +1486,49 @@ public class AdminDashboard extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_ContestTableMouseClicked
+
+    private void OpenCalendarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenCalendarButtonActionPerformed
+        DateTimePicker pickDateTime = new DateTimePicker(this, true);
+        pickDateTime.setVisible(rootPaneCheckingEnabled);
+        contestInfo.setStartTime(pickDateTime.getDateTime());
+        dateTimeTextField.setText(contestInfo.getStartTime().toString());
+    }//GEN-LAST:event_OpenCalendarButtonActionPerformed
+
+    private void addContestProblemTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addContestProblemTableMouseClicked
+        if (evt.getClickCount() == 1 && !evt.isConsumed()) {
+            evt.consume();
+            int row = addContestProblemTable.rowAtPoint(evt.getPoint());
+            int col = addContestProblemTable.columnAtPoint(evt.getPoint());
+            if (row >= 0 && (col == 0 || col == 1) && addContestProblemTable.getValueAt(row, col) != null) {
+                String problemid = problemTable[row][4].toString();
+                adminsocket.sendData("ProbFile[" + problemid + "]");
+                NewProblem problem = adminsocket.getProblem();
+                try {
+                    FileOutputStream fos = new FileOutputStream(problemid + ".pdf");
+                    fos.write(problem.getProb());
+                    fos.close();
+                } catch (FileNotFoundException ex) {
+                    System.out.println("At probshow problem write Err: " + ex.getMessage());
+                } catch (IOException ex) {
+                    System.out.println("At probshow problem write Err: " + ex.getMessage());
+                }
+                ProblemShow problemshow = new ProblemShow(problem.getProblemName(), problem.getTimeLimit(), problem.getMemoryLimit());
+                problemshow.viewPdf(new File(problemid + ".pdf"));
+                new File(problemid + ".pdf").delete();
+            } else if (row >= 0 && col == 3 && addContestProblemTable.getValueAt(row, col) != null) {
+                if (addContestProblemTable.getValueAt(row, col).equals("<HTML><U><FONT COLOR='BLUE'>Not Added</FONT></U></HTML>")) {
+                    contestInfo.addProblem(problemTable[row][4].toString());
+                    contestProblemCombo.addItem(addContestProblemTable.getValueAt(row, 1).toString());
+                    addContestProblemTable.setValueAt("<HTML><U><FONT COLOR='BLUE'>Remove</FONT></U></HTML>", row, col);
+                } else if (addContestProblemTable.getValueAt(row, col).equals("<HTML><U><FONT COLOR='BLUE'>Remove</FONT></U></HTML>")) {
+                    contestInfo.removeProblem(problemTable[row][4].toString());
+                    contestProblemCombo.removeItem(addContestProblemTable.getValueAt(row, 1).toString());
+                    addContestProblemTable.setValueAt("<HTML><U><FONT COLOR='BLUE'>Not Added</FONT></U></HTML>", row, col);
+                }
+            }
+        }
+
+    }//GEN-LAST:event_addContestProblemTableMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1337,15 +1548,16 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JTable DelProblemsetTable1;
     private javax.swing.JPanel DeleteContestPanel;
     private javax.swing.JPanel DeleteProblemPanel;
+    private javax.swing.JLabel DurationLabel;
     private javax.swing.JPanel HomePanel;
     private javax.swing.JButton LogOutButton;
     private javax.swing.JPanel ManagePanel;
     private javax.swing.JTabbedPane ManagePanelTabSwitcher;
     private javax.swing.JLabel MemoryLimitLabel;
-    private javax.swing.JLabel MemoryLimitLabel1;
     private javax.swing.JPanel MyProblemsPanel;
     private javax.swing.JTable MyProblemsTable;
     private javax.swing.JScrollPane MyProblemsjScrollPane;
+    private javax.swing.JButton OpenCalendarButton;
     private javax.swing.JLabel ProblemNameLabel;
     private javax.swing.JLabel ProblemNameLabel1;
     private javax.swing.JScrollPane ProblemSetjScrollPane;
@@ -1358,16 +1570,22 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane StatusScrollPane;
     private javax.swing.JTable StatusTable;
     private javax.swing.JButton SubmitButton;
-    private javax.swing.JButton SubmitButton1;
+    private javax.swing.JButton SubmitContest;
     private javax.swing.JLabel TimeLimitLabel;
     private javax.swing.JLabel TimeLimitLabel1;
     private javax.swing.JLabel WelcomeLabel;
+    private javax.swing.JTable addContestProblemTable;
+    private javax.swing.JLabel addProblemToContestLabel;
+    private javax.swing.JTextField contestNameTextField;
+    private javax.swing.JComboBox<String> contestProblemCombo;
+    private javax.swing.JTextField dateTimeTextField;
+    private javax.swing.JTextField durationTextField;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel markContestLabel;
     private javax.swing.JFormattedTextField txtMemoryLimit;
-    private javax.swing.JFormattedTextField txtMemoryLimit1;
     private javax.swing.JTextField txtProblemName;
-    private javax.swing.JTextField txtProblemName1;
     private javax.swing.JFormattedTextField txtTimeLimit;
     // End of variables declaration//GEN-END:variables
 }

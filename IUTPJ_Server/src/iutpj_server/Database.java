@@ -7,6 +7,7 @@ package iutpj_server;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
@@ -483,7 +484,7 @@ public class Database {
                 rowData[2] = rs.getString("SETTER");
                 rowData[3] = rs.getTimestamp("START_TIME").toString();
                 rowData[4] = Integer.toString(rs.getInt("DURATION_MIN"));
-                rowData[5] = (rs.getString("FINISHED").equals("YES"))? "Previous":"Upcomming";
+                rowData[5] = (rs.getString("FINISHED").equals("YES")) ? "Previous" : "Upcomming";
                 rowData[6] = rowData[0];
                 rowData[0] = "<HTML><U><FONT COLOR='BLUE'>" + rowData[0] + "</FONT></U></HTML>";
                 tableData.add(rowData.clone());
@@ -495,6 +496,92 @@ public class Database {
             System.out.println("DB getProblemTable err" + ex.toString());
             return null;
         }
+    }
+
+    public synchronized String addContest(ContestInfo contestInfo, String setter) {
+
+        /*
+        ID VARCHAR2(15) PRIMARY KEY,
+        CONTEST_NAME VARCHAR2(200) NOT NULL,
+        START_TIME TIMESTAMP NOT NULL,
+        DURATION_MIN NUMBER(10) NOT NULL,
+        FINISHED VARCHAR2(10) NOT NULL,
+        SETTER_ID VARCHAR2(15) NOT NULL,
+        FOREIGN KEY(SETTER_ID) REFERENCES ADMIN_INFO(ID) ON DELETE CASCADE
+        function parameter:
+        CNAME IN CONTEST_INFO.CONTEST_NAME%TYPE, 
+        STIME IN CONTEST_INFO.START_TIME%TYPE,
+        DRTION IN CONTEST_INFO.DURATION_MIN%TYPE, 
+        SETTER IN CONTEST_INFO.SETTER_ID%TYPE
+         */
+        String insert_contest = "{? = call INSERT_CONTEST(?,?,?,?)}";
+        String insert_problems = "{? = call ADD_PROBLEM_TO_CONTEST(?,?)}";
+
+        try {
+            callableStatement = conn.prepareCall(insert_contest);
+
+            callableStatement.setString(2, contestInfo.getContestName());
+            callableStatement.setDate(3, new java.sql.Date(contestInfo.getStartTime().getTime()));
+            callableStatement.setInt(4, Integer.parseInt(contestInfo.getdurationMinutes()));
+            callableStatement.setString(5, setter);
+            callableStatement.registerOutParameter(1, Types.VARCHAR);
+
+            callableStatement.execute();
+            String contestID = callableStatement.getString(1);
+
+            for (String problems : contestInfo.getProblemIDs()) {
+                callableStatement = conn.prepareCall(insert_contest);
+                callableStatement.setString(2, contestID);
+                callableStatement.setString(3, problems);
+                callableStatement.registerOutParameter(1, Types.VARCHAR);
+                callableStatement.execute();
+                if (callableStatement.getString(1).equals("CONTEST FINISHED")) {
+                    break;
+                }
+                callableStatement.close();
+            }
+            return "SUCCESS";
+        } catch (SQLException ex) {
+            System.out.println("DB Add Contest: " + ex.toString());
+            return null;
+        }
+
+    }
+
+    public synchronized ContestInfo getContestInfo(String contestID) {
+        String contestQuery = "SELECT CONTEST_INFO.ID AS CID, CONTEST_NAME, START_TIME, DURATION_MIN, ADMIN_INFO.USER_NAME AS SETTER FROM CONTEST_INFO, ADMIN_INFO WHERE SETTER_ID = ADMIN_INFO.ID AND CONTEST_INFO.ID = ?";
+        String problemQuery = "SELECT PROBLEM_ID FROM CONTEST_PROBLEM_JUNCTION WHERE CONTEST_ID = ?";
+        try {
+            prprdstmnt = conn.prepareStatement(contestQuery);
+            prprdstmnt.setString(1, contestID);
+            ResultSet rs = prprdstmnt.executeQuery();
+            if (rs.next() == false) {
+                return null;
+            }
+
+            ContestInfo contestInfo = new ContestInfo();
+            contestInfo.setContestID(rs.getString("CID"));
+            contestInfo.setContestName(rs.getString("CONTEST_NAME"));
+            contestInfo.setContestSetter(rs.getString("SETTER"));
+            contestInfo.setDurationMinutes(Integer.toString(rs.getInt("DURATION_MIN")));
+            contestInfo.setStartTime(new java.util.Date(rs.getDate("START_TIME").getTime()));
+            prprdstmnt.close();
+
+            prprdstmnt = conn.prepareCall(problemQuery);
+            prprdstmnt.setString(1, contestID);
+            rs = prprdstmnt.executeQuery();
+
+            while (rs.next()) {
+                contestInfo.addProblem(rs.getString("PROBLEM_ID"));
+                System.out.println(contestInfo.getProblemIDs());
+            }
+            prprdstmnt.close();
+            return contestInfo;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
 }

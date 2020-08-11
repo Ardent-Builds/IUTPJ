@@ -173,8 +173,8 @@ public class CompileAndRun implements Runnable {
         });
         String classname = classfiles[0].getName().substring(0,classfiles[0].getName().lastIndexOf("."));
         System.out.println(classname);
-        
-        run = new ProcessBuilder("java",classname).directory( new File(submissionID));
+        String memoryLimit = "-Xmx"+problem.getMemoryLimit()+"k";
+        run = new ProcessBuilder("java","-XmX1024k",classname).directory( new File(submissionID));
         run.redirectInput(inputs);
         run.redirectOutput(useroutputs);
 

@@ -5,10 +5,13 @@
  */
 package iutpj_user;
 
+import iutpj_server.ContestInfo;
 import java.util.List;
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import newproblem.NewProblem;
 import newsubmission.NewSubmission;
 
@@ -189,7 +192,7 @@ public class UserSocket {
         }
     }
 
-    NewProblem getProblem() {
+    public NewProblem getProblem() {
         try {
             return (NewProblem) objectin.readObject();
         } catch (IOException ex) {
@@ -199,6 +202,16 @@ public class UserSocket {
             System.out.println("UserSocket Reading ClassNotFound Err: "+ex.getMessage() );
             return null;
         }
+    }
+    public ContestInfo getContestInfo(String contestID)
+    {
+        this.sendData("getCntst["+contestID+"]");
+        try {
+            return (ContestInfo) objectin.readObject();
+        } catch (IOException | ClassNotFoundException ex) {
+            System.out.println("Reading Contest Error "+ex.toString());
+        }
+       return null;
     }
 
 }

@@ -119,6 +119,7 @@ public class Login extends javax.swing.JFrame {
 
         txtUsername.setFont(new java.awt.Font("Segoe UI Light", 0, 20)); // NOI18N
         txtUsername.setForeground(new java.awt.Color(102, 102, 102));
+        txtUsername.setText("IutpjAdmin_01");
         txtUsername.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(102, 102, 102)));
         txtUsername.setSelectionColor(new java.awt.Color(110, 89, 222));
         txtUsername.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -191,6 +192,7 @@ public class Login extends javax.swing.JFrame {
 
         txtIP.setFont(new java.awt.Font("Segoe UI Light", 0, 20)); // NOI18N
         txtIP.setForeground(new java.awt.Color(102, 102, 102));
+        txtIP.setText("Localhost");
         txtIP.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(102, 102, 102)));
         txtIP.setSelectionColor(new java.awt.Color(110, 89, 222));
         txtIP.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -215,6 +217,7 @@ public class Login extends javax.swing.JFrame {
 
         txtPort.setFont(new java.awt.Font("Segoe UI Light", 0, 20)); // NOI18N
         txtPort.setForeground(new java.awt.Color(102, 102, 102));
+        txtPort.setText("1234");
         txtPort.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(102, 102, 102)));
         txtPort.setSelectionColor(new java.awt.Color(110, 89, 222));
         txtPort.addFocusListener(new java.awt.event.FocusAdapter() {

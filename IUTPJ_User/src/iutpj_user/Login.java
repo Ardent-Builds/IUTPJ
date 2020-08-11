@@ -32,6 +32,9 @@ public class Login extends javax.swing.JFrame {
         this.setVisible(true);
         this.userSocket = usersocket;
         this.connectionStatus=false;
+        this.txtIP.setText("localhost");
+        this.txtPort.setText("1234");
+        this.txtUsername.setText("Iutpj_01");
     }
 
     /**

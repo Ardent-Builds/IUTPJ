@@ -135,7 +135,7 @@ public class ProblemShow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SubmitButtonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitButtonButtonActionPerformed
-        dashboard.setTab(2, problemID);
+
         
         this.dispose();
     }//GEN-LAST:event_SubmitButtonButtonActionPerformed
@@ -161,7 +161,13 @@ public class ProblemShow extends javax.swing.JFrame {
         
         SwingViewBuilder factory = new SwingViewBuilder(controller);
         JPanel viwerpanel = factory.buildViewerPanel();
+        System.out.println(viwerpanel.toString());
         pdfviewerpanel.add(viwerpanel);
         controller.openDocument(problem.getAbsolutePath());
+    }
+    public static void main(String arg[]) {
+        ProblemShow show = new ProblemShow(null, null, null, null);
+        show.viewPdf(new File("D:/Netbeans/IUTPJ/IUTPJ_Admin/24072020141258.pdf"),"bal");
+        
     }
 }

@@ -7,6 +7,8 @@ package iutpj_server;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import newproblem.NewProblem;
 import newsubmission.NewSubmission;
 
@@ -53,7 +55,7 @@ public class Multi_Thread implements Runnable {
                         sc.sendData("LoginFalse");
                     }
                     break;
-                    
+
                 case "SignUp--":
                     LoginSignUpHandler signUPhandler = new LoginSignUpHandler(data, clienttype, database);
                     if (signUPhandler.doesExist()) {
@@ -64,7 +66,7 @@ public class Multi_Thread implements Runnable {
                         sc.sendData("SignUpFl");
                     }
                     break;
-                    
+
                 case "AddProb-":
                     System.out.println("AddProb- called");
                     NewProblem newproblem;
@@ -74,123 +76,130 @@ public class Multi_Thread implements Runnable {
                         if (status.equals("SUCCESS")) {
                             System.out.println("Problem Added");
                         } else {
-                            System.out.println("Problem adding failed "+status);
+                            System.out.println("Problem adding failed " + status);
                         }
                     } catch (IOException | ClassNotFoundException ex) {
-                        System.out.println("Problem Object reading err "+ex.getMessage());
+                        System.out.println("Problem Object reading err " + ex.getMessage());
                     }
                     break;
-                    
-                case "AddSub--":
-                   System.out.println("AddSub-- called");
-                   String submissionID;
 
-                    NewSubmission newsubmission=null;
-                
+                case "AddSub--":
+                    System.out.println("AddSub-- called");
+                    String submissionID;
+
+                    NewSubmission newsubmission = null;
+
                     try {
                         newsubmission = sc.saveSubmission();
                         submissionID = database.addSubmissionToDB(newsubmission, userID);
-                        if(submissionID!=null&&submissionID.length()==14) {
-                         System.out.println("submission Added");
+                        if (submissionID != null && submissionID.length() == 14) {
+                            System.out.println("submission Added");
                         } else {
                             System.out.println("submission adding failed");
-                        }   
+                        }
                     } catch (IOException | ClassNotFoundException ex) {
-                        System.out.println("Submission Object reading err "+ex.getMessage());
+                        System.out.println("Submission Object reading err " + ex.getMessage());
                         submissionID = null;
                     }
-                    if(newsubmission!=null){
+                    if (newsubmission != null) {
                         NewProblem problem = database.getProblem(newsubmission.getProblemID());
-                        if(problem!=null){
-                        Thread t = new Thread(new CompileAndRun(problem,newsubmission,submissionID,database));
-                        t.start();
+                        if (problem != null) {
+                            Thread t = new Thread(new CompileAndRun(problem, newsubmission, submissionID, database));
+                            t.start();
                         }
                     }
                     break;
-            
+
                 case "PrbTable":
-                    
+
                     int x = data.indexOf(']', 9);
-                    
-                    String tableForWhom= data.substring(9,x);
-                    
-                    if(sc.sendProblemTable(database.getProblemTable((tableForWhom.equals("MyDel")||tableForWhom.equals("My"))? userID:null))){
+
+                    String tableForWhom = data.substring(9, x);
+
+                    if (sc.sendProblemTable(database.getProblemTable((tableForWhom.equals("MyDel") || tableForWhom.equals("My")) ? userID : null))) {
                         System.out.println("ProblemTable Sent");
-                    }
-                    else{
+                    } else {
                         System.out.println("ProblemTable Sending Failed");
                     }
                     break;
-                    
+
                 case "StTable-":
-                    
+
                     x = data.indexOf(']', 9);
-                    tableForWhom = data.substring(9,x);
-                    
-                    if(sc.sendStatusTable(database.getStatusTable((tableForWhom.equals("My")? userID:null),clienttype))){
+                    tableForWhom = data.substring(9, x);
+
+                    if (sc.sendStatusTable(database.getStatusTable((tableForWhom.equals("My") ? userID : null), clienttype))) {
                         System.out.println("StatusTable Sent");
-                    }
-                    else{
+                    } else {
                         System.out.println("StatusTable Sending Failed");
                     }
                     break;
-                
-                 case "StdTable":
-                    
+
+                case "StdTable":
+
                     x = data.indexOf(']', 9);
-                    String identifier = data.substring(9,x);
+                    String identifier = data.substring(9, x);
                     System.out.println(identifier);
-                    
-                    if(sc.sendStandingsTable(database.getStandingsTable())){
+
+                    if (sc.sendStandingsTable(database.getStandingsTable())) {
                         System.out.println("StandingsTable Sent");
-                    }
-                    else{
+                    } else {
                         System.out.println("StandingsTable Sending Failed");
                     }
                     break;
-                
+
                 case "SrcCode-":
                     x = data.indexOf(']', 9);
-                    submissionID = data.substring(9,x);
-                    
-                    if(sc.sendSubmission(database.getSubmission(submissionID)))
-                    {
+                    submissionID = data.substring(9, x);
+
+                    if (sc.sendSubmission(database.getSubmission(submissionID))) {
                         System.out.println("Submission Sent");
-                    }else{
+                    } else {
                         System.out.println("Submission Sending Failed");
                     }
                     break;
-                    
+
                 case "ProbFile":
                     x = data.indexOf(']', 9);
-                    String problemID = data.substring(9,x);
-                    
-                    if(sc.sendProblem(database.getProblem(problemID))){
+                    String problemID = data.substring(9, x);
+
+                    if (sc.sendProblem(database.getProblem(problemID))) {
                         System.out.println("Problem Sent");
-                    }else{
+                    } else {
                         System.out.println("Problem Sending Failed");
                     }
                     break;
                 case "DelProb-":
                     x = data.indexOf(']', 9);
-                    problemID = data.substring(9,x);
-                    
-                    String status = database.deleteProblem(problemID,userID);
+                    problemID = data.substring(9, x);
+
+                    String status = database.deleteProblem(problemID, userID);
                     System.out.println(status);
-                    if(sc.sendProblemTable(database.getProblemTable(userID))){
+                    if (sc.sendProblemTable(database.getProblemTable(userID))) {
                         System.out.println("ProblemTable Sent");
-                    }
-                    else{
+                    } else {
                         System.out.println("ProblemTable Sending Failed");
                     }
                 case "CntstTab":
-                    if(sc.sendContestTable(database.getContestTable())){
+                    if (sc.sendContestTable(database.getContestTable())) {
                         System.out.println("ProblemTable Sent");
-                    }
-                    else{
+                    } else {
                         System.out.println("ProblemTable Sending Failed");
                     }
+                    break;
+                case "CntstInf":
+                    try {
+                        System.out.println(database.addContest(sc.saveContestInfo(), userID));
+                    } catch (IOException | ClassNotFoundException ex) {
+                        System.out.println("Contest Save Failled " + ex.toString());
+                    }
+                    break;
+                case "getCntst":
+                    x = data.indexOf(']', 9);
+                    String contestID = data.substring(9, x);
+                    sc.sendContestInfo(database.getContestInfo(contestID));
                     
+                    break;
                 default:
                     break;
             }

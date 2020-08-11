@@ -9,12 +9,11 @@ import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import newproblem.NewProblem;
 import newsubmission.NewSubmission;
-
+import iutpj_server.ContestInfo;
 /**
  *
  * @author ASADUZZAMAN HEROK
@@ -84,6 +83,18 @@ public class AdminSocket {
             return 0;
         }
         
+    }
+    public boolean submitContest(ContestInfo contest)
+    {
+        try{
+            objectout.writeObject(contest);
+            objectout.flush();
+            return true;
+        } catch (IOException ex) {
+            Logger.getLogger(AdminSocket.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("SocketGetProblem I/O Err "+ex.getMessage());
+            return false;
+        }
     }
     
     public Object[][] getProblemTable(){
@@ -166,7 +177,7 @@ public class AdminSocket {
         adminsocket.close();
     }
 
-    NewSubmission getSubmission() {
+    public NewSubmission getSubmission() {
         try {
             return (NewSubmission) objectin.readObject();
         } catch (IOException ex) {
@@ -178,7 +189,7 @@ public class AdminSocket {
         }
     }
     
-    NewProblem getProblem() {
+    public NewProblem getProblem() {
         try {
             return (NewProblem) objectin.readObject();
         } catch (IOException ex) {
@@ -188,6 +199,27 @@ public class AdminSocket {
             System.out.println("AdminSocket getProblem ClassNotFound Err: "+ex.getMessage() );
             return null;
         }
+    }
+
+    public Object[][] getContestTable() {
+        List<String[]> rowData;
+        Object[][] table;
+        int idx = 0;
+        
+        try{
+            rowData = (List<String[]>) objectin.readObject();
+            table = new Object[Math.max(40,rowData.size())][];
+            for(String[] row:rowData)
+                table[idx++]=row;
+            return table;
+        } catch (IOException ex) {
+            System.out.println("SocketGetProblem I/O Err "+ex.getMessage());
+            return null;
+        } catch (ClassNotFoundException ex) {
+            System.out.println("SocketGetProblem ClassNotFound Err "+ex.getMessage());
+            return null;
+        }
+         
     }
 
 }

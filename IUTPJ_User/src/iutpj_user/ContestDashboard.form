@@ -39,7 +39,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,44,0,0,4,14"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,-125,0,0,4,10"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
@@ -70,6 +70,10 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI Emoji" size="29" style="0"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="" noResource="true"/>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[1024, 576]"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ContestDashboardTabSwitcherMouseClicked"/>
@@ -96,42 +100,129 @@
                 </Constraint>
               </Constraints>
 
-              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="0" pref="277" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="leaveContestArenaButton" min="-2" pref="235" max="-2" attributes="0"/>
+                                      <Component id="WelcomeLabel" min="-2" pref="235" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace pref="287" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="remainingTimeLabelHome" max="32767" attributes="0"/>
+                                      <Component id="numberOfProblemsLabel" alignment="0" pref="233" max="32767" attributes="0"/>
+                                      <Component id="durationMinutesLabel" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="setterLabel" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="contestNameLabel" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="startTimeLabel" alignment="1" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="setterText" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="contestNameText" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="startTimeText" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="NumberOfProblemText" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="durationMinutesText" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="remainingTimeText" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="WelcomeLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="contestNameText" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                              <Component id="contestNameLabel" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="setterLabel" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                              <Component id="setterText" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="durationMinutesLabel" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                              <Component id="durationMinutesText" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="numberOfProblemsLabel" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                              <Component id="NumberOfProblemText" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="startTimeLabel" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                              <Component id="startTimeText" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="remainingTimeLabelHome" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                              <Component id="remainingTimeText" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace pref="360" max="32767" attributes="0"/>
+                          <Component id="leaveContestArenaButton" min="-2" pref="33" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="WelcomeLabel">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI Emoji" size="36" style="1"/>
+                      <Font name="Segoe UI Emoji" size="24" style="1"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="59" green="21" red="36" type="rgb"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="text" type="java.lang.String" value="Contest Area"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                        <LineBorder roundedCorners="true" thickness="5">
+                          <Color PropertyName="color" blue="ff" green="66" red="66" type="rgb"/>
+                        </LineBorder>
+                      </Border>
+                    </Property>
                   </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                      <GridBagConstraints gridX="0" gridY="0" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="43" insetsLeft="40" insetsBottom="95" insetsRight="40" anchor="10" weightX="0.0" weightY="0.0"/>
-                    </Constraint>
-                  </Constraints>
                 </Component>
-                <Component class="javax.swing.JButton" name="LogOutButton">
+                <Component class="javax.swing.JButton" name="leaveContestArenaButton">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="59" green="21" red="36" type="rgb"/>
                     </Property>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI Emoji" size="18" style="1"/>
+                      <Font name="Segoe UI Emoji" size="14" style="1"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="59" green="21" red="36" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Log Out"/>
+                    <Property name="text" type="java.lang.String" value="Leave Contest Arena"/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
-                        <MatteColorBorder>
-                          <Color PropertyName="color" blue="59" green="21" red="36" type="rgb"/>
-                        </MatteColorBorder>
+                      <Border info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
+                        <CompoundBorder>
+                          <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                            <LineBorder roundedCorners="true" thickness="2">
+                              <Color PropertyName="color" blue="ff" green="0" red="0" type="rgb"/>
+                            </LineBorder>
+                          </Border>
+                          <Border PropertyName="inside" info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                            <BevelBorder/>
+                          </Border>
+                        </CompoundBorder>
                       </Border>
                     </Property>
                     <Property name="contentAreaFilled" type="boolean" value="false"/>
@@ -140,21 +231,231 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="LogOutButtonActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="leaveContestArenaButtonActionPerformed"/>
                   </Events>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                      <GridBagConstraints gridX="0" gridY="1" gridWidth="1" gridHeight="1" fill="0" ipadX="20" ipadY="20" insetsTop="38" insetsLeft="38" insetsBottom="0" insetsRight="38" anchor="1792" weightX="0.0" weightY="0.0"/>
-                    </Constraint>
-                  </Constraints>
+                </Component>
+                <Component class="javax.swing.JLabel" name="setterLabel">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI Emoji" size="14" style="1"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="Setter"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                        <EtchetBorder bevelType="0"/>
+                      </Border>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="contestNameLabel">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI Emoji" size="14" style="1"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="Contest Name"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                        <EtchetBorder bevelType="0"/>
+                      </Border>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="contestNameText">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="cc" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI Emoji" size="14" style="1"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="autoscrolls" type="boolean" value="false"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                        <BevelBorder bevelType="1"/>
+                      </Border>
+                    </Property>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                    <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="setterText">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="cc" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI Emoji" size="14" style="1"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="autoscrolls" type="boolean" value="false"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                        <BevelBorder bevelType="1"/>
+                      </Border>
+                    </Property>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                    <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="durationMinutesLabel">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI Emoji" size="14" style="1"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="Duration Minutes"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                        <EtchetBorder bevelType="0"/>
+                      </Border>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="durationMinutesText">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="cc" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI Emoji" size="14" style="1"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="autoscrolls" type="boolean" value="false"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                        <BevelBorder bevelType="1"/>
+                      </Border>
+                    </Property>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                    <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="numberOfProblemsLabel">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI Emoji" size="14" style="1"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="Number Of problems"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                        <EtchetBorder bevelType="0"/>
+                      </Border>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="NumberOfProblemText">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="cc" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI Emoji" size="14" style="1"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="autoscrolls" type="boolean" value="false"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                        <BevelBorder bevelType="1"/>
+                      </Border>
+                    </Property>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                    <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="startTimeLabel">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI Emoji" size="14" style="1"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="Start Time"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                        <EtchetBorder bevelType="0"/>
+                      </Border>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="startTimeText">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="cc" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI Emoji" size="14" style="1"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="autoscrolls" type="boolean" value="false"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                        <BevelBorder bevelType="1"/>
+                      </Border>
+                    </Property>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                    <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="remainingTimeLabelHome">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI Emoji" size="14" style="1"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="Remaining Time"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                        <EtchetBorder bevelType="0"/>
+                      </Border>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="remainingTimeText">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="cc" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI Emoji" size="14" style="1"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="autoscrolls" type="boolean" value="false"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                        <BevelBorder bevelType="1"/>
+                      </Border>
+                    </Property>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                    <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="ProblemsetPanel">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+              </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Problems">
-                    <Property name="tabTitle" type="java.lang.String" value="Problems"/>
+                  <JTabbedPaneConstraints tabName="All Problems">
+                    <Property name="tabTitle" type="java.lang.String" value="All Problems"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -162,17 +463,25 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="ProblemSetjScrollPane" pref="813" max="32767" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                      <Component id="ProblemSetjScrollPane" pref="809" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="remainingTimeLabelStandingsProblems" min="-2" pref="207" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="remainingTimeTextProblems" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="ProblemSetjScrollPane" pref="295" max="32767" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="remainingTimeLabelStandingsProblems" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                              <Component id="remainingTimeTextProblems" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="ProblemSetjScrollPane" min="-2" pref="658" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -193,7 +502,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTable" name="ProblemsetTable">
+                    <Component class="javax.swing.JTable" name="ProblemSetTable">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Segoe UI Emoji" size="18" style="1"/>
@@ -217,7 +526,7 @@
                         </Property>
                         <Property name="opaque" type="boolean" value="false"/>
                         <Property name="requestFocusEnabled" type="boolean" value="false"/>
-                        <Property name="rowHeight" type="int" value="25"/>
+                        <Property name="rowHeight" type="int" value="23"/>
                         <Property name="rowSelectionAllowed" type="boolean" value="false"/>
                         <Property name="selectionBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="cc" green="b5" red="0" type="rgb"/>
@@ -227,12 +536,314 @@
                           <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                         </Property>
                       </Properties>
-                      <Events>
-                        <EventHandler event="componentResized" listener="java.awt.event.ComponentListener" parameters="java.awt.event.ComponentEvent" handler="ProblemsetTableComponentResized"/>
-                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
+                <Component class="javax.swing.JLabel" name="remainingTimeLabelStandingsProblems">
+                  <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="cc" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI Emoji" size="14" style="1"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="Remaining Time"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                        <EtchetBorder bevelType="0"/>
+                      </Border>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="remainingTimeTextProblems">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="cc" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI Emoji" size="14" style="1"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection component="durationMinutesText" name="text" type="property"/>
+                    </Property>
+                    <Property name="autoscrolls" type="boolean" value="false"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                        <BevelBorder bevelType="1"/>
+                      </Border>
+                    </Property>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                    <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Container class="javax.swing.JPanel" name="problemPanel">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="Problem">
+                    <Property name="tabTitle" type="java.lang.String" value="Problem"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="pdfPanel" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="selectProblemLabel" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
+                                      <Component id="remainingTimeLabelProblem" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
+                                      <Component id="timeLimitLabel" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="timeLimitText" max="32767" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="memoryLimitLabel" min="-2" pref="195" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="memoryLimitText" min="-2" pref="224" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="selectProblemCombo" alignment="1" max="32767" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="remainingTimeTextProblem" pref="344" max="32767" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="submitProblemSolution" min="-2" pref="236" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="submitProblemSolution" alignment="1" min="-2" pref="27" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="remainingTimeLabelProblem" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                  <Component id="remainingTimeTextProblem" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="selectProblemLabel" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                              <Component id="selectProblemCombo" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="timeLimitLabel" alignment="0" min="-2" pref="27" max="-2" attributes="0"/>
+                              <Component id="memoryLimitLabel" alignment="1" min="-2" pref="27" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="memoryLimitText" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                                  <Component id="timeLimitText" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                          <Component id="pdfPanel" pref="521" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JLabel" name="remainingTimeLabelProblem">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI Emoji" size="14" style="1"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="Remaining Time"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                        <EtchetBorder bevelType="0"/>
+                      </Border>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="remainingTimeTextProblem">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="cc" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI Emoji" size="14" style="1"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="autoscrolls" type="boolean" value="false"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                        <BevelBorder bevelType="1"/>
+                      </Border>
+                    </Property>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                    <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="timeLimitLabel">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI Emoji" size="14" style="1"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="Time Limit"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                        <EtchetBorder bevelType="0"/>
+                      </Border>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="memoryLimitText">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="cc" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI Emoji" size="14" style="1"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="autoscrolls" type="boolean" value="false"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                        <BevelBorder bevelType="1"/>
+                      </Border>
+                    </Property>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                    <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="memoryLimitLabel">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI Emoji" size="14" style="1"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="Memory Limit"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                        <EtchetBorder bevelType="0"/>
+                      </Border>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="timeLimitText">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="cc" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI Emoji" size="14" style="1"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="autoscrolls" type="boolean" value="false"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                        <BevelBorder bevelType="1"/>
+                      </Border>
+                    </Property>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                    <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="selectProblemLabel">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI Emoji" size="14" style="1"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="Select Problem"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                        <EtchetBorder bevelType="0"/>
+                      </Border>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="selectProblemCombo">
+                  <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="cc" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI Emoji" size="14" style="0"/>
+                    </Property>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="0"/>
+                    </Property>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                        <BevelBorder bevelType="1"/>
+                      </Border>
+                    </Property>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                </Component>
+                <Container class="javax.swing.JPanel" name="pdfPanel">
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
+                </Container>
+                <Component class="javax.swing.JButton" name="submitProblemSolution">
+                  <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI Emoji" size="14" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="33" green="0" red="33" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Submit Problem"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
+                        <CompoundBorder>
+                          <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                            <LineBorder roundedCorners="true">
+                              <Color PropertyName="color" blue="99" green="0" red="0" type="rgb"/>
+                            </LineBorder>
+                          </Border>
+                          <Border PropertyName="inside" info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                            <BevelBorder>
+                              <Color PropertyName="highlightOuter" blue="99" green="99" red="0" type="rgb"/>
+                              <Color PropertyName="highlightInner" blue="ff" green="ff" red="66" type="rgb"/>
+                              <Color PropertyName="shadowOuter" blue="99" green="99" red="0" type="rgb"/>
+                              <Color PropertyName="shadowInner" blue="ff" green="ff" red="66" type="rgb"/>
+                            </BevelBorder>
+                          </Border>
+                        </CompoundBorder>
+                      </Border>
+                    </Property>
+                    <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                      <Color id="Default Cursor"/>
+                    </Property>
+                  </Properties>
+                </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="SubmitSolPanel">
@@ -249,7 +860,71 @@
                 </Constraint>
               </Constraints>
 
-              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="ChooseFileLabel" min="-2" pref="160" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="ChooseFileButton" min="-2" pref="125" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="SubmitButton" min="-2" pref="133" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="SourceCodeScrollPane" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="LanguageLabel" min="-2" pref="160" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="submissionLanguageCombo" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" attributes="0">
+                                              <Component id="ProblemIDLabel" min="-2" pref="160" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="txtProblemID" min="-2" pref="371" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Component id="SourceCodeLabel" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="254" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="ProblemIDLabel" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="txtProblemID" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="LanguageLabel" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                              <Component id="submissionLanguageCombo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="SourceCodeLabel" min="-2" pref="29" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="SourceCodeScrollPane" pref="440" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="ChooseFileButton" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                              <Component id="SubmitButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="ChooseFileLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="ChooseFileLabel">
                   <Properties>
@@ -259,25 +934,33 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="59" green="21" red="36" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Or choose File:"/>
+                    <Property name="text" type="java.lang.String" value="Or Choose File:"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                        <EtchetBorder bevelType="0">
+                          <Color PropertyName="highlight" blue="cc" green="cc" red="0" type="rgb"/>
+                          <Color PropertyName="shadow" blue="cc" green="cc" red="0" type="rgb"/>
+                        </EtchetBorder>
+                      </Border>
+                    </Property>
                   </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                      <GridBagConstraints gridX="0" gridY="5" gridWidth="2" gridHeight="1" fill="0" ipadX="43" ipadY="10" insetsTop="20" insetsLeft="50" insetsBottom="0" insetsRight="0" anchor="18" weightX="0.0" weightY="0.0"/>
-                    </Constraint>
-                  </Constraints>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtProblemID">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="14" style="0"/>
                     </Property>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                        <BevelBorder bevelType="1">
+                          <Color PropertyName="highlightOuter" blue="ff" green="ff" red="99" type="rgb"/>
+                          <Color PropertyName="highlightInner" blue="ff" green="ff" red="99" type="rgb"/>
+                          <Color PropertyName="shadowOuter" blue="cc" green="cc" red="0" type="rgb"/>
+                          <Color PropertyName="shadowInner" blue="cc" green="cc" red="0" type="rgb"/>
+                        </BevelBorder>
+                      </Border>
+                    </Property>
                   </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                      <GridBagConstraints gridX="1" gridY="0" gridWidth="5" gridHeight="1" fill="0" ipadX="156" ipadY="6" insetsTop="40" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="18" weightX="0.0" weightY="0.0"/>
-                    </Constraint>
-                  </Constraints>
                 </Component>
                 <Component class="javax.swing.JLabel" name="ProblemIDLabel">
                   <Properties>
@@ -288,12 +971,15 @@
                       <Color blue="59" green="21" red="36" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Problem ID: "/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                        <EtchetBorder bevelType="0">
+                          <Color PropertyName="highlight" blue="cc" green="cc" red="0" type="rgb"/>
+                          <Color PropertyName="shadow" blue="cc" green="cc" red="0" type="rgb"/>
+                        </EtchetBorder>
+                      </Border>
+                    </Property>
                   </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                      <GridBagConstraints gridX="0" gridY="0" gridWidth="1" gridHeight="1" fill="0" ipadX="61" ipadY="10" insetsTop="40" insetsLeft="40" insetsBottom="0" insetsRight="0" anchor="18" weightX="0.0" weightY="0.0"/>
-                    </Constraint>
-                  </Constraints>
                 </Component>
                 <Component class="javax.swing.JLabel" name="LanguageLabel">
                   <Properties>
@@ -304,22 +990,20 @@
                       <Color blue="59" green="21" red="36" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Language: "/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                        <EtchetBorder bevelType="0">
+                          <Color PropertyName="highlight" blue="cc" green="cc" red="0" type="rgb"/>
+                          <Color PropertyName="shadow" blue="cc" green="cc" red="0" type="rgb"/>
+                        </EtchetBorder>
+                      </Border>
+                    </Property>
                   </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                      <GridBagConstraints gridX="0" gridY="1" gridWidth="1" gridHeight="1" fill="0" ipadX="74" ipadY="20" insetsTop="10" insetsLeft="40" insetsBottom="0" insetsRight="0" anchor="18" weightX="0.0" weightY="0.0"/>
-                    </Constraint>
-                  </Constraints>
                 </Component>
                 <Container class="javax.swing.JScrollPane" name="SourceCodeScrollPane">
                   <AuxValues>
                     <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                   </AuxValues>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                      <GridBagConstraints gridX="1" gridY="3" gridWidth="7" gridHeight="2" fill="1" ipadX="540" ipadY="320" insetsTop="18" insetsLeft="0" insetsBottom="0" insetsRight="160" anchor="18" weightX="1.0" weightY="1.0"/>
-                    </Constraint>
-                  </Constraints>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
@@ -331,8 +1015,11 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JComboBox" name="LanguageComboBox">
+                <Component class="javax.swing.JComboBox" name="submissionLanguageCombo">
                   <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="cc" type="rgb"/>
+                    </Property>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="18" style="0"/>
                     </Property>
@@ -343,18 +1030,21 @@
                         <StringItem index="2" value="Java"/>
                       </StringArray>
                     </Property>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                        <EtchetBorder>
+                          <Color PropertyName="highlight" blue="cc" green="cc" red="0" type="rgb"/>
+                          <Color PropertyName="shadow" blue="cc" green="cc" red="0" type="rgb"/>
+                        </EtchetBorder>
+                      </Border>
+                    </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="LanguageComboBoxActionPerformed"/>
-                  </Events>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                      <GridBagConstraints gridX="1" gridY="1" gridWidth="3" gridHeight="2" fill="0" ipadX="0" ipadY="0" insetsTop="20" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="18" weightX="0.0" weightY="0.0"/>
-                    </Constraint>
-                  </Constraints>
                 </Component>
                 <Component class="javax.swing.JLabel" name="SourceCodeLabel">
                   <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI Emoji" size="18" style="0"/>
                     </Property>
@@ -362,28 +1052,48 @@
                       <Color blue="59" green="21" red="36" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Source Code:"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                        <EtchetBorder bevelType="0">
+                          <Color PropertyName="highlight" blue="cc" green="cc" red="0" type="rgb"/>
+                          <Color PropertyName="shadow" blue="cc" green="cc" red="0" type="rgb"/>
+                        </EtchetBorder>
+                      </Border>
+                    </Property>
                   </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                      <GridBagConstraints gridX="0" gridY="3" gridWidth="1" gridHeight="1" fill="0" ipadX="55" ipadY="20" insetsTop="8" insetsLeft="40" insetsBottom="0" insetsRight="0" anchor="18" weightX="0.0" weightY="0.0"/>
-                    </Constraint>
-                  </Constraints>
                 </Component>
                 <Component class="javax.swing.JButton" name="ChooseFileButton">
                   <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Tahoma" size="13" style="1"/>
+                      <Font name="Segoe UI Emoji" size="14" style="1"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Choose File"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
+                        <CompoundBorder>
+                          <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                            <LineBorder roundedCorners="true" thickness="2">
+                              <Color PropertyName="color" blue="99" green="0" red="0" type="rgb"/>
+                            </LineBorder>
+                          </Border>
+                          <Border PropertyName="inside" info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                            <BevelBorder>
+                              <Color PropertyName="highlightOuter" blue="cc" green="cc" red="0" type="rgb"/>
+                              <Color PropertyName="highlightInner" blue="cc" green="cc" red="0" type="rgb"/>
+                              <Color PropertyName="shadowOuter" blue="cc" green="cc" red="0" type="rgb"/>
+                              <Color PropertyName="shadowInner" blue="cc" green="cc" red="0" type="rgb"/>
+                            </BevelBorder>
+                          </Border>
+                        </CompoundBorder>
+                      </Border>
+                    </Property>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ChooseFileButtonActionPerformed"/>
                   </Events>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                      <GridBagConstraints gridX="1" gridY="5" gridWidth="4" gridHeight="1" fill="0" ipadX="19" ipadY="-2" insetsTop="20" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="18" weightX="0.0" weightY="0.0"/>
-                    </Constraint>
-                  </Constraints>
                 </Component>
                 <Component class="javax.swing.JButton" name="SubmitButton">
                   <Properties>
@@ -398,10 +1108,22 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Submit"/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
-                        <MatteColorBorder>
-                          <Color PropertyName="color" blue="59" green="21" red="36" type="rgb"/>
-                        </MatteColorBorder>
+                      <Border info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
+                        <CompoundBorder>
+                          <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                            <LineBorder roundedCorners="true" thickness="2">
+                              <Color PropertyName="color" blue="99" green="33" red="0" type="rgb"/>
+                            </LineBorder>
+                          </Border>
+                          <Border PropertyName="inside" info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                            <BevelBorder>
+                              <Color PropertyName="highlightOuter" blue="ff" green="ff" red="0" type="rgb"/>
+                              <Color PropertyName="highlightInner" blue="ff" green="ff" red="0" type="rgb"/>
+                              <Color PropertyName="shadowOuter" blue="ff" green="ff" red="0" type="rgb"/>
+                              <Color PropertyName="shadowInner" blue="ff" green="ff" red="0" type="rgb"/>
+                            </BevelBorder>
+                          </Border>
+                        </CompoundBorder>
                       </Border>
                     </Property>
                     <Property name="contentAreaFilled" type="boolean" value="false"/>
@@ -412,15 +1134,15 @@
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SubmitButtonActionPerformed"/>
                   </Events>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                      <GridBagConstraints gridX="6" gridY="5" gridWidth="1" gridHeight="2" fill="0" ipadX="25" ipadY="18" insetsTop="40" insetsLeft="100" insetsBottom="60" insetsRight="0" anchor="18" weightX="0.0" weightY="0.0"/>
-                    </Constraint>
-                  </Constraints>
                 </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="StatusPanel">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+              </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                   <JTabbedPaneConstraints tabName="Status">
@@ -429,7 +1151,32 @@
                 </Constraint>
               </Constraints>
 
-              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="remainingTimeLabelStatus" min="-2" pref="207" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="remainingTimeTextStatus" pref="598" max="32767" attributes="0"/>
+                      </Group>
+                      <Component id="StatusScrollPane" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="remainingTimeLabelStatus" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                              <Component id="remainingTimeTextStatus" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                          <Component id="StatusScrollPane" min="-2" pref="651" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
               <SubComponents>
                 <Container class="javax.swing.JScrollPane" name="StatusScrollPane">
                   <Properties>
@@ -440,28 +1187,23 @@
                   <AuxValues>
                     <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                   </AuxValues>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-                      <BorderConstraints direction="Center"/>
-                    </Constraint>
-                  </Constraints>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
                     <Component class="javax.swing.JTable" name="StatusTable">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Segoe UI Emoji" size="18" style="1"/>
+                          <Font name="Segoe UI Emoji" size="14" style="0"/>
                         </Property>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="7" rowCount="25">
-                            <Column editable="true" title="#" type="java.lang.Object"/>
-                            <Column editable="true" title="When" type="java.lang.Object"/>
-                            <Column editable="true" title="Who" type="java.lang.Object"/>
-                            <Column editable="true" title="Problem" type="java.lang.Object"/>
-                            <Column editable="true" title="Lang" type="java.lang.Object"/>
-                            <Column editable="true" title="Verdict" type="java.lang.Object"/>
-                            <Column editable="true" title="Time" type="java.lang.Object"/>
+                            <Column editable="false" title="#" type="java.lang.Object"/>
+                            <Column editable="false" title="When" type="java.lang.Object"/>
+                            <Column editable="false" title="Who" type="java.lang.Object"/>
+                            <Column editable="false" title="Problem" type="java.lang.Object"/>
+                            <Column editable="false" title="Lang" type="java.lang.Object"/>
+                            <Column editable="false" title="Verdict" type="java.lang.Object"/>
+                            <Column editable="false" title="Time" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -512,12 +1254,11 @@
                         </Property>
                         <Property name="opaque" type="boolean" value="false"/>
                         <Property name="requestFocusEnabled" type="boolean" value="false"/>
-                        <Property name="rowHeight" type="int" value="25"/>
+                        <Property name="rowHeight" type="int" value="23"/>
                         <Property name="rowSelectionAllowed" type="boolean" value="false"/>
                         <Property name="selectionBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="cc" green="b5" red="0" type="rgb"/>
                         </Property>
-                        <Property name="showHorizontalLines" type="boolean" value="false"/>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                           <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                         </Property>
@@ -525,9 +1266,49 @@
                     </Component>
                   </SubComponents>
                 </Container>
+                <Component class="javax.swing.JLabel" name="remainingTimeLabelStatus">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI Emoji" size="14" style="1"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="Remaining Time"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                        <EtchetBorder bevelType="0"/>
+                      </Border>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="remainingTimeTextStatus">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="cc" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI Emoji" size="14" style="1"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="autoscrolls" type="boolean" value="false"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                        <BevelBorder bevelType="1"/>
+                      </Border>
+                    </Property>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                    <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="MySubPanel">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+              </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                   <JTabbedPaneConstraints tabName="My Submissions">
@@ -536,7 +1317,32 @@
                 </Constraint>
               </Constraints>
 
-              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="remainingTimeLabelMysubmission" min="-2" pref="207" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="remainingTimeTextMySubmission" pref="598" max="32767" attributes="0"/>
+                      </Group>
+                      <Component id="MySubScrollPane" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="remainingTimeLabelMysubmission" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                              <Component id="remainingTimeTextMySubmission" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                          <Component id="MySubScrollPane" min="-2" pref="651" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
               <SubComponents>
                 <Container class="javax.swing.JScrollPane" name="MySubScrollPane">
                   <Properties>
@@ -547,18 +1353,13 @@
                   <AuxValues>
                     <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                   </AuxValues>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-                      <BorderConstraints direction="Center"/>
-                    </Constraint>
-                  </Constraints>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
                     <Component class="javax.swing.JTable" name="MySubTable">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Segoe UI Emoji" size="18" style="1"/>
+                          <Font name="Segoe UI Emoji" size="14" style="1"/>
                         </Property>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="7" rowCount="25">
@@ -619,7 +1420,7 @@
                         </Property>
                         <Property name="opaque" type="boolean" value="false"/>
                         <Property name="requestFocusEnabled" type="boolean" value="false"/>
-                        <Property name="rowHeight" type="int" value="25"/>
+                        <Property name="rowHeight" type="int" value="23"/>
                         <Property name="rowSelectionAllowed" type="boolean" value="false"/>
                         <Property name="selectionBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="cc" green="b5" red="0" type="rgb"/>
@@ -632,9 +1433,49 @@
                     </Component>
                   </SubComponents>
                 </Container>
+                <Component class="javax.swing.JLabel" name="remainingTimeLabelMysubmission">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI Emoji" size="14" style="1"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="Remaining Time"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                        <EtchetBorder bevelType="0"/>
+                      </Border>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="remainingTimeTextMySubmission">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="cc" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI Emoji" size="14" style="1"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="autoscrolls" type="boolean" value="false"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                        <BevelBorder bevelType="1"/>
+                      </Border>
+                    </Property>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                    <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="StandingsPanel">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+              </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                   <JTabbedPaneConstraints tabName="Standings">
@@ -643,7 +1484,32 @@
                 </Constraint>
               </Constraints>
 
-              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="remainingTimeLabelStandings" min="-2" pref="207" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="remainingTimeTextStanding" pref="598" max="32767" attributes="0"/>
+                      </Group>
+                      <Component id="StandingsScrollPane" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="remainingTimeLabelStandings" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                              <Component id="remainingTimeTextStanding" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="StandingsScrollPane" min="-2" pref="658" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
               <SubComponents>
                 <Container class="javax.swing.JScrollPane" name="StandingsScrollPane">
                   <Properties>
@@ -654,18 +1520,13 @@
                   <AuxValues>
                     <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                   </AuxValues>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-                      <BorderConstraints direction="Center"/>
-                    </Constraint>
-                  </Constraints>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
                     <Component class="javax.swing.JTable" name="StandingsTable">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Segoe UI Emoji" size="18" style="1"/>
+                          <Font name="Segoe UI Emoji" size="14" style="1"/>
                         </Property>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="7" rowCount="25">
@@ -726,7 +1587,7 @@
                         </Property>
                         <Property name="opaque" type="boolean" value="false"/>
                         <Property name="requestFocusEnabled" type="boolean" value="false"/>
-                        <Property name="rowHeight" type="int" value="25"/>
+                        <Property name="rowHeight" type="int" value="23"/>
                         <Property name="rowSelectionAllowed" type="boolean" value="false"/>
                         <Property name="selectionBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="cc" green="b5" red="0" type="rgb"/>
@@ -739,6 +1600,41 @@
                     </Component>
                   </SubComponents>
                 </Container>
+                <Component class="javax.swing.JLabel" name="remainingTimeLabelStandings">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI Emoji" size="14" style="1"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="Remaining Time"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                        <EtchetBorder bevelType="0"/>
+                      </Border>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="remainingTimeTextStanding">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="cc" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI Emoji" size="14" style="1"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="autoscrolls" type="boolean" value="false"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                        <BevelBorder bevelType="1"/>
+                      </Border>
+                    </Property>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                    <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
               </SubComponents>
             </Container>
           </SubComponents>

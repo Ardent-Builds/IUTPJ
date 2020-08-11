@@ -5,26 +5,46 @@
  */
 package iutpj_admin;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 /**
  *
  * @author HEROK
  */
-public class DateTimePicker extends javax.swing.JPanel {
+public class DateTimePicker extends javax.swing.JDialog {
 
     /**
      * Creates new form DateTimePicker
      */
-    private DefaultTableModel calenderModel;
-    private Calendar calendar;
-    
-    public DateTimePicker() {
+    private final DefaultTableModel calendarModel;
+    private final GregorianCalendar currentCalendar;
+    private final SimpleDateFormat formatter;
+    private final java.awt.Frame parent;
+
+    public DateTimePicker(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
-        calenderModel = new DefaultTableModel();
-        
+        formatter = new SimpleDateFormat("dd/MM/yyyy:HH:mm");
+        calendarModel = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) { // custom isCellEditable function
+                return false;
+            }
+        };
+        calendarTable.setCellSelectionEnabled(true);
+        calendarTable.setRowSelectionAllowed(false);
+        calendarTable.setCellSelectionEnabled(false);
+        String[] weekDays = {"SUN", "MON", "TUE", "WED", "THU", "FRY", "SAT"};
+        calendarModel.setColumnIdentifiers(weekDays);
+        calendarModel.setRowCount(7);
+        currentCalendar = new GregorianCalendar();
+        refreshTable(currentCalendar.get(Calendar.MONTH), currentCalendar.get(Calendar.YEAR));
+        this.parent = parent;
     }
 
     /**
@@ -36,31 +56,61 @@ public class DateTimePicker extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        minuteCombo = new javax.swing.JComboBox<>();
-        hourCombo = new javax.swing.JComboBox<>();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        calenderTable = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        titleLabel = new javax.swing.JLabel();
+        previousMonth = new javax.swing.JButton();
         monthText = new javax.swing.JTextField();
         yearText = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        nextMonth = new javax.swing.JButton();
+        tableScrollPane = new javax.swing.JScrollPane();
+        calendarTable = new javax.swing.JTable();
+        timeLabel = new javax.swing.JLabel();
         hhLabel = new javax.swing.JLabel();
         mmLabel = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jTextField3 = new javax.swing.JTextField();
+        minuteCombo = new javax.swing.JComboBox<>();
+        hourCombo = new javax.swing.JComboBox<>();
+        submitButton = new javax.swing.JButton();
+        selectedDateTimeText = new javax.swing.JTextField();
 
-        minuteCombo.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
-        minuteCombo.setForeground(new java.awt.Color(0, 51, 204));
-        minuteCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        hourCombo.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
-        hourCombo.setForeground(new java.awt.Color(0, 0, 204));
-        hourCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
+        titleLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 16)); // NOI18N
+        titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titleLabel.setText("Date & Time Picker");
 
-        calenderTable.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
-        calenderTable.setModel(new javax.swing.table.DefaultTableModel(
+        previousMonth.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        previousMonth.setForeground(new java.awt.Color(0, 204, 255));
+        previousMonth.setText("<<");
+        previousMonth.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        previousMonth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                previousMonthActionPerformed(evt);
+            }
+        });
+
+        monthText.setEditable(false);
+        monthText.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        monthText.setText("Month");
+        monthText.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        monthText.setPreferredSize(new java.awt.Dimension(80, 20));
+
+        yearText.setEditable(false);
+        yearText.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        yearText.setText("Year");
+        yearText.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        yearText.setPreferredSize(new java.awt.Dimension(80, 20));
+
+        nextMonth.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        nextMonth.setForeground(new java.awt.Color(0, 204, 255));
+        nextMonth.setText(">>");
+        nextMonth.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        nextMonth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextMonthActionPerformed(evt);
+            }
+        });
+
+        calendarTable.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
+        calendarTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -79,33 +129,17 @@ public class DateTimePicker extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(calenderTable);
+        calendarTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                calendarTableMouseClicked(evt);
+            }
+        });
+        tableScrollPane.setViewportView(calendarTable);
 
-        jButton1.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 204, 255));
-        jButton1.setText(">>");
-        jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        jButton2.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 204, 255));
-        jButton2.setText("<<");
-        jButton2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        monthText.setEditable(false);
-        monthText.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
-        monthText.setText("Month");
-        monthText.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        monthText.setPreferredSize(new java.awt.Dimension(80, 20));
-
-        yearText.setEditable(false);
-        yearText.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
-        yearText.setText("Year");
-        yearText.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        yearText.setPreferredSize(new java.awt.Dimension(80, 20));
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI Emoji", 1, 16)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Date & Time Picker");
+        timeLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        timeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        timeLabel.setText("Time");
+        timeLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         hhLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 12)); // NOI18N
         hhLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -117,40 +151,58 @@ public class DateTimePicker extends javax.swing.JPanel {
         mmLabel.setText("MM");
         mmLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Time");
-        jLabel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        minuteCombo.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
+        minuteCombo.setForeground(new java.awt.Color(0, 51, 204));
+        minuteCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
+        minuteCombo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                minuteComboItemStateChanged(evt);
+            }
+        });
 
-        jButton3.setFont(new java.awt.Font("Segoe UI Emoji", 1, 12)); // NOI18N
-        jButton3.setText("Submit");
-        jButton3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, java.awt.Color.gray));
-        jButton3.setMargin(new java.awt.Insets(4, 14, 4, 14));
+        hourCombo.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
+        hourCombo.setForeground(new java.awt.Color(0, 0, 204));
+        hourCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
+        hourCombo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                hourComboItemStateChanged(evt);
+            }
+        });
 
-        jTextField3.setEditable(false);
-        jTextField3.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
-        jTextField3.setText("DD/MM/YYYY:HH24:MM");
-        jTextField3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        submitButton.setFont(new java.awt.Font("Segoe UI Emoji", 1, 12)); // NOI18N
+        submitButton.setText("Submit");
+        submitButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        submitButton.setMargin(new java.awt.Insets(4, 14, 4, 14));
+        submitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitButtonActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        selectedDateTimeText.setEditable(false);
+        selectedDateTimeText.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
+        selectedDateTimeText.setText("DD/MM/YYYY:HH24:MM");
+        selectedDateTimeText.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(titleLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(tableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(previousMonth, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(monthText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(yearText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(nextMonth, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+                        .addComponent(timeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(hhLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
@@ -161,33 +213,33 @@ public class DateTimePicker extends javax.swing.JPanel {
                             .addComponent(minuteCombo, 0, 63, Short.MAX_VALUE))
                         .addGap(8, 8, 8)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(selectedDateTimeText, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                            .addComponent(submitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(titleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(8, 8, 8)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(monthText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(previousMonth, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(9, 9, 9)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(yearText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(nextMonth, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(3, 3, 3)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                .addComponent(tableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(selectedDateTimeText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,26 +249,92 @@ public class DateTimePicker extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(hourCombo)
                             .addComponent(minuteCombo)))
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(timeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    final void refreshTable(int month, int year) {
+        currentCalendar.set(Calendar.MONTH, month);
+        currentCalendar.set(Calendar.YEAR, year);
+
+        selectedDateTimeText.setText(formatter.format(currentCalendar.getTime()));
+        monthText.setText(currentCalendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH));
+        yearText.setText(Integer.toString(currentCalendar.get(Calendar.YEAR)));
+
+        currentCalendar.set(Calendar.DAY_OF_MONTH, 1);
+        int weekDay = currentCalendar.get(Calendar.DAY_OF_WEEK) - 1;
+        int shift = weekDay - 1;
+        calendarModel.setRowCount(0);
+        calendarModel.setRowCount(7);
+        for (int i = 1; i <= currentCalendar.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
+
+            System.out.println(weekDay + " " + i + " " + i / 7);
+            calendarModel.setValueAt(i, Math.floorDiv(i + shift, 7), weekDay);
+            weekDay = (weekDay + 1) % 7;
+        }
+        calendarTable.setModel(calendarModel);
+        hourCombo.setSelectedIndex(currentCalendar.get(Calendar.HOUR_OF_DAY));
+        minuteCombo.setSelectedIndex(currentCalendar.get(Calendar.MINUTE));
+    }
+    
+    public Date getDateTime(){
+        currentCalendar.set(Calendar.SECOND, 0);
+        return currentCalendar.getTime();
+    }
+    private void previousMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previousMonthActionPerformed
+        currentCalendar.add(Calendar.MONTH, -1);
+        refreshTable(currentCalendar.get(Calendar.MONTH), currentCalendar.get(Calendar.YEAR));
+    }//GEN-LAST:event_previousMonthActionPerformed
+
+    private void nextMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextMonthActionPerformed
+        currentCalendar.add(Calendar.MONTH, 1);
+        refreshTable(currentCalendar.get(Calendar.MONTH), currentCalendar.get(Calendar.YEAR));
+    }//GEN-LAST:event_nextMonthActionPerformed
+
+    private void calendarTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_calendarTableMouseClicked
+        if (!evt.isConsumed()) {
+            evt.consume();
+            int row = calendarTable.rowAtPoint(evt.getPoint());
+            int col = calendarTable.columnAtPoint(evt.getPoint());
+            if (calendarTable.getValueAt(row, col) != null) {
+                currentCalendar.set(Calendar.DAY_OF_MONTH, (int) calendarTable.getValueAt(row, col));
+            }
+            selectedDateTimeText.setText(formatter.format(currentCalendar.getTime()));
+        }
+    }//GEN-LAST:event_calendarTableMouseClicked
+
+    private void minuteComboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_minuteComboItemStateChanged
+        currentCalendar.set(Calendar.MINUTE, minuteCombo.getSelectedIndex());
+        selectedDateTimeText.setText(formatter.format(currentCalendar.getTime()));
+    }//GEN-LAST:event_minuteComboItemStateChanged
+
+    private void hourComboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_hourComboItemStateChanged
+        currentCalendar.set(Calendar.HOUR_OF_DAY, hourCombo.getSelectedIndex());
+        selectedDateTimeText.setText(formatter.format(currentCalendar.getTime()));
+    }//GEN-LAST:event_hourComboItemStateChanged
+
+    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
+       this.dispose();
+    }//GEN-LAST:event_submitButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable calenderTable;
+    private javax.swing.JTable calendarTable;
     private javax.swing.JLabel hhLabel;
     private javax.swing.JComboBox<String> hourCombo;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JComboBox<String> minuteCombo;
     private javax.swing.JLabel mmLabel;
     private javax.swing.JTextField monthText;
+    private javax.swing.JButton nextMonth;
+    private javax.swing.JButton previousMonth;
+    private javax.swing.JTextField selectedDateTimeText;
+    private javax.swing.JButton submitButton;
+    private javax.swing.JScrollPane tableScrollPane;
+    private javax.swing.JLabel timeLabel;
+    private javax.swing.JLabel titleLabel;
     private javax.swing.JTextField yearText;
     // End of variables declaration//GEN-END:variables
 }
