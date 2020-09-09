@@ -34,18 +34,8 @@ public class IUTPJ_User {
         }
         
         UserSocket usersoceket = new UserSocket();
-        
-        
         Login loginPage = new Login(usersoceket);
-        
-
-        
-        
-        
-        
-        
-        
-        
+        loginPage.setVisible(true);
     }
     
 }

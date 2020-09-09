@@ -10,8 +10,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.BorderFactory;
@@ -41,13 +39,13 @@ public class UserDashboard extends javax.swing.JFrame {
     /**
      * Creates new form UserDashboard
      */
-    private final UserSocket usersocket;
+    private final UserSocket userSocket;
     private SwingController pdfController;
     private JPanel pdfViewerPanel;
     private File codefile;
-    private UserDashboard temporary;
     private Login login;
-    private Object[][] problemTable, statusTable, myStatusTable, standingTable, contestTable;
+    private Object[][] problemTableModel, statusTableModel, myStatusTableModel, standingTableModel, contestTableModel;
+    private String problemID;
 
     public UserDashboard(UserSocket usersocket, Login login) {
         initComponents();
@@ -56,15 +54,15 @@ public class UserDashboard extends javax.swing.JFrame {
         this.pdfViewerPanel = new SwingViewBuilder(pdfController).buildViewerPanel();
         this.pdfPanel.add(this.pdfViewerPanel);
 
-        this.usersocket = usersocket;
+        this.userSocket = usersocket;
+        this.userSocket.setCurrentJFrame(this);
         this.codefile = null;
-        temporary = this;
         this.login = login;
-        problemTable = null;
-        statusTable = null;
-        myStatusTable = null;
-        standingTable = null;
-        contestTable = null;
+        problemTableModel = null;
+        statusTableModel = null;
+        myStatusTableModel = null;
+        standingTableModel = null;
+        contestTableModel = null;
 
         TableCellRenderer cellRenderer = new TableCellRenderer() {
             @Override
@@ -117,52 +115,7 @@ public class UserDashboard extends javax.swing.JFrame {
         ContestTable.getTableHeader().setDefaultRenderer(cellRenderer);
         ContestTable.putClientProperty("Contest Name", Color.BLUE);
 
-        MySubTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                if (evt.getClickCount() == 1 && !evt.isConsumed()) {
-                    evt.consume();
-                    int row = MySubTable.rowAtPoint(evt.getPoint());
-                    int col = MySubTable.columnAtPoint(evt.getPoint());
-                    if (row >= 0 && col == 0) {
-                        DefaultTableModel tablemodel = (DefaultTableModel) MySubTable.getModel();
-                        if (tablemodel.getValueAt(row, 0) != null) {
-                            String submissionid = myStatusTable[row][8].toString();
-                            SubmissionShow subshow = new SubmissionShow(usersocket, temporary);
-                            subshow.setSubDetailsTable(submissionid, tablemodel.getValueAt(row, 2), tablemodel.getValueAt(row, 3), tablemodel.getValueAt(row, 4), tablemodel.getValueAt(row, 5), tablemodel.getValueAt(row, 6), tablemodel.getValueAt(row, 1), myStatusTable[row][7]);
-
-                            usersocket.sendData("SrcCode-[" + submissionid + "]");
-                            NewSubmission submission = usersocket.getSubmission();
-                            subshow.setSourceCode(submission);
-                        }
-
-                    } else if (row >= 0 && col == 3) {
-                        DefaultTableModel tablemodel = (DefaultTableModel) MySubTable.getModel();
-                        if (tablemodel.getValueAt(row, 3) != null) {
-                            String problemid = myStatusTable[row][7].toString();
-
-                            usersocket.sendData("ProbFile[" + problemid + "]");
-                            NewProblem problem = usersocket.getProblem();
-                            try {
-                                FileOutputStream fos = new FileOutputStream(problemid + ".pdf");
-                                fos.write(problem.getProb());
-                                fos.close();
-                            } catch (FileNotFoundException ex) {
-                                System.out.println("At probshow problem write Err: " + ex.getMessage());
-                            } catch (IOException ex) {
-                                System.out.println("At probshow problem write Err: " + ex.getMessage());
-                            }
-
-                            ProblemShow problemshow = new ProblemShow(temporary, problem.getProblemName(), problem.getTimeLimit(), problem.getMemoryLimit());
-                            problemshow.viewPdf(new File(problemid + ".pdf"), problemid);
-                        }
-
-                    }
-                }
-            }
-        });
-
-        //this.setVisible(true);
+        this.setVisible(true);
     }
 
     /**
@@ -188,11 +141,11 @@ public class UserDashboard extends javax.swing.JFrame {
         timeLimitLabel = new javax.swing.JLabel();
         memoryLimitText = new javax.swing.JTextField();
         memoryLimitLabel = new javax.swing.JLabel();
-        timeLimitText = new javax.swing.JTextField();
+        problemNameText = new javax.swing.JTextField();
         selectProblemLabel = new javax.swing.JLabel();
-        selectProblemCombo = new javax.swing.JComboBox<>();
         pdfPanel = new javax.swing.JPanel();
         submitProblemSolution = new javax.swing.JButton();
+        timeLimitText = new javax.swing.JTextField();
         SubmitSolPanel = new javax.swing.JPanel();
         ChooseFileLabel = new javax.swing.JLabel();
         txtProblemID = new javax.swing.JTextField();
@@ -200,16 +153,16 @@ public class UserDashboard extends javax.swing.JFrame {
         LanguageLabel = new javax.swing.JLabel();
         SourceCodeScrollPane = new javax.swing.JScrollPane();
         SourceCodeTextArea = new javax.swing.JTextArea();
-        LanguageComboBox = new javax.swing.JComboBox();
+        submissionLanguageCombo = new javax.swing.JComboBox();
         SourceCodeLabel = new javax.swing.JLabel();
         ChooseFileButton = new javax.swing.JButton();
         SubmitButton = new javax.swing.JButton();
-        StatusPanel = new javax.swing.JPanel();
-        StatusScrollPane = new javax.swing.JScrollPane();
-        StatusTable = new javax.swing.JTable();
         MySubPanel = new javax.swing.JPanel();
         MySubScrollPane = new javax.swing.JScrollPane();
         MySubTable = new javax.swing.JTable();
+        StatusPanel = new javax.swing.JPanel();
+        StatusScrollPane = new javax.swing.JScrollPane();
+        StatusTable = new javax.swing.JTable();
         StandingsPanel = new javax.swing.JPanel();
         StandingsScrollPane = new javax.swing.JScrollPane();
         StandingsTable = new javax.swing.JTable();
@@ -237,6 +190,7 @@ public class UserDashboard extends javax.swing.JFrame {
 
         UserDashboardTabSwitcher.setBackground(new java.awt.Color(255, 255, 255));
         UserDashboardTabSwitcher.setForeground(new java.awt.Color(54, 33, 89));
+        UserDashboardTabSwitcher.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
         UserDashboardTabSwitcher.setTabPlacement(javax.swing.JTabbedPane.LEFT);
         UserDashboardTabSwitcher.setFont(new java.awt.Font("Segoe UI Emoji", 0, 29)); // NOI18N
         UserDashboardTabSwitcher.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -374,24 +328,20 @@ public class UserDashboard extends javax.swing.JFrame {
         memoryLimitLabel.setText("Memory Limit");
         memoryLimitLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
-        timeLimitText.setEditable(false);
-        timeLimitText.setBackground(new java.awt.Color(204, 255, 255));
-        timeLimitText.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
-        timeLimitText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        timeLimitText.setAutoscrolls(false);
-        timeLimitText.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        timeLimitText.setFocusable(false);
-        timeLimitText.setRequestFocusEnabled(false);
-        timeLimitText.setVerifyInputWhenFocusTarget(false);
+        problemNameText.setEditable(false);
+        problemNameText.setBackground(new java.awt.Color(204, 255, 255));
+        problemNameText.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        problemNameText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        problemNameText.setAutoscrolls(false);
+        problemNameText.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        problemNameText.setFocusable(false);
+        problemNameText.setRequestFocusEnabled(false);
+        problemNameText.setVerifyInputWhenFocusTarget(false);
 
         selectProblemLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
         selectProblemLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        selectProblemLabel.setText("Select Problem");
+        selectProblemLabel.setText("Problem Name");
         selectProblemLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-
-        selectProblemCombo.setBackground(new java.awt.Color(204, 255, 255));
-        selectProblemCombo.setFont(new java.awt.Font("Segoe UI Emoji", 0, 14)); // NOI18N
-        selectProblemCombo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         pdfPanel.setLayout(new java.awt.BorderLayout());
 
@@ -401,6 +351,21 @@ public class UserDashboard extends javax.swing.JFrame {
         submitProblemSolution.setText("Submit Problem");
         submitProblemSolution.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 153), 1, true), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 153, 153), new java.awt.Color(102, 255, 255), new java.awt.Color(0, 153, 153), new java.awt.Color(102, 255, 255))));
         submitProblemSolution.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        submitProblemSolution.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitProblemSolutionActionPerformed(evt);
+            }
+        });
+
+        timeLimitText.setEditable(false);
+        timeLimitText.setBackground(new java.awt.Color(204, 255, 255));
+        timeLimitText.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        timeLimitText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        timeLimitText.setAutoscrolls(false);
+        timeLimitText.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        timeLimitText.setFocusable(false);
+        timeLimitText.setRequestFocusEnabled(false);
+        timeLimitText.setVerifyInputWhenFocusTarget(false);
 
         javax.swing.GroupLayout problemPanelLayout = new javax.swing.GroupLayout(problemPanel);
         problemPanel.setLayout(problemPanelLayout);
@@ -413,15 +378,15 @@ public class UserDashboard extends javax.swing.JFrame {
                     .addGroup(problemPanelLayout.createSequentialGroup()
                         .addComponent(timeLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(timeLimitText, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                        .addComponent(timeLimitText)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(memoryLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(memoryLimitText, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(memoryLimitText))
                     .addGroup(problemPanelLayout.createSequentialGroup()
                         .addComponent(selectProblemLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(selectProblemCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(problemNameText, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(submitProblemSolution, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -433,14 +398,14 @@ public class UserDashboard extends javax.swing.JFrame {
                 .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(submitProblemSolution, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(selectProblemLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(selectProblemCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(problemNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(timeLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(memoryLimitLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(timeLimitText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(memoryLimitText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(timeLimitText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(memoryLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pdfPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
                 .addContainerGap())
@@ -449,124 +414,55 @@ public class UserDashboard extends javax.swing.JFrame {
         UserDashboardTabSwitcher.addTab("Problem", problemPanel);
 
         SubmitSolPanel.setBackground(new java.awt.Color(255, 255, 255));
-        SubmitSolPanel.setLayout(new java.awt.GridBagLayout());
 
         ChooseFileLabel.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
         ChooseFileLabel.setForeground(new java.awt.Color(54, 33, 89));
-        ChooseFileLabel.setText("Or choose File:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.ipadx = 43;
-        gridBagConstraints.ipady = 10;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(20, 50, 0, 0);
-        SubmitSolPanel.add(ChooseFileLabel, gridBagConstraints);
+        ChooseFileLabel.setText("Or Choose File:");
+        ChooseFileLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 204, 204), new java.awt.Color(0, 204, 204)));
 
         txtProblemID.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 5;
-        gridBagConstraints.ipadx = 156;
-        gridBagConstraints.ipady = 6;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(40, 0, 0, 0);
-        SubmitSolPanel.add(txtProblemID, gridBagConstraints);
+        txtProblemID.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED, new java.awt.Color(153, 255, 255), new java.awt.Color(153, 255, 255), new java.awt.Color(0, 204, 204), new java.awt.Color(0, 204, 204)));
 
         ProblemIDLabel.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
         ProblemIDLabel.setForeground(new java.awt.Color(54, 33, 89));
         ProblemIDLabel.setText("Problem ID: ");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 61;
-        gridBagConstraints.ipady = 10;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(40, 40, 0, 0);
-        SubmitSolPanel.add(ProblemIDLabel, gridBagConstraints);
+        ProblemIDLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 204, 204), new java.awt.Color(0, 204, 204)));
 
         LanguageLabel.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
         LanguageLabel.setForeground(new java.awt.Color(54, 33, 89));
         LanguageLabel.setText("Language: ");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.ipadx = 74;
-        gridBagConstraints.ipady = 20;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 40, 0, 0);
-        SubmitSolPanel.add(LanguageLabel, gridBagConstraints);
+        LanguageLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 204, 204), new java.awt.Color(0, 204, 204)));
 
         SourceCodeTextArea.setColumns(20);
         SourceCodeTextArea.setRows(5);
         SourceCodeScrollPane.setViewportView(SourceCodeTextArea);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 7;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 540;
-        gridBagConstraints.ipady = 320;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(18, 0, 0, 160);
-        SubmitSolPanel.add(SourceCodeScrollPane, gridBagConstraints);
+        submissionLanguageCombo.setBackground(new java.awt.Color(204, 255, 255));
+        submissionLanguageCombo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        submissionLanguageCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "C", "C++", "Java" }));
+        submissionLanguageCombo.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(0, 204, 204), new java.awt.Color(0, 204, 204)));
 
-        LanguageComboBox.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        LanguageComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "C", "C++", "Java" }));
-        LanguageComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LanguageComboBoxActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(20, 0, 0, 0);
-        SubmitSolPanel.add(LanguageComboBox, gridBagConstraints);
-
+        SourceCodeLabel.setBackground(new java.awt.Color(255, 255, 255));
         SourceCodeLabel.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
         SourceCodeLabel.setForeground(new java.awt.Color(54, 33, 89));
         SourceCodeLabel.setText("Source Code:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.ipadx = 55;
-        gridBagConstraints.ipady = 20;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(8, 40, 0, 0);
-        SubmitSolPanel.add(SourceCodeLabel, gridBagConstraints);
+        SourceCodeLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 204, 204), new java.awt.Color(0, 204, 204)));
 
-        ChooseFileButton.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        ChooseFileButton.setBackground(new java.awt.Color(255, 255, 255));
+        ChooseFileButton.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
         ChooseFileButton.setText("Choose File");
+        ChooseFileButton.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 153), 2, true), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 204, 204), new java.awt.Color(0, 204, 204), new java.awt.Color(0, 204, 204), new java.awt.Color(0, 204, 204))));
         ChooseFileButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ChooseFileButtonActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.ipadx = 19;
-        gridBagConstraints.ipady = -2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(20, 0, 0, 0);
-        SubmitSolPanel.add(ChooseFileButton, gridBagConstraints);
 
         SubmitButton.setBackground(new java.awt.Color(54, 33, 89));
         SubmitButton.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
         SubmitButton.setForeground(new java.awt.Color(54, 33, 89));
         SubmitButton.setText("Submit");
-        SubmitButton.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(54, 33, 89)));
+        SubmitButton.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 153), 2, true), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 255, 255), new java.awt.Color(0, 255, 255), new java.awt.Color(0, 255, 255), new java.awt.Color(0, 255, 255))));
         SubmitButton.setContentAreaFilled(false);
         SubmitButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         SubmitButton.addActionListener(new java.awt.event.ActionListener() {
@@ -574,75 +470,60 @@ public class UserDashboard extends javax.swing.JFrame {
                 SubmitButtonActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 25;
-        gridBagConstraints.ipady = 18;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(40, 100, 60, 0);
-        SubmitSolPanel.add(SubmitButton, gridBagConstraints);
+
+        javax.swing.GroupLayout SubmitSolPanelLayout = new javax.swing.GroupLayout(SubmitSolPanel);
+        SubmitSolPanel.setLayout(SubmitSolPanelLayout);
+        SubmitSolPanelLayout.setHorizontalGroup(
+            SubmitSolPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SubmitSolPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(SubmitSolPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(SubmitSolPanelLayout.createSequentialGroup()
+                        .addComponent(ChooseFileLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ChooseFileButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(SubmitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(SourceCodeScrollPane)
+                    .addGroup(SubmitSolPanelLayout.createSequentialGroup()
+                        .addGroup(SubmitSolPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(SubmitSolPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, SubmitSolPanelLayout.createSequentialGroup()
+                                    .addComponent(LanguageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(submissionLanguageCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(SubmitSolPanelLayout.createSequentialGroup()
+                                    .addComponent(ProblemIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtProblemID, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(SourceCodeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 258, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        SubmitSolPanelLayout.setVerticalGroup(
+            SubmitSolPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SubmitSolPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(SubmitSolPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ProblemIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtProblemID, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(SubmitSolPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LanguageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(submissionLanguageCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(SourceCodeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(SourceCodeScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(SubmitSolPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ChooseFileButton, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SubmitButton)
+                    .addComponent(ChooseFileLabel))
+                .addGap(43, 43, 43))
+        );
 
         UserDashboardTabSwitcher.addTab("Submit Solution", SubmitSolPanel);
-
-        StatusPanel.setLayout(new java.awt.BorderLayout());
-
-        StatusScrollPane.setFont(new java.awt.Font("Segoe UI Emoji", 1, 25)); // NOI18N
-
-        StatusTable.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
-        StatusTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "#", "When", "Who", "Problem", "Lang", "Verdict", "Time"
-            }
-        ));
-        StatusTable.setFocusable(false);
-        StatusTable.setGridColor(new java.awt.Color(255, 255, 255));
-        StatusTable.setIntercellSpacing(new java.awt.Dimension(0, 0));
-        StatusTable.setOpaque(false);
-        StatusTable.setRequestFocusEnabled(false);
-        StatusTable.setRowHeight(25);
-        StatusTable.setRowSelectionAllowed(false);
-        StatusTable.setSelectionBackground(new java.awt.Color(0, 181, 204));
-        StatusTable.setShowHorizontalLines(false);
-        StatusTable.getTableHeader().setReorderingAllowed(false);
-        StatusTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                statusTableMouseClicked(evt);
-            }
-        });
-        StatusScrollPane.setViewportView(StatusTable);
-
-        StatusPanel.add(StatusScrollPane, java.awt.BorderLayout.CENTER);
-
-        UserDashboardTabSwitcher.addTab("Status", StatusPanel);
 
         MySubPanel.setLayout(new java.awt.BorderLayout());
 
@@ -701,6 +582,64 @@ public class UserDashboard extends javax.swing.JFrame {
         MySubPanel.add(MySubScrollPane, java.awt.BorderLayout.CENTER);
 
         UserDashboardTabSwitcher.addTab("My Submissions", MySubPanel);
+
+        StatusPanel.setLayout(new java.awt.BorderLayout());
+
+        StatusScrollPane.setFont(new java.awt.Font("Segoe UI Emoji", 1, 25)); // NOI18N
+
+        StatusTable.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        StatusTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "#", "When", "Who", "Problem", "Lang", "Verdict", "Time"
+            }
+        ));
+        StatusTable.setFocusable(false);
+        StatusTable.setGridColor(new java.awt.Color(255, 255, 255));
+        StatusTable.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        StatusTable.setOpaque(false);
+        StatusTable.setRequestFocusEnabled(false);
+        StatusTable.setRowHeight(25);
+        StatusTable.setRowSelectionAllowed(false);
+        StatusTable.setSelectionBackground(new java.awt.Color(0, 181, 204));
+        StatusTable.setShowHorizontalLines(false);
+        StatusTable.getTableHeader().setReorderingAllowed(false);
+        StatusTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                statusTableMouseClicked(evt);
+            }
+        });
+        StatusScrollPane.setViewportView(StatusTable);
+
+        StatusPanel.add(StatusScrollPane, java.awt.BorderLayout.CENTER);
+
+        UserDashboardTabSwitcher.addTab("Status", StatusPanel);
 
         StandingsPanel.setLayout(new java.awt.BorderLayout());
 
@@ -814,9 +753,218 @@ public class UserDashboard extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void LanguageComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LanguageComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_LanguageComboBoxActionPerformed
+    private void LogOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogOutButtonActionPerformed
+        login.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_LogOutButtonActionPerformed
+    private void updateProblemSetTable() {
+        problemTableModel = userSocket.getProblemTable();
+        if (problemTableModel == null) {
+            JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            String[] columns = {"Problem ID", "Problem Name", "ProblemSetter"};
+            DefaultTableModel tablemodel = new DefaultTableModel(problemTableModel, columns) {
+                @Override
+                public boolean isCellEditable(int row, int col) {
+                    return false;
+                }
+            };
+            ProblemsetTable.setModel(tablemodel);
+        }
+    }
+
+    private void updateSubmitSolutionTab() {
+        txtProblemID.setEditable(true);
+        txtProblemID.setText(null);
+        ChooseFileButton.setText("Choose file");
+        codefile = null;
+        SourceCodeTextArea.setText(null);
+
+    }
+
+    private void updateStatusTab() {
+        statusTableModel = userSocket.getStatusTable(null);
+        if (statusTableModel == null) {
+            JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            String[] columns = {"#", "When", "Who", "Problem", "Lang", "Verdict", "Time"};
+            DefaultTableModel tablemodel = new DefaultTableModel(statusTableModel, columns) {
+                @Override
+                public boolean isCellEditable(int row, int col) {
+                    return false;
+                }
+            };
+            StatusTable.setModel(tablemodel);
+        }
+    }
+
+    private void updateMySubmissionTab() {
+        myStatusTableModel = userSocket.getStatusTable("my");
+        if (myStatusTableModel == null) {
+            JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            String[] columns = {"#", "When", "Who", "Problem", "Lang", "Verdict", "Time"};
+            DefaultTableModel tablemodel = new DefaultTableModel(myStatusTableModel, columns) {
+                @Override
+                public boolean isCellEditable(int row, int col) {
+                    return false;
+                }
+            };
+            MySubTable.setModel(tablemodel);
+        }
+    }
+
+    private void updateStandingTab() {
+        standingTableModel = userSocket.getStandingsTable();
+        if (standingTableModel == null) {
+            JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            String[] columns = {"#", "ID", "Problems Solved"};
+            DefaultTableModel tablemodel = new DefaultTableModel(standingTableModel, columns) {
+                @Override
+                public boolean isCellEditable(int row, int col) {
+                    return false;
+                }
+            };
+            StandingsTable.setModel(tablemodel);
+        }
+    }
+
+    private void updateAllContestTab() {
+        contestTableModel = userSocket.getContestTable();
+        if (contestTableModel == null) {
+            JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            String[] columns = {"Contest_ID", "Contest Name", "Author", "Start Time", "Duration(minutes)", "Status"};
+            DefaultTableModel tablemodel = new DefaultTableModel(contestTableModel, columns) {
+                @Override
+                public boolean isCellEditable(int row, int col) {
+                    return false;
+                }
+            };
+            ContestTable.setModel(tablemodel);
+        }
+    }
+    private void UserDashboardTabSwitcherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UserDashboardTabSwitcherMouseClicked
+
+        int x = UserDashboardTabSwitcher.getSelectedIndex();
+        switch (x) {
+            case 1:
+                updateProblemSetTable();
+                break;
+            case 3:
+                updateSubmitSolutionTab();
+                break;
+            case 4:
+                updateMySubmissionTab();
+                break;
+            case 5:
+                updateStatusTab();
+                break;
+            case 6:
+                updateStandingTab();
+                break;
+            case 7:
+                updateAllContestTab();
+                break;
+            default:
+                break;
+
+        }
+    }//GEN-LAST:event_UserDashboardTabSwitcherMouseClicked
+
+    private void ContestTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ContestTableMouseClicked
+        if (evt.getClickCount() == 1 & !evt.isConsumed()) {
+            evt.consume();
+            int row = ContestTable.rowAtPoint(evt.getPoint());
+            int col = ContestTable.columnAtPoint(evt.getPoint());
+
+            if (row >= 0 && col == 1) {
+                DefaultTableModel tablemodel = (DefaultTableModel) ContestTable.getModel();
+                if (tablemodel.getValueAt(row, 0) != null) {
+                    String contestID = contestTableModel[row][0].toString();
+                    ContestInfo contest = userSocket.getContestInfo(contestID);
+                    ContestDashboard contestArea = new ContestDashboard(userSocket, this, contest);
+                    contestArea.setVisible(true);
+                    this.setVisible(false);
+                }
+            }
+        }
+    }//GEN-LAST:event_ContestTableMouseClicked
+
+    private void problemSetTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_problemSetTableMouseClicked
+        if (evt.getClickCount() == 1 && !evt.isConsumed()) {
+            evt.consume();
+            int row = ProblemsetTable.rowAtPoint(evt.getPoint());
+            int col = ProblemsetTable.columnAtPoint(evt.getPoint());
+            if (row >= 0 && col == 1 && ProblemsetTable.getValueAt(row, col) != null) {
+                problemID = ProblemsetTable.getValueAt(row, 0).toString();
+                NewProblem problem = userSocket.getProblem(problemID);
+                if(problem==null){
+                    JOptionPane.showMessageDialog(rootPane, "Problem Locked / Not Found");
+                    return;
+                }
+                problemNameText.setText(problem.getProblemName());
+                timeLimitText.setText(problem.getTimeLimit());
+                memoryLimitText.setText(problem.getMemoryLimit());
+                pdfController.openDocument(problem.getProb(), 0, problem.getProb().length, null, null);
+                pdfViewerPanel.revalidate();
+                UserDashboardTabSwitcher.setSelectedIndex(2);
+
+            }
+        }
+    }//GEN-LAST:event_problemSetTableMouseClicked
+
+    private void statusTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_statusTableMouseClicked
+        if (evt.getClickCount() == 1 && !evt.isConsumed()) {
+            evt.consume();
+            int row = StatusTable.rowAtPoint(evt.getPoint());
+            int col = StatusTable.columnAtPoint(evt.getPoint());
+            if (row >= 0 && col == 3 && StatusTable.getValueAt(row, col) != null) {
+                problemID = statusTableModel[row][7].toString();
+                NewProblem problem = userSocket.getProblem(problemID);
+                problemNameText.setText(problem.getProblemName());
+                timeLimitText.setText(problem.getTimeLimit());
+                memoryLimitText.setText(problem.getMemoryLimit());
+                pdfController.openDocument(problem.getProb(), 0, problem.getProb().length, null, null);
+                pdfViewerPanel.revalidate();
+                UserDashboardTabSwitcher.setSelectedIndex(2);
+            }
+        }
+    }//GEN-LAST:event_statusTableMouseClicked
+
+    private void mySubmissionTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mySubmissionTableMouseClicked
+        if (evt.getClickCount() == 1 && !evt.isConsumed()) {
+            evt.consume();
+            int row = MySubTable.rowAtPoint(evt.getPoint());
+            int col = MySubTable.columnAtPoint(evt.getPoint());
+            if (row >= 0 && col == 3 && MySubTable.getValueAt(row, col) != null) {
+                problemID = myStatusTableModel[row][7].toString();
+                NewProblem problem = userSocket.getProblem(problemID);
+                problemNameText.setText(problem.getProblemName());
+                timeLimitText.setText(problem.getTimeLimit());
+                memoryLimitText.setText(problem.getMemoryLimit());
+                pdfController.openDocument(problem.getProb(), 0, problem.getProb().length, null, null);
+                pdfViewerPanel.revalidate();
+                UserDashboardTabSwitcher.setSelectedIndex(2);
+            } else if (row >= 0 && col == 0 && MySubTable.getValueAt(row, col) != null) {
+                String submissionid = myStatusTableModel[row][0].toString();
+                SubmissionShow subshow = new SubmissionShow();
+                subshow.setSubDetailsTable(myStatusTableModel[row]);
+
+                NewSubmission submission = userSocket.getSubmission(submissionid);
+                subshow.setSourceCode(submission);
+
+            }
+        }
+    }//GEN-LAST:event_mySubmissionTableMouseClicked
+
+    private void submitProblemSolutionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitProblemSolutionActionPerformed
+        txtProblemID.setText(problemID);
+        txtProblemID.setEditable(false);
+        UserDashboardTabSwitcher.setSelectedIndex(3);
+
+    }//GEN-LAST:event_submitProblemSolutionActionPerformed
 
     private void ChooseFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChooseFileButtonActionPerformed
         JFileChooser filemanager = new JFileChooser("Documents");
@@ -827,7 +975,7 @@ public class UserDashboard extends javax.swing.JFrame {
         codefile = filemanager.getSelectedFile();
 
         if (codefile != null) {
-            String language = (String) LanguageComboBox.getSelectedItem();
+            String language = (String) submissionLanguageCombo.getSelectedItem();
             if (language.equals("C")) {
                 language = "c";
             }
@@ -852,17 +1000,16 @@ public class UserDashboard extends javax.swing.JFrame {
     private void SubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitButtonActionPerformed
 
         String problemid = txtProblemID.getText();
-        System.out.println(problemid);
         try {
             if (Long.parseLong(problemid) < 0) {
                 JOptionPane.showMessageDialog(null, "Problem ID cannot be negative", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Invalid Problem ID: " + ex.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Invalid Problem ID", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        String language = (String) LanguageComboBox.getSelectedItem();
+        String language = (String) submissionLanguageCombo.getSelectedItem();
         if (codefile == null) {
             try {
                 codefile = new File("Submission.txt");
@@ -876,180 +1023,8 @@ public class UserDashboard extends javax.swing.JFrame {
         if (codefile == null) {
             JOptionPane.showMessageDialog(null, "No file chosen!", "Error", JOptionPane.ERROR_MESSAGE);
         }
-
-        usersocket.sendData("AddSub--[" + codefile.getName() + "]");
-
-        if (usersocket.addSubmission(codefile, problemid, language) > 0) {
-            JOptionPane.showMessageDialog(null, "Submitted!", "Status", JOptionPane.INFORMATION_MESSAGE);
-        }
-
+        userSocket.addSubmission(codefile, problemid, language);
     }//GEN-LAST:event_SubmitButtonActionPerformed
-
-    private void LogOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogOutButtonActionPerformed
-        login.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_LogOutButtonActionPerformed
-
-    private void UserDashboardTabSwitcherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UserDashboardTabSwitcherMouseClicked
-        txtProblemID.setText(null);
-        ChooseFileButton.setText("Choose file");
-        codefile = null;
-        SourceCodeTextArea.setText(null);
-
-        int x = UserDashboardTabSwitcher.getSelectedIndex();
-        switch (x) {
-
-            case 1:
-                usersocket.sendData("PrbTable[null]");
-                problemTable = usersocket.getProblemTable();
-                if (problemTable == null) {
-                    JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    String[] columns = {"Problem ID", "Problem Name", "ProblemSetter"};
-                    DefaultTableModel tablemodel = new DefaultTableModel(problemTable, columns) {
-                        public boolean isCellEditable(int row, int col) {
-                            return false;
-                        }
-                    };
-                    ProblemsetTable.setModel(tablemodel);
-                }
-                break;
-            case 2:
-                txtProblemID.setEditable(true);
-                break;
-            case 3:
-                usersocket.sendData("StTable-[nullus]");
-                statusTable = usersocket.getStatusTable();
-                if (statusTable == null) {
-                    JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    String[] columns = {"#", "When", "Who", "Problem", "Lang", "Verdict", "Time"};
-                    DefaultTableModel tablemodel = new DefaultTableModel(statusTable, columns) {
-                        public boolean isCellEditable(int row, int col) {
-                            return false;
-                        }
-                    };
-                    StatusTable.setModel(tablemodel);
-                }
-                break;
-            case 4:
-                usersocket.sendData("StTable-[My]");
-                myStatusTable = usersocket.getStatusTable();
-                if (myStatusTable == null) {
-                    JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    String[] columns = {"#", "When", "Who", "Problem", "Lang", "Verdict", "Time"};
-                    DefaultTableModel tablemodel = new DefaultTableModel(myStatusTable, columns) {
-                        public boolean isCellEditable(int row, int col) {
-                            return false;
-                        }
-                    };
-                    MySubTable.setModel(tablemodel);
-                }
-                break;
-            case 5:
-                usersocket.sendData("StdTable[null]");
-                standingTable = usersocket.getStandingsTable();
-                if (standingTable == null) {
-                    JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    String[] columns = {"#", "ID", "Problems Solved"};
-                    DefaultTableModel tablemodel = new DefaultTableModel(standingTable, columns) {
-                        public boolean isCellEditable(int row, int col) {
-                            return false;
-                        }
-                    };
-                    StandingsTable.setModel(tablemodel);
-                }
-                break;
-            case 6:
-                usersocket.sendData("CntstTab[null]");
-                contestTable = usersocket.getContestTable();
-                if (contestTable == null) {
-                    JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    String[] columns = {"Contest_ID", "Contest Name", "Author", "Start Time", "Duration(minutes)", "Status"};
-                    DefaultTableModel tablemodel = new DefaultTableModel(contestTable, columns) {
-                        public boolean isCellEditable(int row, int col) {
-                            return false;
-                        }
-                    };
-                    ContestTable.setModel(tablemodel);
-                }
-            default:
-                break;
-
-        }
-    }//GEN-LAST:event_UserDashboardTabSwitcherMouseClicked
-
-    private void ContestTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ContestTableMouseClicked
-        if (evt.getClickCount() == 1 & !evt.isConsumed()) {
-            evt.consume();
-            int row = ContestTable.rowAtPoint(evt.getPoint());
-            int col = ContestTable.columnAtPoint(evt.getPoint());
-
-            if (row >= 0 && col == 0) {
-                DefaultTableModel tablemodel = (DefaultTableModel) ContestTable.getModel();
-                if (tablemodel.getValueAt(row, 0) != null) {
-                    String contestID = contestTable[row][6].toString();
-                    ContestInfo contest = usersocket.getContestInfo(contestID);
-                    ContestDashboard contestArea = new ContestDashboard(usersocket, this, contest);
-                    contestArea.setVisible(rootPaneCheckingEnabled);
-                    this.setVisible(false);
-                }
-            }
-        }
-    }//GEN-LAST:event_ContestTableMouseClicked
-
-    private void problemSetTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_problemSetTableMouseClicked
-        if (evt.getClickCount() == 1 && !evt.isConsumed()) {
-            evt.consume();
-            int row = ProblemsetTable.rowAtPoint(evt.getPoint());
-            int col = ProblemsetTable.columnAtPoint(evt.getPoint());
-            if (row >= 0 && col == 1 && ProblemsetTable.getValueAt(row, col) != null) {
-                usersocket.sendData("ProbFile[" + problemTable[row][4].toString() + "]");
-                NewProblem problem = usersocket.getProblem();
-                pdfController.openDocument(problem.getProb(), 0, problem.getProb().length, null, null);
-                pdfViewerPanel.revalidate();
-                UserDashboardTabSwitcher.setSelectedIndex(2);
-
-            }
-        }
-    }//GEN-LAST:event_problemSetTableMouseClicked
-
-    private void statusTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_statusTableMouseClicked
-        if (evt.getClickCount() == 1 && !evt.isConsumed()) {
-            evt.consume();
-            int row = StatusTable.rowAtPoint(evt.getPoint());
-            int col = StatusTable.columnAtPoint(evt.getPoint());
-            if (row >= 0 && col == 3 && StatusTable.getValueAt(row, col) != null) {
-                usersocket.sendData("ProbFile[" + statusTable[row][col].toString() + "]");
-                NewProblem problem = usersocket.getProblem();
-                pdfController.openDocument(problem.getProb(), 0, problem.getProb().length, null, null);
-                pdfViewerPanel.revalidate();
-                UserDashboardTabSwitcher.setSelectedIndex(2);
-            }
-        }
-    }//GEN-LAST:event_statusTableMouseClicked
-
-    private void mySubmissionTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mySubmissionTableMouseClicked
-        if (evt.getClickCount() == 1 && !evt.isConsumed()) {
-            evt.consume();
-            int row = MySubTable.rowAtPoint(evt.getPoint());
-            int col = MySubTable.columnAtPoint(evt.getPoint());
-            if (row >= 0 && col == 3 && MySubTable.getValueAt(row, col) != null) {
-                usersocket.sendData("ProbFile[" + myStatusTable[row][col].toString() + "]");
-                NewProblem problem = usersocket.getProblem();
-                pdfController.openDocument(problem.getProb(), 0, problem.getProb().length, null, null);
-                pdfViewerPanel.revalidate();
-                UserDashboardTabSwitcher.setSelectedIndex(2);
-            }
-            else if(row>=0 && col==1 && MySubTable.getValueAt(row, col) != null)
-            {
-                
-            }
-        }
-    }//GEN-LAST:event_mySubmissionTableMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1059,7 +1034,6 @@ public class UserDashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane ContestTableScrollPane;
     private javax.swing.JPanel ContestsPanel;
     private javax.swing.JPanel HomePanel;
-    private javax.swing.JComboBox LanguageComboBox;
     private javax.swing.JLabel LanguageLabel;
     private javax.swing.JButton LogOutButton;
     private javax.swing.JPanel MySubPanel;
@@ -1087,9 +1061,10 @@ public class UserDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel memoryLimitLabel;
     private javax.swing.JTextField memoryLimitText;
     private javax.swing.JPanel pdfPanel;
+    private javax.swing.JTextField problemNameText;
     private javax.swing.JPanel problemPanel;
-    private javax.swing.JComboBox<String> selectProblemCombo;
     private javax.swing.JLabel selectProblemLabel;
+    private javax.swing.JComboBox submissionLanguageCombo;
     private javax.swing.JButton submitProblemSolution;
     private javax.swing.JLabel timeLimitLabel;
     private javax.swing.JTextField timeLimitText;

@@ -9,30 +9,26 @@ package iutpj_server;
  *
  * @author ASADUZZAMAN HEROK
  */
-public class LoginSignUpHandler {
+public class UserAuthenticationAuthorization {
 
-    private final String userName, password, clienttype;
+    private final String userName, password, clientType;
     private final Database database;
 
-    public LoginSignUpHandler(String data, String clienttype, Database db) {
-
-        int x = data.indexOf(']', 9);
-        int y = data.lastIndexOf(']');
-
-        this.userName = data.substring(9, x);
-        this.password = data.substring(x + 2, y);
-        this.clienttype = clienttype;
+    public UserAuthenticationAuthorization(String clientType, String userName, String password,  Database db) {
+        this.userName = userName;
+        this.password = password;
+        this.clientType = clientType;
         this.database = db;
     }
 
     public String getUserID(){
-        if(clienttype.equals("Admin"))
+        if(clientType.equals("Admin"))
         return database.getAdminID(userName);
         else return database.getUserID(userName);
     }
 
-    public boolean isValid() {
-        switch (clienttype) {
+    public boolean isAuthorized() {
+        switch (clientType) {
             case "Admin": {
                 return database.getAdminPassword(userName).equals(password);
             }
@@ -46,7 +42,7 @@ public class LoginSignUpHandler {
 
     public boolean SignUp() {
 
-        switch (clienttype) {
+        switch (clientType) {
             case "Admin": {
                 return database.updateAdmin(userName, password).equals("SUCCESS");
             }
@@ -59,16 +55,15 @@ public class LoginSignUpHandler {
     }
 
     public boolean doesExist() {
-        switch (clienttype) {
+        switch (clientType) {
             case "Admin": {
-                return !database.getAdminPassword(userName).equals("No#Data");
+                return !database.getAdminID(userName).equals("No#Data");
             }
             case "User": {
-                return !database.getUserPassword(userName).equals("No#Data");
+                return !database.getUserID(userName).equals("No#Data");
             }
             default:
                 return false;
         }
     }
-
 }

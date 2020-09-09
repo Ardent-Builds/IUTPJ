@@ -9,20 +9,21 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 import newproblem.NewProblem;
 import newsubmission.NewSubmission;
 import iutpj_server.ContestInfo;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -33,7 +34,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     /**
      * Creates new form UserDashboard
      */
-    private final AdminSocket adminsocket;
+    private final AdminSocket adminSocket;
     private File problem, inputs, outputs;
     Login parent;
     private Object[][] problemTable, statusTable, myProblemTable, standingTable, contestTable;
@@ -41,248 +42,79 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     public AdminDashboard(AdminSocket adminsocket, Login parent) {
         initComponents();
-        this.adminsocket = adminsocket;
+        this.adminSocket = adminsocket;
         this.parent = parent;
+        this.adminSocket.setParentFrame(this);
         this.contestInfo = new ContestInfo();
 
-        setBackground(new Color(0, 0, 0));
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer() {
+        TableCellRenderer cellRenderer = new TableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                c.setBackground(row % 2 == 1 ? new Color(242, 242, 242) : Color.WHITE);
+                DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+
+                cellRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+                JComponent c = (JComponent) cellRenderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (row < 0) {
+
+                    c.setFont(new Font("Segoe UI", Font.BOLD, 16));
+                    c.setBorder(new LineBorder(Color.BLACK, 1, false));
+                    c.setBackground(Color.green);
+                    return c;
+                }
+                if (null != table.getClientProperty(table.getColumnName(column)) && value != null) {
+                    JButton cd = new JButton();
+                    cd.setText(value.toString());
+                    cd.setForeground((Color) table.getClientProperty(table.getColumnName(column)));
+                    cd.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+                    cd.setFont(new Font("Segoe UI", Font.BOLD, 14));
+                    cd.setBackground((row % 2 == 0 ? new Color(242, 242, 189) : Color.WHITE));
+                    cd.setEnabled(true);
+                    return (Component) cd;
+                }
+                c.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+                c.setBackground((row % 2 == 0 ? new Color(242, 242, 189) : Color.WHITE));
                 return c;
             }
-
         };
-        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
-        StatusTable.setDefaultRenderer(Object.class, centerRenderer);
-        StatusTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
-        StatusTable.setRowHeight(25);
-        StatusTable.setRowHeight(25);
-        JTableHeader statustableheader = StatusTable.getTableHeader();
-        ((DefaultTableCellRenderer) statustableheader.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
-        
-        ContestTable.setDefaultRenderer(Object.class, centerRenderer);
-        ContestTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
-        ContestTable.setRowHeight(25);
-        ContestTable.setRowHeight(25);
-        JTableHeader contesttableheader = ContestTable.getTableHeader();
-        ((DefaultTableCellRenderer) contesttableheader.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
-        
-        addContestProblemTable.setDefaultRenderer(Object.class, centerRenderer);
-        addContestProblemTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
-        addContestProblemTable.setRowHeight(25);
-        addContestProblemTable.setRowHeight(25);
-        JTableHeader addContestProblemTabletableheader = addContestProblemTable.getTableHeader();
-        ((DefaultTableCellRenderer) addContestProblemTabletableheader.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
+        StatusTable.setDefaultRenderer(Object.class, cellRenderer);
+        StatusTable.getTableHeader().setDefaultRenderer(cellRenderer);
+        StatusTable.putClientProperty("Problem", Color.BLUE);
+        StatusTable.putClientProperty("#", Color.BLUE);
 
-        StandingsTable.setDefaultRenderer(Object.class, centerRenderer);
-        StandingsTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
-        StandingsTable.setRowHeight(25);
-        StandingsTable.setRowHeight(25);
-        JTableHeader standingstableheader = StandingsTable.getTableHeader();
-        ((DefaultTableCellRenderer) standingstableheader.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
+        ContestTable.setDefaultRenderer(Object.class, cellRenderer);
+        ContestTable.getTableHeader().setDefaultRenderer(cellRenderer);
+        ContestTable.putClientProperty("Contest Name", Color.BLUE);
 
-        ProblemsetTable.setDefaultRenderer(Object.class, centerRenderer);
-        ProblemsetTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
-        ProblemsetTable.setRowHeight(25);
-        JTableHeader problemsettableheader = ProblemsetTable.getTableHeader();
-        ((DefaultTableCellRenderer) problemsettableheader.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
-        //ProblemsetTable.getTableHeader().setOpaque(false);
+        addContestProblemTable.setDefaultRenderer(Object.class, cellRenderer);
+        addContestProblemTable.getTableHeader().setDefaultRenderer(cellRenderer);
+        addContestProblemTable.putClientProperty("Problem Name", Color.BLUE);
+        addContestProblemTable.putClientProperty("", Color.red);
 
-        DelProblemsetTable.setDefaultRenderer(Object.class, centerRenderer);
-        DelProblemsetTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
-        DelProblemsetTable.setRowHeight(25);
-        ProblemsetTable.setRowHeight(25);
-        JTableHeader delproblemsettableheader = DelProblemsetTable.getTableHeader();
-        ((DefaultTableCellRenderer) delproblemsettableheader.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
-        //DelProblemsetTable.getTableHeader().setBackground(new Color(0, 181, 204));
-        //DelProblemsetTable.getTableHeader().setBackground(new Color(255, 255, 255));
+        StandingsTable.setDefaultRenderer(Object.class, cellRenderer);
+        StandingsTable.getTableHeader().setDefaultRenderer(cellRenderer);
 
-        MyProblemsTable.setDefaultRenderer(Object.class, centerRenderer);
-        MyProblemsTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
-        MyProblemsTable.setRowHeight(25);
-        ProblemsetTable.setRowHeight(25);
-        JTableHeader myproblemstableheader = MyProblemsTable.getTableHeader();
-        ((DefaultTableCellRenderer) myproblemstableheader.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
-        //MyProblemsTable.getTableHeader().setBackground(new Color(0, 181, 204));
-        //MyProblemsTable.getTableHeader().setBackground(new Color(255, 255, 255));
+        ProblemsetTable.setDefaultRenderer(Object.class, cellRenderer);
+        ProblemsetTable.getTableHeader().setDefaultRenderer(cellRenderer);
+        ProblemsetTable.putClientProperty("Problem Name", Color.BLUE);
 
-        ProblemsetTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                if (evt.getClickCount() == 1 && !evt.isConsumed()) {
-                    evt.consume();
-                    int row = ProblemsetTable.rowAtPoint(evt.getPoint());
-                    int col = ProblemsetTable.columnAtPoint(evt.getPoint());
+        DelProblemsetTable.setDefaultRenderer(Object.class, cellRenderer);
+        DelProblemsetTable.getTableHeader().setDefaultRenderer(cellRenderer);
+        DelProblemsetTable.putClientProperty(" ", Color.RED);
+        DelProblemsetTable.putClientProperty("Locked", Color.GREEN);
 
-                    if (row >= 0 && (col == 0 || col == 1)) {
-                        DefaultTableModel tablemodel = (DefaultTableModel) ProblemsetTable.getModel();
-                        if (tablemodel.getValueAt(row, 0) != null) {
-                            String problemid = problemTable[row][4].toString();
-
-                            adminsocket.sendData("ProbFile[" + problemid + "]");
-                            NewProblem problem = adminsocket.getProblem();
-                            try {
-                                FileOutputStream fos = new FileOutputStream(problemid + ".pdf");
-                                fos.write(problem.getProb());
-                                fos.close();
-                            } catch (FileNotFoundException ex) {
-                                System.out.println("At probshow problem write Err: " + ex.getMessage());
-                            } catch (IOException ex) {
-                                System.out.println("At probshow problem write Err: " + ex.getMessage());
-                            }
-
-                            ProblemShow problemshow = new ProblemShow(problem.getProblemName(), problem.getTimeLimit(), problem.getMemoryLimit());
-                            problemshow.viewPdf(new File(problemid + ".pdf"));
-                        }
-                    }
-                }
-            }
-        });
-
-        MyProblemsTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                if (evt.getClickCount() == 1 && !evt.isConsumed()) {
-                    evt.consume();
-                    int row = MyProblemsTable.rowAtPoint(evt.getPoint());
-                    int col = MyProblemsTable.columnAtPoint(evt.getPoint());
-
-                    if (row >= 0 && (col == 0 || col == 1)) {
-                        DefaultTableModel tablemodel = (DefaultTableModel) MyProblemsTable.getModel();
-                        if (tablemodel.getValueAt(row, 0) != null) {
-                            String problemid = myProblemTable[row][4].toString();
-
-                            adminsocket.sendData("ProbFile[" + problemid + "]");
-                            NewProblem problem = adminsocket.getProblem();
-                            try {
-                                FileOutputStream fos = new FileOutputStream(problemid + ".pdf");
-                                fos.write(problem.getProb());
-                                fos.close();
-                            } catch (FileNotFoundException ex) {
-                                System.out.println("At probshow problem write Err: " + ex.getMessage());
-                            } catch (IOException ex) {
-                                System.out.println("At probshow problem write Err: " + ex.getMessage());
-                            }
-                            ProblemShow problemshow = new ProblemShow(problem.getProblemName(), problem.getTimeLimit(), problem.getMemoryLimit());
-                            problemshow.viewPdf(new File(problemid + ".pdf"));
-                        }
-                    }
-                }
-            }
-        });
+        MyProblemsTable.setDefaultRenderer(Object.class, cellRenderer);
+        MyProblemsTable.getTableHeader().setDefaultRenderer(cellRenderer);
+        MyProblemsTable.putClientProperty("Problem Name", Color.BLUE);
 
         StatusTable.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                if (evt.getClickCount() == 1 && !evt.isConsumed()) {
-                    evt.consume();
-                    int row = StatusTable.rowAtPoint(evt.getPoint());
-                    int col = StatusTable.columnAtPoint(evt.getPoint());
-                    if (row >= 0 && col == 0) {
-                        DefaultTableModel tablemodel = (DefaultTableModel) StatusTable.getModel();
-                        if (tablemodel.getValueAt(row, 0) != null) {
-                            SubmissionShow subshow = new SubmissionShow(adminsocket);
-                            String submissionid = statusTable[row][8].toString();
-                            subshow.setSubDetailsTable(submissionid, tablemodel.getValueAt(row, 2), tablemodel.getValueAt(row, 3), tablemodel.getValueAt(row, 4), tablemodel.getValueAt(row, 5), tablemodel.getValueAt(row, 6), tablemodel.getValueAt(row, 1), statusTable[row][7]);
 
-                            adminsocket.sendData("SrcCode-[" + submissionid + "]");
-                            NewSubmission submission = adminsocket.getSubmission();
-                            subshow.setSourceCOde(submission);
-                        }
-                    } else if (row >= 0 && col == 3) {
-                        DefaultTableModel tablemodel = (DefaultTableModel) StatusTable.getModel();
-                        if (tablemodel.getValueAt(row, 3) != null) {
-                            String temp = tablemodel.getValueAt(row, 3).toString();
-                            int x = temp.indexOf('-', 28);
-                            String problemid = temp.substring(28, x);
-
-                            adminsocket.sendData("ProbFile[" + problemid + "]");
-                            NewProblem problem = adminsocket.getProblem();
-                            try {
-                                FileOutputStream fos = new FileOutputStream(problemid + ".pdf");
-                                fos.write(problem.getProb());
-                                fos.close();
-                            } catch (FileNotFoundException ex) {
-                                System.out.println("At probshow problem write Err: " + ex.getMessage());
-                            } catch (IOException ex) {
-                                System.out.println("At probshow problem write Err: " + ex.getMessage());
-                            }
-
-                            ProblemShow problemshow = new ProblemShow(problem.getProblemName(), problem.getTimeLimit(), problem.getMemoryLimit());
-                            problemshow.viewPdf(new File(problemid + ".pdf"));
-                        }
-                    }
-                }
-            }
-        });
-
-        DelProblemsetTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                if (evt.getClickCount() == 1 && !evt.isConsumed()) {
-                    evt.consume();
-                    int row = DelProblemsetTable.rowAtPoint(evt.getPoint());
-                    int col = DelProblemsetTable.columnAtPoint(evt.getPoint());
-                    if (row >= 0 && (col == 0 || col == 1)) {
-                        DefaultTableModel tablemodel = (DefaultTableModel) DelProblemsetTable.getModel();
-                        if (tablemodel.getValueAt(row, 0) != null) {
-                            String problemid = myProblemTable[row][4].toString();
-
-                            adminsocket.sendData("ProbFile[" + problemid + "]");
-                            NewProblem problem = adminsocket.getProblem();
-                            try {
-                                FileOutputStream fos = new FileOutputStream(problemid + ".pdf");
-                                fos.write(problem.getProb());
-                                fos.close();
-                            } catch (FileNotFoundException ex) {
-                                System.out.println("At probshow problem write Err: " + ex.getMessage());
-                            } catch (IOException ex) {
-                                System.out.println("At probshow problem write Err: " + ex.getMessage());
-                            }
-                            ProblemShow problemshow = new ProblemShow(problem.getProblemName(), problem.getTimeLimit(), problem.getMemoryLimit());
-                            problemshow.viewPdf(new File(problemid + ".pdf"));
-                        }
-                    } else if (row >= 0 && col == 3) {
-
-                        DefaultTableModel tablemodel = (DefaultTableModel) DelProblemsetTable.getModel();
-                        String temp;
-                        int x;
-                        if (tablemodel.getValueAt(row, 0) != null) {
-                            String problemid = myProblemTable[row][4].toString();
-                            temp = tablemodel.getValueAt(row, 1).toString();
-                            x = temp.indexOf('<', 28);
-                            String problemname = temp.substring(28, x);
-
-                            if (JOptionPane.showConfirmDialog(rootPane, "Are you sure you want to delete this problem: " + problemid + "-" + problemname + "?", "Delete Problem", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                                adminsocket.sendData("DelProb-[" + problemid + "]");
-
-                                Object[][] table;
-                                table = adminsocket.getProblemTable();
-                                if (table == null) {
-                                    JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
-                                } else {
-                                    String[] columns = {"Problem ID", "Problem Name", "Problem Setter", " "};
-                                    DefaultTableModel model = new DefaultTableModel(table, columns) {
-                                        public boolean isCellEditable(int row, int col) {
-                                            return false;
-                                        }
-                                    };
-                                    DelProblemsetTable.setModel(model);
-                                }
-                            }
-                        }
-
-                    }
-                }
             }
         });
 
         this.setVisible(true);
-
     }
 
     /**
@@ -322,7 +154,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         SubmitButton = new javax.swing.JButton();
         txtTimeLimit = new javax.swing.JFormattedTextField();
         txtMemoryLimit = new javax.swing.JFormattedTextField();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        problemLockCheckBox = new javax.swing.JCheckBox();
         DeleteProblemPanel = new javax.swing.JPanel();
         DelProblemSetjScrollPane = new javax.swing.JScrollPane();
         DelProblemsetTable = new javax.swing.JTable();
@@ -340,9 +172,6 @@ public class AdminDashboard extends javax.swing.JFrame {
         addProblemToContestLabel = new javax.swing.JLabel();
         contestProblemCombo = new javax.swing.JComboBox<>();
         markContestLabel = new javax.swing.JLabel();
-        DeleteContestPanel = new javax.swing.JPanel();
-        DelProblemSetjScrollPane1 = new javax.swing.JScrollPane();
-        DelProblemsetTable1 = new javax.swing.JTable();
         StatusPanel = new javax.swing.JPanel();
         StatusScrollPane = new javax.swing.JScrollPane();
         StatusTable = new javax.swing.JTable();
@@ -469,6 +298,11 @@ public class AdminDashboard extends javax.swing.JFrame {
         ProblemsetTable.setSelectionBackground(new java.awt.Color(0, 181, 204));
         ProblemsetTable.setShowHorizontalLines(false);
         ProblemsetTable.getTableHeader().setReorderingAllowed(false);
+        ProblemsetTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ProblemsetTableMouseClicked(evt);
+            }
+        });
         ProblemSetjScrollPane.setViewportView(ProblemsetTable);
         ProblemsetTable.getAccessibleContext().setAccessibleDescription("");
 
@@ -537,6 +371,11 @@ public class AdminDashboard extends javax.swing.JFrame {
         MyProblemsTable.setSelectionBackground(new java.awt.Color(0, 181, 204));
         MyProblemsTable.setShowHorizontalLines(false);
         MyProblemsTable.getTableHeader().setReorderingAllowed(false);
+        MyProblemsTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MyProblemsTableMouseClicked(evt);
+            }
+        });
         MyProblemsjScrollPane.setViewportView(MyProblemsTable);
 
         javax.swing.GroupLayout MyProblemsPanelLayout = new javax.swing.GroupLayout(MyProblemsPanel);
@@ -580,6 +419,7 @@ public class AdminDashboard extends javax.swing.JFrame {
             }
         });
         ContestTable.setFocusable(false);
+        ContestTable.setRowHeight(23);
         ContestTable.setRowSelectionAllowed(false);
         ContestTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -675,17 +515,17 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         txtMemoryLimit.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
-        jCheckBox1.setBackground(new java.awt.Color(255, 255, 255));
-        jCheckBox1.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
-        jCheckBox1.setForeground(new java.awt.Color(54, 33, 89));
-        jCheckBox1.setSelected(true);
-        jCheckBox1.setText("Lock Problem For Contest");
-        jCheckBox1.setFocusPainted(false);
-        jCheckBox1.setFocusable(false);
-        jCheckBox1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jCheckBox1.setIconTextGap(160);
-        jCheckBox1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jCheckBox1.setPreferredSize(new java.awt.Dimension(376, 28));
+        problemLockCheckBox.setBackground(new java.awt.Color(255, 255, 255));
+        problemLockCheckBox.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
+        problemLockCheckBox.setForeground(new java.awt.Color(54, 33, 89));
+        problemLockCheckBox.setSelected(true);
+        problemLockCheckBox.setText("Lock Problem For Contest");
+        problemLockCheckBox.setFocusPainted(false);
+        problemLockCheckBox.setFocusable(false);
+        problemLockCheckBox.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        problemLockCheckBox.setIconTextGap(160);
+        problemLockCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        problemLockCheckBox.setPreferredSize(new java.awt.Dimension(376, 28));
 
         javax.swing.GroupLayout AddProblemPanelLayout = new javax.swing.GroupLayout(AddProblemPanel);
         AddProblemPanel.setLayout(AddProblemPanelLayout);
@@ -714,7 +554,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                                 .addComponent(MemoryLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtMemoryLimit))
-                            .addComponent(jCheckBox1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(problemLockCheckBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(367, 367, 367))
         );
         AddProblemPanelLayout.setVerticalGroup(
@@ -739,7 +579,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                     .addComponent(MemoryLimitLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                     .addComponent(txtMemoryLimit))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(problemLockCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SubmitButton)
                 .addContainerGap(35, Short.MAX_VALUE))
@@ -790,6 +630,11 @@ public class AdminDashboard extends javax.swing.JFrame {
         DelProblemsetTable.setSelectionBackground(new java.awt.Color(0, 181, 204));
         DelProblemsetTable.setShowHorizontalLines(false);
         DelProblemsetTable.getTableHeader().setReorderingAllowed(false);
+        DelProblemsetTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DelProblemsetTableMouseClicked(evt);
+            }
+        });
         DelProblemSetjScrollPane.setViewportView(DelProblemsetTable);
 
         javax.swing.GroupLayout DeleteProblemPanelLayout = new javax.swing.GroupLayout(DeleteProblemPanel);
@@ -883,6 +728,7 @@ public class AdminDashboard extends javax.swing.JFrame {
             }
         });
         addContestProblemTable.setFocusable(false);
+        addContestProblemTable.setRowHeight(23);
         addContestProblemTable.setRowSelectionAllowed(false);
         addContestProblemTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -967,68 +813,6 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         ManagePanelTabSwitcher.addTab("Add Contest", AddContestPanel);
 
-        DelProblemSetjScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
-        DelProblemSetjScrollPane1.setFont(new java.awt.Font("Segoe UI Emoji", 1, 25)); // NOI18N
-
-        DelProblemsetTable1.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
-        DelProblemsetTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Contest ID", "Contest Name", "Author", ""
-            }
-        ));
-        DelProblemsetTable1.setFocusable(false);
-        DelProblemsetTable1.setGridColor(new java.awt.Color(255, 255, 255));
-        DelProblemsetTable1.setIntercellSpacing(new java.awt.Dimension(0, 0));
-        DelProblemsetTable1.setOpaque(false);
-        DelProblemsetTable1.setRequestFocusEnabled(false);
-        DelProblemsetTable1.setRowHeight(25);
-        DelProblemsetTable1.setRowSelectionAllowed(false);
-        DelProblemsetTable1.setSelectionBackground(new java.awt.Color(0, 181, 204));
-        DelProblemsetTable1.setShowHorizontalLines(false);
-        DelProblemsetTable1.getTableHeader().setReorderingAllowed(false);
-        DelProblemSetjScrollPane1.setViewportView(DelProblemsetTable1);
-
-        javax.swing.GroupLayout DeleteContestPanelLayout = new javax.swing.GroupLayout(DeleteContestPanel);
-        DeleteContestPanel.setLayout(DeleteContestPanelLayout);
-        DeleteContestPanelLayout.setHorizontalGroup(
-            DeleteContestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 849, Short.MAX_VALUE)
-            .addGroup(DeleteContestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(DelProblemSetjScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 849, Short.MAX_VALUE))
-        );
-        DeleteContestPanelLayout.setVerticalGroup(
-            DeleteContestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 522, Short.MAX_VALUE)
-            .addGroup(DeleteContestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(DelProblemSetjScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE))
-        );
-
-        ManagePanelTabSwitcher.addTab("Update Contest", DeleteContestPanel);
-
         javax.swing.GroupLayout ManagePanelLayout = new javax.swing.GroupLayout(ManagePanel);
         ManagePanel.setLayout(ManagePanelLayout);
         ManagePanelLayout.setHorizontalGroup(
@@ -1091,6 +875,11 @@ public class AdminDashboard extends javax.swing.JFrame {
         StatusTable.setSelectionBackground(new java.awt.Color(0, 181, 204));
         StatusTable.setShowHorizontalLines(false);
         StatusTable.getTableHeader().setReorderingAllowed(false);
+        StatusTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                StatusTableMouseClicked(evt);
+            }
+        });
         StatusScrollPane.setViewportView(StatusTable);
         if (StatusTable.getColumnModel().getColumnCount() > 0) {
             StatusTable.getColumnModel().getColumn(1).setHeaderValue("When");
@@ -1194,95 +983,312 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    private void updateProblemSetTab() {
+        problemTable = adminSocket.getProblemTable(null);
+        if (problemTable == null) {
+            JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            String[] columns = {"Problem ID", "Problem Name", "Problem Setter", "Locked"};
+            DefaultTableModel tablemodel = new DefaultTableModel(problemTable, columns) {
+                @Override
+                public boolean isCellEditable(int row, int col) {
+                    return false;
+                }
+            };
+            ProblemsetTable.setModel(tablemodel);
+        }
+    }
+
+    private void updateMyProblemTab() {
+        myProblemTable = adminSocket.getProblemTable("my");
+        if (myProblemTable == null) {
+            JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            String[] columns = {"Problem ID", "Problem Name", "Problem Setter", "Locked"};
+            DefaultTableModel tablemodel = new DefaultTableModel(myProblemTable, columns) {
+                @Override
+                public boolean isCellEditable(int row, int col) {
+                    return false;
+                }
+            };
+            MyProblemsTable.setModel(tablemodel);
+        }
+    }
+
+    private void updateContestTab() {
+        contestTable = adminSocket.getContestTable();
+        if (contestTable == null) {
+            JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            String[] columns = {"Contest_ID", "Contest Name", "Author", "Start Time", "Duration(min)", "Status"};
+            DefaultTableModel tablemodel = new DefaultTableModel(contestTable, columns) {
+                @Override
+                public boolean isCellEditable(int row, int col) {
+                    return false;
+                }
+            };
+            ContestTable.setModel(tablemodel);
+        }
+    }
+
+    private void updateStatusTab() {
+        statusTable = adminSocket.getStatusTable();
+        if (statusTable == null) {
+            JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            String[] columns = {"#", "When", "Who", "Problem", "Lang", "Verdict", "Time"};
+            DefaultTableModel tablemodel = new DefaultTableModel(statusTable, columns) {
+                public boolean isCellEditable(int row, int col) {
+                    return false;
+                }
+            };
+
+            StatusTable.setModel(tablemodel);
+        }
+    }
+
+    private void updateStandingTab() {
+        standingTable = adminSocket.getStandingsTable();
+        if (standingTable == null) {
+            JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            String[] columns = {"#", "ID", "Problems Solved"};
+            DefaultTableModel tablemodel = new DefaultTableModel(standingTable, columns) {
+                public boolean isCellEditable(int row, int col) {
+                    return false;
+                }
+            };
+            StandingsTable.setModel(tablemodel);
+        }
+    }
 
     private void AdminDashboardTabSwitcherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AdminDashboardTabSwitcherMouseClicked
+
         int x = AdminDashboardTabSwitcher.getSelectedIndex();
         switch (x) {
-
             case 1:
-                adminsocket.sendData("PrbTable[null]");
-                problemTable = adminsocket.getProblemTable();
-                if (problemTable == null) {
-                    JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    String[] columns = {"Problem ID", "Problem Name", "Problem Setter"};
-                    DefaultTableModel tablemodel = new DefaultTableModel(problemTable, columns) {
-
-                        public boolean isCellEditable(int row, int col) {
-                            return false;
-                        }
-                    };
-                    ProblemsetTable.setModel(tablemodel);
-                }
+                updateProblemSetTab();
                 break;
             case 2:
-                adminsocket.sendData("PrbTable[My]");
-                myProblemTable = adminsocket.getProblemTable();
-                if (myProblemTable == null) {
-                    JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    String[] columns = {"Problem ID", "Problem Name", "Problem Setter"};
-                    DefaultTableModel tablemodel = new DefaultTableModel(myProblemTable, columns) {
-                        public boolean isCellEditable(int row, int col) {
-                            return false;
-                        }
-                    };
-                    MyProblemsTable.setModel(tablemodel);
-                }
+                updateMyProblemTab();
                 break;
             case 3:
-                adminsocket.sendData("CntstTab[null]");
-                contestTable = adminsocket.getContestTable();
-                if (contestTable == null) {
-                    JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    String[] columns = {"Contest_ID", "Name", "Author", "Start Time", "Duration(minutes)", "Status"};
-                    DefaultTableModel tablemodel = new DefaultTableModel(contestTable, columns) {
-                        public boolean isCellEditable(int row, int col) {
-                            return false;
-                        }
-                    };
-                    ContestTable.setModel(tablemodel);
-                }
-                break;
-            case 4:
-                adminsocket.sendData("StTable-[nullad]");
-                statusTable = adminsocket.getStatusTable();
-                if (statusTable == null) {
-                    JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    String[] columns = {"#", "When", "Who", "Problem", "Lang", "Verdict", "Time"};
-                    DefaultTableModel tablemodel = new DefaultTableModel(statusTable, columns) {
-                        public boolean isCellEditable(int row, int col) {
-                            return false;
-                        }
-                    };
-
-                    StatusTable.setModel(tablemodel);
-                }
+                updateContestTab();
                 break;
             case 5:
-                adminsocket.sendData("StdTable[null]");
-                standingTable = adminsocket.getStandingsTable();
-                if (standingTable == null) {
-                    JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    String[] columns = {"#", "ID", "Problems Solved"};
-                    DefaultTableModel tablemodel = new DefaultTableModel(standingTable, columns) {
-                        public boolean isCellEditable(int row, int col) {
-                            return false;
-                        }
-                    };
-
-                    StandingsTable.setModel(tablemodel);
-                }
+                updateStatusTab();
+                break;
+            case 6:
+                updateStandingTab();
                 break;
             default:
                 break;
 
         }
-
     }//GEN-LAST:event_AdminDashboardTabSwitcherMouseClicked
+
+    private void LogOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogOutButtonActionPerformed
+        parent.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_LogOutButtonActionPerformed
+
+    private void updateDeleteProblemTab() {
+        Object[][] table;
+        table = adminSocket.getProblemTable("my");
+        if (table == null) {
+            JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            String[] columns = {"Problem ID", "Problem Name", "Problem Setter", "Locked"," "};
+            DefaultTableModel tablemodel = new DefaultTableModel(table, columns) {
+                @Override
+                public boolean isCellEditable(int row, int col) {
+                    return false;
+                }
+            };
+            DelProblemsetTable.setModel(tablemodel);
+        }
+    }
+
+    private void updateAddContestTab() {
+        problemTable = adminSocket.getProblemTable(null);
+        for (int i = 0; problemTable[i] != null; i++) {
+            problemTable[i][3] = "Not Added";
+        }
+        if (problemTable == null) {
+            JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            String[] columns = {"Problem ID", "Problem Name", "Problem Setter", ""};
+            DefaultTableModel tablemodel = new DefaultTableModel(problemTable, columns) {
+                @Override
+                public boolean isCellEditable(int row, int col) {
+                    return false;
+                }
+            };
+
+            addContestProblemTable.setModel(tablemodel);
+        }
+    }
+    private void ContestTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ContestTableMouseClicked
+        if (evt.getClickCount() == 1 & !evt.isConsumed()) {
+            evt.consume();
+            int row = ContestTable.rowAtPoint(evt.getPoint());
+            int col = ContestTable.columnAtPoint(evt.getPoint());
+            if (row >= 0 && col == 1 && ContestTable.getValueAt(row, col) != null) {
+                String contestID = contestTable[row][0].toString();
+                ContestInfo contest = adminSocket.getContestInfo(contestID);
+                ContestDashboard contestArea = new ContestDashboard(adminSocket, this, contest);
+                contestArea.setVisible(true);
+                this.setVisible(false);
+            }
+        }
+    }//GEN-LAST:event_ContestTableMouseClicked
+
+    private void ProblemsetTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProblemsetTableMouseClicked
+        if (evt.getClickCount() == 1 && !evt.isConsumed()) {
+            evt.consume();
+            int row = ProblemsetTable.rowAtPoint(evt.getPoint());
+            int col = ProblemsetTable.columnAtPoint(evt.getPoint());
+            if (row >= 0 && col == 1 && ProblemsetTable.getValueAt(row, col) != null) {
+                NewProblem newProblem = adminSocket.getProblem(ProblemsetTable.getValueAt(row, 0).toString());
+                ProblemShow showDialog = new ProblemShow();
+                showDialog.showProblem(newProblem);
+            }
+        }
+    }//GEN-LAST:event_ProblemsetTableMouseClicked
+
+    private void MyProblemsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MyProblemsTableMouseClicked
+        if (evt.getClickCount() == 1 && !evt.isConsumed()) {
+            evt.consume();
+            int row = MyProblemsTable.rowAtPoint(evt.getPoint());
+            int col = MyProblemsTable.columnAtPoint(evt.getPoint());
+            if (row >= 0 && col == 1 && MyProblemsTable.getValueAt(row, col) != null) {
+                NewProblem newProblem = adminSocket.getProblem(MyProblemsTable.getValueAt(row, 0).toString());
+                ProblemShow showDialog = new ProblemShow();
+                showDialog.showProblem(newProblem);
+            }
+        }
+    }//GEN-LAST:event_MyProblemsTableMouseClicked
+
+    private void StatusTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_StatusTableMouseClicked
+        if (evt.getClickCount() == 1 && !evt.isConsumed()) {
+            evt.consume();
+            int row = StatusTable.rowAtPoint(evt.getPoint());
+            int col = StatusTable.columnAtPoint(evt.getPoint());
+
+            if (row >= 0 && col == 0 && StatusTable.getValueAt(row, col) != null) {
+                SubmissionShow subshow = new SubmissionShow();
+                String submissionid = statusTable[row][0].toString();
+                subshow.setSubDetailsTable(statusTable[row]);
+                NewSubmission submission = adminSocket.getSubmission(submissionid);
+                subshow.setSourceCode(submission);
+
+            } else if (row >= 0 && col == 3 && StatusTable.getValueAt(row, col) != null) {
+                ProblemShow showDialog = new ProblemShow();
+                showDialog.showProblem(adminSocket.getProblem(statusTable[row][7].toString()));
+            }
+        }
+    }//GEN-LAST:event_StatusTableMouseClicked
+
+    private void ManagePanelTabSwitcherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ManagePanelTabSwitcherMouseClicked
+
+        int x = ManagePanelTabSwitcher.getSelectedIndex();
+        switch (x) {
+            case 1:
+            updateDeleteProblemTab();
+            break;
+            case 2:
+            updateAddContestTab();
+            break;
+
+        }
+    }//GEN-LAST:event_ManagePanelTabSwitcherMouseClicked
+
+    private void addContestProblemTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addContestProblemTableMouseClicked
+        if (evt.getClickCount() == 1 && !evt.isConsumed()) {
+            evt.consume();
+            int row = addContestProblemTable.rowAtPoint(evt.getPoint());
+            int col = addContestProblemTable.columnAtPoint(evt.getPoint());
+            if (row >= 0 && col == 1 && addContestProblemTable.getValueAt(row, col) != null) {
+
+                NewProblem newProblem = adminSocket.getProblem(addContestProblemTable.getValueAt(row, 0).toString());
+                ProblemShow showDialog = new ProblemShow();
+                showDialog.showProblem(newProblem);
+
+            } else if (row >= 0 && col == 3 && addContestProblemTable.getValueAt(row, col) != null) {
+                if (addContestProblemTable.getValueAt(row, col).equals("Not Added")) {
+                    contestInfo.addProblem(problemTable[row][0].toString());
+                    contestProblemCombo.addItem(addContestProblemTable.getValueAt(row, 1).toString());
+                    addContestProblemTable.setValueAt("Remove", row, col);
+                } else if (addContestProblemTable.getValueAt(row, col).equals("Remove")) {
+                    contestInfo.removeProblem(problemTable[row][0].toString());
+                    contestProblemCombo.removeItem(addContestProblemTable.getValueAt(row, 1).toString());
+                    addContestProblemTable.setValueAt("Not Added", row, col);
+                }
+            }
+        }
+    }//GEN-LAST:event_addContestProblemTableMouseClicked
+
+    private void OpenCalendarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenCalendarButtonActionPerformed
+        DateTimePicker pickDateTime = new DateTimePicker(this, true);
+        pickDateTime.setVisible(rootPaneCheckingEnabled);
+        contestInfo.setStartTime(pickDateTime.getDateTime());
+        dateTimeTextField.setText(contestInfo.getStartTime().toString());
+    }//GEN-LAST:event_OpenCalendarButtonActionPerformed
+
+    private void SubmitContestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitContestActionPerformed
+
+        contestInfo.setContestName(contestNameTextField.getText());
+        try {
+            Integer.parseUnsignedInt(durationTextField.getText());
+            contestInfo.setDurationMinutes(durationTextField.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Duration must be Postive Number", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (contestInfo.getContestName() == null || contestInfo.getStartTime() == null || contestInfo.getdurationMinutes() == null || contestInfo.getProblemIDs().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Some input fields are empty", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (adminSocket.submitContest(contestInfo)) {
+            JOptionPane.showMessageDialog(null, "Submitted", "Status", JOptionPane.INFORMATION_MESSAGE);
+            contestInfo = new ContestInfo();
+            contestNameTextField.setText(null);
+            durationTextField.setText(null);
+            dateTimeTextField.setText(null);
+            contestProblemCombo.removeAllItems();
+            for (int i = 0; problemTable[i] != null; i++) {
+                addContestProblemTable.setValueAt("Not Added", i, 3);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Submission Failed", "Status", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_SubmitContestActionPerformed
+
+    private void DelProblemsetTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DelProblemsetTableMouseClicked
+        if (evt.getClickCount() == 1 && !evt.isConsumed()) {
+            evt.consume();
+            int row = DelProblemsetTable.rowAtPoint(evt.getPoint());
+            int col = DelProblemsetTable.columnAtPoint(evt.getPoint());
+            if (row >= 0 && col == 4 && DelProblemsetTable.getValueAt(row, col) != null) {
+                String problemID = DelProblemsetTable.getValueAt(row, 0).toString();
+                String problemName = DelProblemsetTable.getValueAt(row, 1).toString();
+                if (JOptionPane.showConfirmDialog(rootPane, "Are you sure you want to delete this problem: " + problemID + "-" + problemName + "?", "Delete Problem", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    String status = adminSocket.deleteProblem(problemID);
+                    JOptionPane.showMessageDialog(rootPane, status);
+                    updateDeleteProblemTab();
+                }
+            }
+            if (row >= 0 && col == 3 && DelProblemsetTable.getValueAt(row, col) != null) {
+                String problemID = DelProblemsetTable.getValueAt(row, 0).toString();
+                String state = DelProblemsetTable.getValueAt(row, col).toString();
+                state = ((state.compareTo("YES")==0)? "NO":"YES");
+                String status = adminSocket.changeProblemLockedState(problemID, state);
+                JOptionPane.showMessageDialog(rootPane, status);
+                updateDeleteProblemTab();   
+            }
+
+        }
+    }//GEN-LAST:event_DelProblemsetTableMouseClicked
 
     private void SubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitButtonActionPerformed
 
@@ -1303,15 +1309,8 @@ public class AdminDashboard extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Missing Files", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
-        try {
-            adminsocket.sendData("AddProb-[" + problem.getName() + "][" + inputs.getName() + "][" + outputs.getName() + "]");
-            if (adminsocket.addProblem(problem, inputs, outputs, "null", problemname, timelimit, memorylimit) > 0) {
-                JOptionPane.showMessageDialog(null, "Problem file Sent", "Status", JOptionPane.INFORMATION_MESSAGE);
-            }
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Problem Submission failed\nCheck Connection", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        String locked = ((problemLockCheckBox.isSelected())? "YES":"NO");
+        adminSocket.addProblem(problem, inputs, outputs, locked, problemname, timelimit, memorylimit);
     }//GEN-LAST:event_SubmitButtonActionPerformed
 
     private void AddInputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddInputButtonActionPerformed
@@ -1328,7 +1327,6 @@ public class AdminDashboard extends javax.swing.JFrame {
             if (x > 0) {
                 extension = extension.substring(x);
             }
-
             if (extension.equals(".txt")) {
                 AddInputButton.setText(inputs.getName());
             } else {
@@ -1366,7 +1364,6 @@ public class AdminDashboard extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Problem file missing", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-
     }//GEN-LAST:event_ChProblemStatementButtonActionPerformed
 
     private void AddOutputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddOutputButtonActionPerformed
@@ -1394,142 +1391,6 @@ public class AdminDashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_AddOutputButtonActionPerformed
 
-    private void LogOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogOutButtonActionPerformed
-        parent.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_LogOutButtonActionPerformed
-
-    private void ManagePanelTabSwitcherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ManagePanelTabSwitcherMouseClicked
-        int x = ManagePanelTabSwitcher.getSelectedIndex();
-        switch (x) {
-            case 1:
-                Object[][] table;
-                adminsocket.sendData("PrbTable[MyDel]");
-                table = adminsocket.getProblemTable();
-                if (table == null) {
-                    JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    String[] columns = {"Problem ID", "Problem Name", "Problem Setter", " "};
-                    DefaultTableModel tablemodel = new DefaultTableModel(table, columns) {
-                        @Override
-                        public boolean isCellEditable(int row, int col) {
-                            return false;
-                        }
-                    };
-                    DelProblemsetTable.setModel(tablemodel);
-                }
-                break;
-            case 2:
-                adminsocket.sendData("PrbTable[null]");
-                problemTable = adminsocket.getProblemTable();
-                for (int i = 0; problemTable[i] != null; i++) {
-                    problemTable[i][3] = "<HTML><U><FONT COLOR='BLUE'>Not Added</FONT></U></HTML>";
-                }
-                if (problemTable == null) {
-                    JOptionPane.showMessageDialog(null, "Table Not found", "Table Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    String[] columns = {"Problem ID", "Problem Name", "Problem Setter", " "};
-                    DefaultTableModel tablemodel = new DefaultTableModel(problemTable, columns) {
-                        @Override
-                        public boolean isCellEditable(int row, int col) {
-                            return false;
-                        }
-                    };
-
-                    addContestProblemTable.setModel(tablemodel);
-                }
-
-        }
-    }//GEN-LAST:event_ManagePanelTabSwitcherMouseClicked
-
-    private void SubmitContestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitContestActionPerformed
-        contestInfo.setContestName(contestNameTextField.getText());
-        try {
-            Integer.parseUnsignedInt(durationTextField.getText());
-            contestInfo.setDurationMinutes(durationTextField.getText());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Duration must be Postive Number", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (contestInfo.getContestName() == null || contestInfo.getStartTime() == null || contestInfo.getdurationMinutes() == null || contestInfo.getProblemIDs().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Some input fields are empty", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        adminsocket.sendData("CntstInf");
-        if (adminsocket.submitContest(contestInfo)) {
-            JOptionPane.showMessageDialog(null, "Submitted", "Status", JOptionPane.INFORMATION_MESSAGE);
-            contestInfo = new ContestInfo();
-            contestNameTextField.setText(null);
-            durationTextField.setText(null);
-            dateTimeTextField.setText(null);
-            contestProblemCombo.removeAllItems();
-            for (int i = 0; problemTable[i] != null; i++) {
-                addContestProblemTable.setValueAt("<HTML><U><FONT COLOR='BLUE'>Not Added</FONT></U></HTML>", i, 3);
-            }
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Submission Failed", "Status", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_SubmitContestActionPerformed
-
-    private void ContestTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ContestTableMouseClicked
-        if (evt.getClickCount() == 1 & !evt.isConsumed()) {
-            evt.consume();
-            int row = ContestTable.rowAtPoint(evt.getPoint());
-            int col = ContestTable.columnAtPoint(evt.getPoint());
-            if (row >= 0 && col == 0) {
-                DefaultTableModel tablemodel = (DefaultTableModel) ContestTable.getModel();
-                if (tablemodel.getValueAt(row, 0) != null) {
-                    String contestID = contestTable[row][6].toString();
-                    System.out.println(contestID);
-                }
-            }
-        }
-    }//GEN-LAST:event_ContestTableMouseClicked
-
-    private void OpenCalendarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenCalendarButtonActionPerformed
-        DateTimePicker pickDateTime = new DateTimePicker(this, true);
-        pickDateTime.setVisible(rootPaneCheckingEnabled);
-        contestInfo.setStartTime(pickDateTime.getDateTime());
-        dateTimeTextField.setText(contestInfo.getStartTime().toString());
-    }//GEN-LAST:event_OpenCalendarButtonActionPerformed
-
-    private void addContestProblemTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addContestProblemTableMouseClicked
-        if (evt.getClickCount() == 1 && !evt.isConsumed()) {
-            evt.consume();
-            int row = addContestProblemTable.rowAtPoint(evt.getPoint());
-            int col = addContestProblemTable.columnAtPoint(evt.getPoint());
-            if (row >= 0 && (col == 0 || col == 1) && addContestProblemTable.getValueAt(row, col) != null) {
-                String problemid = problemTable[row][4].toString();
-                adminsocket.sendData("ProbFile[" + problemid + "]");
-                NewProblem problem = adminsocket.getProblem();
-                try {
-                    FileOutputStream fos = new FileOutputStream(problemid + ".pdf");
-                    fos.write(problem.getProb());
-                    fos.close();
-                } catch (FileNotFoundException ex) {
-                    System.out.println("At probshow problem write Err: " + ex.getMessage());
-                } catch (IOException ex) {
-                    System.out.println("At probshow problem write Err: " + ex.getMessage());
-                }
-                ProblemShow problemshow = new ProblemShow(problem.getProblemName(), problem.getTimeLimit(), problem.getMemoryLimit());
-                problemshow.viewPdf(new File(problemid + ".pdf"));
-                new File(problemid + ".pdf").delete();
-            } else if (row >= 0 && col == 3 && addContestProblemTable.getValueAt(row, col) != null) {
-                if (addContestProblemTable.getValueAt(row, col).equals("<HTML><U><FONT COLOR='BLUE'>Not Added</FONT></U></HTML>")) {
-                    contestInfo.addProblem(problemTable[row][4].toString());
-                    contestProblemCombo.addItem(addContestProblemTable.getValueAt(row, 1).toString());
-                    addContestProblemTable.setValueAt("<HTML><U><FONT COLOR='BLUE'>Remove</FONT></U></HTML>", row, col);
-                } else if (addContestProblemTable.getValueAt(row, col).equals("<HTML><U><FONT COLOR='BLUE'>Remove</FONT></U></HTML>")) {
-                    contestInfo.removeProblem(problemTable[row][4].toString());
-                    contestProblemCombo.removeItem(addContestProblemTable.getValueAt(row, 1).toString());
-                    addContestProblemTable.setValueAt("<HTML><U><FONT COLOR='BLUE'>Not Added</FONT></U></HTML>", row, col);
-                }
-            }
-        }
-
-    }//GEN-LAST:event_addContestProblemTableMouseClicked
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel AddContestPanel;
@@ -1543,10 +1404,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane ContestTableScrollPane;
     private javax.swing.JPanel ContestsPanel;
     private javax.swing.JScrollPane DelProblemSetjScrollPane;
-    private javax.swing.JScrollPane DelProblemSetjScrollPane1;
     private javax.swing.JTable DelProblemsetTable;
-    private javax.swing.JTable DelProblemsetTable1;
-    private javax.swing.JPanel DeleteContestPanel;
     private javax.swing.JPanel DeleteProblemPanel;
     private javax.swing.JLabel DurationLabel;
     private javax.swing.JPanel HomePanel;
@@ -1580,10 +1438,10 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> contestProblemCombo;
     private javax.swing.JTextField dateTimeTextField;
     private javax.swing.JTextField durationTextField;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel markContestLabel;
+    private javax.swing.JCheckBox problemLockCheckBox;
     private javax.swing.JFormattedTextField txtMemoryLimit;
     private javax.swing.JTextField txtProblemName;
     private javax.swing.JFormattedTextField txtTimeLimit;

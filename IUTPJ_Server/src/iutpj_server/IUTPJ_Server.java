@@ -24,43 +24,6 @@ public class IUTPJ_Server {
     
    
         ServerGUI serverStarter = new ServerGUI();
-        
-        serverStarter.addWindowListener(new WindowListener() {
-            @Override
-            public void windowOpened(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowClosing(WindowEvent e) {
-                serverStarter.getServer().stopServer();
-            }
-
-            @Override
-            public void windowClosed(WindowEvent e) {
-                serverStarter.getServer().stopServer();
-            }
-
-            @Override
-            public void windowIconified(WindowEvent e) {
-                return;
-            }
-
-            @Override
-            public void windowDeiconified(WindowEvent e) {
-                return;
-            }
-
-            @Override
-            public void windowActivated(WindowEvent e) {
-                return;
-            }
-
-            @Override
-            public void windowDeactivated(WindowEvent e) {
-               return;
-            }
-        });
         serverStarter.startGUI();
     }
     

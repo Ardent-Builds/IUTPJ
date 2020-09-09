@@ -6,23 +6,25 @@
 package iutpj_admin;
 
 import java.awt.AWTException;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.SystemTray;
 import java.awt.Toolkit;
 import java.awt.TrayIcon;
 import java.awt.datatransfer.StringSelection;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JLabel;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JTable;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-import newproblem.NewProblem;
+import javax.swing.table.TableCellRenderer;
 import newsubmission.NewSubmission;
 
 /**
@@ -30,43 +32,42 @@ import newsubmission.NewSubmission;
  * @author KAWSAR
  */
 public class SubmissionShow extends javax.swing.JFrame {
-    private Object problemID;
-    public SubmissionShow(AdminSocket adminsocket) {
+    public SubmissionShow() {
         initComponents();
+        
+        TableCellRenderer cellRenderer = new TableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
 
-        SubDetailsTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 20));
-        SubDetailsTable.setRowHeight(25);
+                cellRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+                JComponent c = (JComponent) cellRenderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (row < 0) {
+
+                    c.setFont(new Font("Segoe UI", Font.BOLD, 16));
+                    c.setBorder(new LineBorder(Color.BLACK, 1, false));
+                    c.setBackground(Color.green);
+                    return c;
+                }
+                if (null != table.getClientProperty(table.getColumnName(column)) && value != null) {
+                    JButton cd = new JButton();
+                    cd.setText(value.toString());
+                    cd.setForeground((Color)table.getClientProperty(table.getColumnName(column)));
+                    cd.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+                    cd.setFont(new Font("Segoe UI", Font.BOLD, 14));
+                    cd.setBackground((row % 2 == 0 ? new Color(242, 242, 189) : Color.WHITE));
+                    cd.setEnabled(true);
+                    return (Component) cd;
+                }
+                c.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+                c.setBackground((row % 2 == 0 ? new Color(242, 242, 189) : Color.WHITE));
+                return c;
+            }
+        };
+        SubDetailsTable.setDefaultRenderer(Object.class, cellRenderer);
+        SubDetailsTable.getTableHeader().setDefaultRenderer(cellRenderer);
 
         this.setVisible(rootPaneCheckingEnabled);
-        
-        
-        SubDetailsTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                if (evt.getClickCount() == 1 && !evt.isConsumed()) {
-                    evt.consume();
-                    int row = SubDetailsTable.rowAtPoint(evt.getPoint());
-                    int col = SubDetailsTable.columnAtPoint(evt.getPoint());
-                    if (row >= 0 && col == 2) {
-                        String problemid = problemID.toString();
-
-                        adminsocket.sendData("ProbFile[" + problemid + "]");
-                        NewProblem problem = adminsocket.getProblem();
-                        try {
-                            FileOutputStream fos = new FileOutputStream(problemid + ".pdf");
-                            fos.write(problem.getProb());
-                            fos.close();
-                        } catch (FileNotFoundException ex) {
-                            System.out.println("At probshow problem write Err: " + ex.getMessage());
-                        } catch (IOException ex) {
-                            System.out.println("At probshow problem write Err: " + ex.getMessage());
-                        }
-                        ProblemShow problemshow = new ProblemShow(problem.getProblemName(), problem.getTimeLimit(),problem.getMemoryLimit());
-                        problemshow.viewPdf(new File(problemid + ".pdf"));
-                    }
-                }
-            }
-        });
     }
 
     /**
@@ -187,32 +188,21 @@ public class SubmissionShow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_CopyButtonActionPerformed
 
-    public void setSubDetailsTable(Object subID, Object author, Object problem, Object lang, Object verdict, Object time, Object submitted, Object PID) {
-        problemID = PID;
-        Object[][] table = {{subID, author, problem, lang, verdict, time, submitted}};
+    public void setSubDetailsTable(Object[] tableRow) {
+        Object[][] table = {tableRow};
         Object[] columns = { "#", "Author", "Problem ID", "Lang", "Verdict", "Time", "Submitted"};
-        DefaultTableModel tablemodel = new DefaultTableModel(table, columns){
-
+        
+        SubDetailsTable.setModel(new DefaultTableModel(table, columns){
+            @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
             }
-        };
-        
-        SubDetailsTable.setModel(tablemodel);
-        
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment( JLabel.CENTER );
-
-        SubDetailsTable.setDefaultRenderer(Object.class, centerRenderer);
-        JTableHeader subdetailstableheader = SubDetailsTable.getTableHeader();
-        ((DefaultTableCellRenderer)subdetailstableheader.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER); 
+        });
     }
     
-    public void setSourceCOde(NewSubmission submission){
+    public void setSourceCode(NewSubmission submission){
         SourceCodeTextArea.setTabSize(4);
         SourceCodeTextArea.setText(new String(submission.getCodeF()));
-        
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

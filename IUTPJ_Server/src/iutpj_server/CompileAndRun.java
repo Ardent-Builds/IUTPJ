@@ -6,7 +6,6 @@
 package iutpj_server;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
@@ -49,9 +48,9 @@ public class CompileAndRun implements Runnable {
             fos.write(submission.getCodeF());
             fos.close();
         } catch (FileNotFoundException ex) {
-            System.out.println("At CompileCPP FOS Err " + ex.getMessage());
+            System.out.println("CompileCPP File Error:\n" + ex.getMessage());
         } catch (IOException ex) {
-            System.out.println("At CompileCPP FWrite Err " + ex.getMessage());
+            System.out.println("CompileCPP File Error:\n" + ex.getMessage());
         }
 
         compile = new ProcessBuilder("g++", folderpath + submissionID + ".cpp", "-o", folderpath + submissionID+".out");
@@ -66,7 +65,7 @@ public class CompileAndRun implements Runnable {
             return p.exitValue();
 
         } catch (IOException ex) {
-            System.out.println("At CompileCPP CompileProcess Err " + ex.getMessage());
+            System.out.println("CompileCPP CompileProcess Error:\n" + ex.getMessage());
             return -2;
         }
 
@@ -80,9 +79,9 @@ public class CompileAndRun implements Runnable {
             fos.write(submission.getCodeF());
             fos.close();
         } catch (FileNotFoundException ex) {
-            System.out.println("At CompileJava FOS Err " + ex.getMessage());
+            System.out.println("CompileCPP File Error:\n" + ex.getMessage());
         } catch (IOException ex) {
-            System.out.println("At CompileJava FWrite Err " + ex.getMessage());
+            System.out.println("CompileCPP File Error:\n" + ex.getMessage());
         }
 
         compile = new ProcessBuilder("javac",submissionID + ".java").directory( new File(submissionID));
@@ -97,7 +96,7 @@ public class CompileAndRun implements Runnable {
             return p.exitValue();
 
         } catch (IOException ex) {
-            System.out.println("At CompileCPP CompileProcess Err " + ex.getMessage());
+            System.out.println("CompileCPP CompileProcess Error:\n" + ex.getMessage());
             return -2;
         }
 
@@ -110,9 +109,9 @@ public class CompileAndRun implements Runnable {
             fos.write(submission.getCodeF());
             fos.close();
         } catch (FileNotFoundException ex) {
-            System.out.println("At CompileJava FOS Err " + ex.getMessage());
+            System.out.println(ex.getMessage());
         } catch (IOException ex) {
-            System.out.println("At CompileJava FWrite Err " + ex.getMessage());
+            System.out.println(ex.getMessage());
         }
 
         compile = new ProcessBuilder("gcc", folderpath + submissionID + ".c", "-o", folderpath + submissionID+".out");
@@ -127,7 +126,7 @@ public class CompileAndRun implements Runnable {
             return p.exitValue();
 
         } catch (IOException ex) {
-            System.out.println("At CompileCPP CompileProcess Err " + ex.getMessage());
+            System.out.println(ex.getMessage());
             return -2;
         }
 
@@ -150,7 +149,7 @@ public class CompileAndRun implements Runnable {
                     return -1;
                 }
             } catch (InterruptedException ex) {
-                System.out.println("At runCppC runtime TLE Err " + ex.getMessage());
+                System.out.println(ex.getMessage());
                 return -1;
             }
             long stoptime = System.nanoTime();
@@ -158,7 +157,7 @@ public class CompileAndRun implements Runnable {
             return p.exitValue();
 
         } catch (IOException ex) {
-            System.out.println("At runCppC runtime Err " + ex.getMessage());
+            System.out.println(ex.getMessage());
             return -2;
         }
     }
@@ -200,7 +199,7 @@ public class CompileAndRun implements Runnable {
             return p.exitValue();
 
         } catch (IOException ex) {
-            System.out.println("At runJava runtime Err " + ex.getMessage());
+            System.out.println(ex.getMessage());
             classfiles[0].delete();
             return -2;
         }
@@ -225,9 +224,9 @@ public class CompileAndRun implements Runnable {
             iofilestate = 0;
         } catch (FileNotFoundException ex) {
             iofilestate = -1;
-            System.out.println("At Compiler IO file Err " + ex.getMessage());
+            System.out.println(ex.getMessage());
         } catch (IOException ex) {
-            System.out.println("At Compiler IO file Err " + ex.getMessage());
+            System.out.println(ex.getMessage());
             iofilestate = -1;
         }
 
@@ -242,7 +241,7 @@ public class CompileAndRun implements Runnable {
                     ErrBeforeCompareOutput = true;
                 } else {
                     int vr = runCppC();
-                    System.out.println(vr);
+                    
                     if (vr == -1) {
                         db.updateVerdict(submissionID, "Time Limit Exceeded",(int)timetaken);
                         ErrBeforeCompareOutput = true;
@@ -260,7 +259,7 @@ public class CompileAndRun implements Runnable {
                  
                 }else{
                    int vr = runCppC();
-                    System.out.println(vr);
+                    
                     if (vr == -1) {
                         db.updateVerdict(submissionID, "Time Limit Exceeded",(int)timetaken);
                         ErrBeforeCompareOutput = true;
@@ -299,7 +298,7 @@ public class CompileAndRun implements Runnable {
                 p.waitFor(2, TimeUnit.MINUTES);
                 comparisonResult = p.exitValue();
 
-                //System.out.println(comparisonResult);
+                
                 if (comparisonResult == 0) {
                     db.updateVerdict(submissionID, "Accepted",(int)timetaken);
                 } else if (comparisonResult == 1) {
@@ -308,9 +307,9 @@ public class CompileAndRun implements Runnable {
                     System.out.println("Output File Missing");
                 }
             } catch (IOException ex) {
-                System.out.println("Output Compare Process Err: " + ex.getMessage());
+                System.out.println(ex.getMessage());
             } catch (InterruptedException ex) {
-                System.out.println("Too long to compare outputs");
+                System.out.println(ex.getMessage());
             }
         }
         

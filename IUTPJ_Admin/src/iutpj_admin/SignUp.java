@@ -17,11 +17,13 @@ public class SignUp extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
-    AdminSocket adminsocket;
+    AdminSocket adminSocket;
+
     public SignUp(AdminSocket adminSocket) {
         initComponents();
         txtStudentID.setFocusable(true);
-        this.adminsocket = adminSocket;
+        this.adminSocket = adminSocket;
+        this.adminSocket.setParentFrame(this);
     }
 
     /**
@@ -209,31 +211,19 @@ public class SignUp extends javax.swing.JFrame {
     }//GEN-LAST:event_AlreadyAccButtonButtonActionPerformed
 
     private void SignUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignUpButtonActionPerformed
-       String usrname = txtStudentID.getText();
-       String password = PasswordField.getText();
-       String confirmPassword = ConfirmPasswordField.getText();
-       
-       if(password.equals(confirmPassword)==false){
-           ConfirmPasswordField.setText("");
-           JOptionPane.showMessageDialog(null, "Password didn't match", "Error", JOptionPane.ERROR_MESSAGE);
-       }
-       else{
-           if(adminsocket.sendData("SignUp--["+usrname+"]["+password+"]")<0){
-               JOptionPane.showMessageDialog(null, "Socket write error", "Connection!!!", JOptionPane.ERROR_MESSAGE);
-           }
-           
-           String tmp = adminsocket.readData();
-           
-           if(tmp.equals("Exist---")){
-               JOptionPane.showMessageDialog(null, "Username already exist", "SignUP", JOptionPane.INFORMATION_MESSAGE);
-           }
-           else if(tmp.equals("SignUpTr")){
-               JOptionPane.showMessageDialog(null, "SignUp Successfull", "SignUP", JOptionPane.INFORMATION_MESSAGE);
-           }
-           else{
-               JOptionPane.showMessageDialog(null, "SignUp Failed", "SignUp!!!", JOptionPane.ERROR_MESSAGE);
-           }
-       }      // TODO add your handling code here:
+        String usrname = txtStudentID.getText();
+        String password = PasswordField.getText();
+        String confirmPassword = ConfirmPasswordField.getText();
+
+        if (password.equals(confirmPassword) == false) {
+            ConfirmPasswordField.setText("");
+            JOptionPane.showMessageDialog(null, "Password didn't match", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (adminSocket.signUp(usrname, password)) {
+
+            JOptionPane.showMessageDialog(null, "SignUp Successfull", "SignUP", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "SignUp Failed", "SignUp!!!", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_SignUpButtonActionPerformed
 
     private void closeLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeLabelMouseClicked
@@ -245,40 +235,36 @@ public class SignUp extends javax.swing.JFrame {
     }//GEN-LAST:event_minimizeLabelMouseClicked
 
     private void txtStudentIDFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtStudentIDFocusGained
-        if(txtStudentID.getText().equals("Enter Username")) 
-        {
+        if (txtStudentID.getText().equals("Enter Username")) {
             txtStudentID.setText("");
         }
-        
-        
+
 // TODO add your handling code here:
     }//GEN-LAST:event_txtStudentIDFocusGained
 
     private void txtStudentIDFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtStudentIDFocusLost
-        if(txtStudentID.getText().equals("")) 
-        {
+        if (txtStudentID.getText().equals("")) {
             txtStudentID.setText("Enter Username");
         }
-        
+
         // TODO add your handling code here:
     }//GEN-LAST:event_txtStudentIDFocusLost
-    static int xx,yy;
+    static int xx, yy;
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
-        xx=evt.getX();
-        yy=evt.getY();// TODO add your handling code here:
+        xx = evt.getX();
+        yy = evt.getY();// TODO add your handling code here:
     }//GEN-LAST:event_formMousePressed
 
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
-        int x,y; 
-        x=evt.getXOnScreen();
-        y=evt.getYOnScreen();
-        this.setLocation(x-xx, y-yy);// TODO add your handling code here:
+        int x, y;
+        x = evt.getXOnScreen();
+        y = evt.getYOnScreen();
+        this.setLocation(x - xx, y - yy);// TODO add your handling code here:
     }//GEN-LAST:event_formMouseDragged
 
     /**
      * @param args the command line arguments
      */
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AlreadyAccButton;

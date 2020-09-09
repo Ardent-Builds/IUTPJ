@@ -29,12 +29,13 @@ public class Login extends javax.swing.JFrame {
     
     public Login(UserSocket usersocket) {
         initComponents();
-        this.setVisible(true);
         this.userSocket = usersocket;
+        this.userSocket.setCurrentJFrame(this);
         this.connectionStatus=false;
         this.txtIP.setText("localhost");
         this.txtPort.setText("1234");
         this.txtUsername.setText("Iutpj_01");
+        this.setVisible(true);
     }
 
     /**
@@ -238,35 +239,21 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_CrNewAccButtonButtonActionPerformed
 
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
-        if(connectionStatus==false){
-             JOptionPane.showMessageDialog(null,"Connection Error!","Connection Status",JOptionPane.ERROR_MESSAGE);
-             return;
+        if (connectionStatus == false) {
+            JOptionPane.showMessageDialog(null, "Connection Error!", "Connection Status", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        String studentid = txtUsername.getText();
+
+        String username = txtUsername.getText();
         String password = PasswordField.getText();
-        String dataout = "Login---["+studentid+"]["+password+"]";
-        System.out.println(dataout);
-        if(userSocket.sendData(dataout)<0){
-            JOptionPane.showMessageDialog(null,"Timeout sending data!!!","Timeout",JOptionPane.ERROR_MESSAGE);
-        }
-        
-        String datain = userSocket.readData();
-                          
-        System.out.println(datain);             //Debuging;
-        
-        if(datain != null){
-            if(datain.equals("LoginTrue")){
-                JOptionPane.showMessageDialog(null,"Login Successful!","Status",JOptionPane.INFORMATION_MESSAGE);
-                dashboard = new UserDashboard(userSocket,this);
-                dashboard.setVisible(rootPaneCheckingEnabled);
-                this.setVisible(false);
-            }
-            else if(datain.equals("LoginFalse")){
-                JOptionPane.showMessageDialog(null,"Incorrect Username Or Password!","Status",JOptionPane.ERROR_MESSAGE);
-            }
-        }
-        else{
-            JOptionPane.showMessageDialog(null,"Timeout reading data!","Timeout",JOptionPane.ERROR_MESSAGE);
+        userSocket.getAuthorization(username, password);
+
+        if (userSocket.getAuthorization(username, password)) {
+            JOptionPane.showMessageDialog(null, "Login Successful!", "Status", JOptionPane.INFORMATION_MESSAGE);
+            dashboard = new UserDashboard(userSocket, this);
+            this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(null, "Incorrect Username Or Password!", "Status", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_LoginButtonActionPerformed
 
@@ -318,23 +305,14 @@ public class Login extends javax.swing.JFrame {
 
     private void ConnectButtonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConnectButtonButtonActionPerformed
         int port;
-        try 
-        {
-            port= Integer.parseInt(txtPort.getText());
+        try {
+            port = Integer.parseInt(txtPort.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Port Error! \n"+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        catch (NumberFormatException e)
-        {
-            port = 0;
-        }
-        
-        String ip   = txtIP.getText();
-        if(userSocket.connect(ip, port) && port!=0){
-            JOptionPane.showMessageDialog(null,"Connected!","Connection Status",JOptionPane.INFORMATION_MESSAGE);
-            connectionStatus=true;
-        }
-        else{
-            JOptionPane.showMessageDialog(null,"Connection Error!","Connection Status",JOptionPane.ERROR_MESSAGE);
-        }
+        String ip = txtIP.getText();
+        connectionStatus = userSocket.connect(ip, port);
     }//GEN-LAST:event_ConnectButtonButtonActionPerformed
 
     

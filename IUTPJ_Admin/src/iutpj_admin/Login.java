@@ -20,20 +20,18 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
-    
-    private AdminSocket adminSocket;
+    private final AdminSocket adminSocket;
     private SignUp signup;
     AdminDashboard dashboard;
     private boolean connectionStatus;
-    
-    
+
     public Login(AdminSocket adminSocket) {
         initComponents();
         this.setVisible(true);
         this.adminSocket = adminSocket;
         this.connectionStatus = false;
-       
-        
+
+        adminSocket.setParentFrame(this);
     }
 
     /**
@@ -195,19 +193,6 @@ public class Login extends javax.swing.JFrame {
         txtIP.setText("Localhost");
         txtIP.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(102, 102, 102)));
         txtIP.setSelectionColor(new java.awt.Color(110, 89, 222));
-        txtIP.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtIPFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtIPFocusLost(evt);
-            }
-        });
-        txtIP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIPActionPerformed(evt);
-            }
-        });
         RightPanel.add(txtIP, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 180, 30));
 
         PortLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
@@ -220,19 +205,6 @@ public class Login extends javax.swing.JFrame {
         txtPort.setText("1234");
         txtPort.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(102, 102, 102)));
         txtPort.setSelectionColor(new java.awt.Color(110, 89, 222));
-        txtPort.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtPortFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtPortFocusLost(evt);
-            }
-        });
-        txtPort.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPortActionPerformed(evt);
-            }
-        });
         RightPanel.add(txtPort, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 130, 120, 30));
 
         ConnectButton.setBackground(new java.awt.Color(54, 33, 89));
@@ -257,44 +229,35 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
-       
-        if(connectionStatus==false){
-             JOptionPane.showMessageDialog(null,"Connection Error!","Connection Status",JOptionPane.ERROR_MESSAGE);
-             return;
+
+        if (connectionStatus == false) {
+            JOptionPane.showMessageDialog(null, "Connection Error!", "Connection Status", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        
+
         String username = txtUsername.getText();
         String password = PasswordField.getText();
-        String dataout = "Login---["+username+"]["+password+"]";
-        System.out.println(dataout);
-        if(adminSocket.sendData(dataout)<0){
-            JOptionPane.showMessageDialog(null,"Timeout sending data!!!","Timeout",JOptionPane.ERROR_MESSAGE);
+        adminSocket.getAuthorization(username, password);
+
+        if (adminSocket.getAuthorization(username, password)) {
+            JOptionPane.showMessageDialog(null, "Login Successful!", "Status", JOptionPane.INFORMATION_MESSAGE);
+            dashboard = new AdminDashboard(adminSocket, this);
+            this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(null, "Incorrect Username Or Password!", "Status", JOptionPane.ERROR_MESSAGE);
         }
-        
-        String datain=adminSocket.readData();
-        System.out.println("data read");
-        if(datain != null){
-            if(datain.equals("LoginTrue")){
-                JOptionPane.showMessageDialog(null,"Login Successful!","Status",JOptionPane.INFORMATION_MESSAGE);
-                dashboard = new AdminDashboard(adminSocket,this);
-                this.setVisible(false);
-            }
-            else if(datain.equals("LoginFalse")){
-                JOptionPane.showMessageDialog(null,"Incorrect Username Or Password!","Status",JOptionPane.ERROR_MESSAGE);
-            }
-        }
-        else{
-            JOptionPane.showMessageDialog(null,"Timeout reading data!","Timeout",JOptionPane.ERROR_MESSAGE);
-        }
+
+
     }//GEN-LAST:event_LoginButtonActionPerformed
 
     private void closeLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeLabelMouseClicked
-        try{
+        try {
             adminSocket.close();
-        }catch(IOException ex) {
+        } catch (IOException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_closeLabelMouseClicked
 
     private void minimizeLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeLabelMouseClicked
@@ -302,96 +265,56 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_minimizeLabelMouseClicked
 
     private void txtUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsernameFocusGained
-        if(txtUsername.getText().equals("Enter Username")) 
-        {
+        if (txtUsername.getText().equals("Enter Username")) {
             txtUsername.setText("");
         }
-        
-        
+
 // TODO add your handling code here:
     }//GEN-LAST:event_txtUsernameFocusGained
 
     private void txtUsernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsernameFocusLost
-        if(txtUsername.getText().equals("")) 
-        {
+        if (txtUsername.getText().equals("")) {
             txtUsername.setText("Enter Username");
         }
-        
+
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsernameFocusLost
 
     private void CrNewAccButtonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrNewAccButtonButtonActionPerformed
-        if(connectionStatus==false){
-             JOptionPane.showMessageDialog(null,"Connection Error!","Connection Status",JOptionPane.ERROR_MESSAGE);
-             return;
+        if (connectionStatus == false) {
+            JOptionPane.showMessageDialog(null, "Connection Error!", "Connection Status", JOptionPane.ERROR_MESSAGE);
+            return;
         }
         signup = new SignUp(adminSocket);
         signup.setVisible(rootPaneCheckingEnabled);
-        
+
     }//GEN-LAST:event_CrNewAccButtonButtonActionPerformed
-    
+
     static int xx, yy;
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
-         // TODO add your handling code here:
-        xx=evt.getX();
-        yy=evt.getY();
+        // TODO add your handling code here:
+        xx = evt.getX();
+        yy = evt.getY();
     }//GEN-LAST:event_formMousePressed
 
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
         int x, y;
-        x=evt.getXOnScreen();
-        y=evt.getYOnScreen();
-        this.setLocation(x-xx, y-yy);// TODO add your handling code here:
+        x = evt.getXOnScreen();
+        y = evt.getYOnScreen();
+        this.setLocation(x - xx, y - yy);// TODO add your handling code here:
     }//GEN-LAST:event_formMouseDragged
-
-    private void txtIPFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIPFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIPFocusGained
-
-    private void txtIPFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIPFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIPFocusLost
-
-    private void txtIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIPActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIPActionPerformed
-
-    private void txtPortFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPortFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPortFocusGained
-
-    private void txtPortFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPortFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPortFocusLost
-
-    private void txtPortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPortActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPortActionPerformed
 
     private void ConnectButtonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConnectButtonButtonActionPerformed
         int port;
-        try 
-        {
-            port= Integer.parseInt(txtPort.getText());
+        try {
+            port = Integer.parseInt(txtPort.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Port Error! \n"+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        catch (NumberFormatException e)
-        {
-            port = 0;
-        }
-        String ip   = txtIP.getText();
-        if(adminSocket.connect(ip, port) && port!=0){
-            JOptionPane.showMessageDialog(null,"Connected!","Connection Status",JOptionPane.INFORMATION_MESSAGE);
-            connectionStatus=true;
-        }
-        else{
-            JOptionPane.showMessageDialog(null,"Connection Error!","Connection Status",JOptionPane.ERROR_MESSAGE);
-        }
+        String ip = txtIP.getText();
+        connectionStatus = adminSocket.connect(ip, port);
     }//GEN-LAST:event_ConnectButtonButtonActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ConnectButton;

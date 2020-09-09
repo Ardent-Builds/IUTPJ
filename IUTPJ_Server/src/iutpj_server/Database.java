@@ -5,13 +5,13 @@
  */
 package iutpj_server;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Timer;
 import newproblem.NewProblem;
 import newsubmission.NewSubmission;
 
@@ -23,100 +23,128 @@ public class Database {
 
     private final String dbUserName;
     private final String dbPassword;
-    Connection conn;
-    PreparedStatement prprdstmnt;
-    CallableStatement callableStatement;
-    Statement stmnt;
+    private Connection connection;
+    private PreparedStatement preparedStatement;
+    private CallableStatement callableStatement;
+    private Statement statement;
+    private final Timer timer;
+    private Long nextStartTime, nextFinishTime;
 
     public Database() {
         dbUserName = "iutpj";
         dbPassword = "IutPj";
-        conn = null;
-        prprdstmnt = null;
+        connection = null;
+        preparedStatement = null;
         callableStatement = null;
-        stmnt = null;
+        statement = null;
+
+        this.timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (nextStartTime < System.currentTimeMillis() | nextFinishTime < System.currentTimeMillis()) {
+                    updateState();
+                }
+            }
+        });
+        this.timer.start();
     }
 
     public void connectToDatebase() throws ClassNotFoundException, SQLException {
         Class.forName("oracle.jdbc.driver.OracleDriver");
-        conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", this.dbUserName, this.dbPassword);
+        connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", this.dbUserName, this.dbPassword);
+        updateState();
     }
 
-// Client manupulation:
-    public synchronized String getAdminPassword(String usrname) {
-        String query = "select PASSWORD from ADMIN_INFO where USER_NAME = '" + usrname + "'";
-
+    public void closeConnection() {
         try {
-            stmnt = conn.createStatement();
-            ResultSet rs = stmnt.executeQuery(query);
-            if (rs.next() == false) {
-                return "No#Data";
-            }
-            return rs.getString(1);
-
+            connection.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Statement error " + ex);
-            return "No#Data";
         }
+    }
+// Client manupulation:
 
+    public synchronized String getAdminPassword(String usrname) {
+        String query = "select PASSWORD from ADMIN_INFO where USER_NAME = '" + usrname + "'";
+        String pass = "No#Data";
+        try {
+            statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            if (rs.next() == false) {
+                statement.close();
+                return pass;
+            }
+            pass = rs.getString(1);
+            statement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
+        }
+        return pass;
     }
 
     public synchronized String getAdminID(String usrname) {
         String query = "select ID from ADMIN_INFO where USER_NAME = '" + usrname + "'";
+        String pass = "No#Data";
         try {
-            stmnt = conn.createStatement();
-            ResultSet rs = stmnt.executeQuery(query);
+            statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
             if (rs.next() == false) {
-                return "No#Data";
+                statement.close();
+                return pass;
             }
-
-            return rs.getString(1);
-
+            pass = rs.getString(1);
+            statement.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Statement error " + ex);
-            return "No#Data";
+            System.out.println(ex.getMessage());
         }
+        return pass;
     }
 
     public synchronized String getUserID(String usrname) {
         String query = "select ID from USER_INFO where USER_NAME = '" + usrname + "'";
+        String pass = "No#Data";
         try {
-            stmnt = conn.createStatement();
-            ResultSet rs = stmnt.executeQuery(query);
+            statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
             if (rs.next() == false) {
-                return "No#Data";
+                statement.close();
+                return pass;
             }
-            return rs.getString(1);
+            pass = rs.getString(1);
+            statement.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Statement error " + ex);
-            return "No#Data";
+            System.out.println(ex.getMessage());
         }
+        return pass;
     }
 
     public synchronized String getUserPassword(String usrname) {
         String query = "select PASSWORD from USER_INFO where USER_NAME = '" + usrname + "'";
+        String pass = "No#Data";
         try {
-            stmnt = conn.createStatement();
-            ResultSet rs = stmnt.executeQuery(query);
+            statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
             if (rs.next() == false) {
-                return "No#Data";
+                statement.close();
+                return pass;
             }
-            return rs.getString(1);
+            pass = rs.getString(1);
+            statement.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Statement error " + ex);
-            return "No#Data";
+            System.out.println(ex.getMessage());
         }
+        return pass;
     }
 
     public synchronized String updateAdmin(String usrname, String password) {
 
         String sql = "{? = call INSERT_ADMIN(?,?,?,?,?)}";
         try {
-            callableStatement = conn.prepareCall(sql);
+            callableStatement = connection.prepareCall(sql);
             callableStatement.registerOutParameter(1, Types.VARCHAR);
             callableStatement.setString(2, usrname);
             callableStatement.setString(3, password);
@@ -138,7 +166,7 @@ public class Database {
         String sql = "{? = call INSERT_USER(?,?,?,?,?)}";
 
         try {
-            callableStatement = conn.prepareCall(sql);
+            callableStatement = connection.prepareCall(sql);
             callableStatement.registerOutParameter(1, Types.VARCHAR);
             callableStatement.setString(2, usrname);
             callableStatement.setString(3, password);
@@ -184,20 +212,20 @@ public class Database {
         String sql = "{? = call INSERT_PROBLEM_SET(?,?,?,?,?,?,?,?)}";
 
         try {
-            Blob problemStatement = conn.createBlob();
+            Blob problemStatement = connection.createBlob();
             problemStatement.setBytes(1, problem.getProb());
-            Blob dataSetIn = conn.createBlob();
+            Blob dataSetIn = connection.createBlob();
             dataSetIn.setBytes(1, problem.getInp());
-            Blob dataSetOut = conn.createBlob();
+            Blob dataSetOut = connection.createBlob();
             dataSetOut.setBytes(1, problem.getOutp());
 
-            callableStatement = conn.prepareCall(sql);
+            callableStatement = connection.prepareCall(sql);
             callableStatement.registerOutParameter(1, Types.VARCHAR);
             callableStatement.setString(2, problem.getProblemName());
             callableStatement.setString(3, setter);
             callableStatement.setInt(4, Integer.parseInt(problem.getTimeLimit()));
             callableStatement.setInt(5, Integer.parseInt(problem.getMemoryLimit()));
-            callableStatement.setString(6, "YES");
+            callableStatement.setString(6, problem.getProblemID());
             callableStatement.setBlob(7, problemStatement);
             callableStatement.setBlob(8, dataSetIn);
             callableStatement.setBlob(9, dataSetOut);
@@ -208,20 +236,23 @@ public class Database {
             return status;
 
         } catch (SQLException ex) {
-            System.out.println("Databasse.java: " + ex.toString());
+            System.out.println(ex.getMessage());
             return ex.toString();
         }
     }
 
-    public synchronized NewProblem getProblem(String problemID) {
+    public synchronized NewProblem getProblem(String problemID, String userType) {
 
         String query = "SELECT * FROM PROBLEM_SET WHERE ID = '" + problemID + "'";
 
         try {
-            stmnt = conn.createStatement();
-            ResultSet rs = stmnt.executeQuery(query);
+            statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
 
             if (rs.next() == false) {
+                return null;
+            }
+            if (userType.equals("User") && rs.getString("LOCKED").equals("YES")) {
                 return null;
             }
 
@@ -236,7 +267,7 @@ public class Database {
             return problem;
 
         } catch (SQLException ex) {
-            System.out.println("DB GET PROBLEM: " + ex.toString());
+            System.out.println(ex.getMessage());
             return null;
         }
 
@@ -251,7 +282,7 @@ public class Database {
          */
         String sql = "{? = call DELETE_PROBLEM(?,?)}";
         try {
-            callableStatement = conn.prepareCall(sql);
+            callableStatement = connection.prepareCall(sql);
             callableStatement.registerOutParameter(1, Types.VARCHAR);
             callableStatement.setString(2, problemID);
             callableStatement.setString(3, userID);
@@ -261,7 +292,25 @@ public class Database {
             callableStatement.close();
             return status;
         } catch (SQLException ex) {
-            System.out.println("DB Delete Problem " + ex.toString());
+            System.out.println(ex.getMessage());
+            return ex.toString();
+        }
+    }
+
+    public synchronized String changeProblemLockState(String problemID, String state) {
+        String sql = "{? = call CHANGE_PROBLEM_LOCK_STATE(?, ?)}";
+        try {
+            callableStatement = connection.prepareCall(sql);
+            callableStatement.registerOutParameter(1, Types.VARCHAR);
+            callableStatement.setString(2, problemID);
+            callableStatement.setString(3, state);
+
+            callableStatement.execute();
+            String status = callableStatement.getString(1);
+            callableStatement.close();
+            return status;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
             return ex.toString();
         }
     }
@@ -281,10 +330,10 @@ public class Database {
         System.out.println(submission.getProblemID() + " " + userID);
         String sql = "{? = call INSERT_SUBMISSION(?,?,?,?,?,?)}";
         try {
-            Blob codeFile = conn.createBlob();
+            Blob codeFile = connection.createBlob();
             codeFile.setBytes(1, submission.getCodeF());
 
-            callableStatement = conn.prepareCall(sql);
+            callableStatement = connection.prepareCall(sql);
 
             callableStatement.registerOutParameter(1, Types.VARCHAR);
 
@@ -303,7 +352,7 @@ public class Database {
             return status;
 
         } catch (SQLException ex) {
-            System.out.println("DB add Submission: " + ex.toString());
+            System.out.println(ex.getMessage());
             return ex.toString();
         }
 
@@ -321,7 +370,7 @@ public class Database {
         String sql = "{? = call UPDATE_SUBMISSION(?,?,?)}";
 
         try {
-            callableStatement = conn.prepareCall(sql);
+            callableStatement = connection.prepareCall(sql);
             callableStatement.registerOutParameter(1, Types.VARCHAR);
 
             callableStatement.setString(2, submissionID);
@@ -334,7 +383,7 @@ public class Database {
             return status;
 
         } catch (SQLException ex) {
-            System.out.println("DB updateVerdict Err: " + ex.getMessage());
+            System.out.println("DB updateVerdict Err:\n" + ex.getMessage());
             return ex.toString();
         }
     }
@@ -344,8 +393,8 @@ public class Database {
         String query = "SELECT PROBLEM_ID, CODE_LANGUAGE, CODE_FILE FROM SUBMISSION WHERE ID = '" + submissionID + "'";
 
         try {
-            stmnt = conn.createStatement();
-            ResultSet rs = stmnt.executeQuery(query);
+            statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
 
             if (rs.next() == false) {
                 return null;
@@ -360,7 +409,7 @@ public class Database {
             return submission;
 
         } catch (SQLException ex) {
-            System.out.println("problem query Err " + ex.getMessage());
+            System.out.println("problem query Err\n" + ex.getMessage());
             return null;
         }
 
@@ -371,44 +420,51 @@ public class Database {
         List<String[]> table = new ArrayList<>();
         String[] rowData = new String[5];
 
-        String query = "SELECT PROBLEM_SET.ID AS ID, PROBLEM_NAME, USER_NAME FROM PROBLEM_SET INNER JOIN ADMIN_INFO ON SETTER_ID = ADMIN_INFO.ID WHERE SETTER_ID = " + ((userID == null) ? "SETTER_ID" : "'" + userID + "'");
-        System.out.println(query);
+        String query = "SELECT PROBLEM_SET.ID AS ID, PROBLEM_NAME, USER_NAME, LOCKED "
+                + "FROM PROBLEM_SET INNER JOIN ADMIN_INFO ON SETTER_ID = ADMIN_INFO.ID "
+                + "WHERE SETTER_ID = " + ((userID == null) ? "SETTER_ID" : "'" + userID + "'");
         ResultSet rs;
         try {
-            stmnt = conn.createStatement();
-            rs = stmnt.executeQuery(query);
+            statement = connection.createStatement();
+            rs = statement.executeQuery(query);
 
             while (rs.next()) {
-                rowData[0] = "<HTML><U><FONT COLOR='BLUE'>" + rs.getString("ID") + "</FONT></U></HTML>";
-                rowData[1] = "<HTML><U><FONT COLOR='BLUE'>" + rs.getString("PROBLEM_NAME") + "</FONT></U></HTML>";
+                rowData[0] = rs.getString("ID");
+                rowData[1] = rs.getString("PROBLEM_NAME");
                 rowData[2] = rs.getString("USER_NAME");
-                rowData[3] = "<HTML><U><FONT COLOR='RED'>DELETE</FONT></U></HTML>";
-                rowData[4] = rs.getString("ID");
+                rowData[4] = "DELETE";
+                rowData[3] = rs.getString("LOCKED");
                 table.add(rowData.clone());
-                System.out.println(Arrays.toString(rowData));
             }
             return table;
         } catch (SQLException ex) {
-            System.out.println("DB getProblemTable err" + ex.getMessage());
+            System.out.println("DB getProblemTable err\n" + ex.getMessage());
             return null;
         }
 
     }
 
-    public synchronized List<String[]> getStatusTable(String userID, String clientType) {
+    public synchronized List<String[]> getStatusTable(String userID) {
 
         List<String[]> tableData = new ArrayList<>();
         String[] rowData = new String[9];
 
-        String query = "SELECT SUBMISSION.ID AS SID, CODE_LANGUAGE AS CL, VERDICT AS VR, RUNNING_TIME AS RT, "
-                + "PROBLEM_SET.PROBLEM_NAME AS PNAME, PROBLEM_SET.ID AS PID, "
-                + "USER_INFO.USER_NAME AS UNAME "
-                + "FROM SUBMISSION, PROBLEM_SET, USER_INFO "
-                + "WHERE PROBLEM_SET.ID = PROBLEM_ID AND USER_INFO.ID = USER_ID AND USER_ID = " + ((userID == null) ? "USER_ID" : "'" + userID + "'");
+        String sql = "SELECT SUBMISSION.ID AS SID, CODE_LANGUAGE AS CL, VERDICT AS VR, RUNNING_TIME AS RT, "
+                + "PROBLEM_NAME AS PNAME, PROBLEM_SET.ID AS PID, "
+                + "USER_NAME AS UNAME "
+                + "FROM SUBMISSION "
+                + "INNER JOIN PROBLEM_SET ON PROBLEM_SET.ID = PROBLEM_ID "
+                + "INNER JOIN USER_INFO ON USER_INFO.ID = USER_ID "
+                + ((userID != null) ? "WHERE USER_ID = ?" : " ")
+                + "ORDER BY SID DESC";
         ResultSet rs;
         try {
-            stmnt = conn.createStatement();
-            rs = stmnt.executeQuery(query);
+            preparedStatement = connection.prepareCall(sql);
+            if (userID != null) {
+                preparedStatement.setString(1, userID);
+            }
+
+            rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
 
@@ -420,18 +476,13 @@ public class Database {
                         + rowData[0].substring(10, 12) + ":"
                         + rowData[0].substring(12, 14);
                 rowData[2] = rs.getString("UNAME");
-                rowData[3] = "<HTML><U><FONT COLOR='BLUE'>" + rs.getString("PNAME") + "</FONT></U></HTML>";
+                rowData[3] = rs.getString("PNAME");
                 rowData[4] = rs.getString("CL");
                 rowData[5] = rs.getString("VR");
                 rowData[6] = Integer.toString(rs.getInt("RT"));
                 rowData[7] = rs.getString("PID");
-                rowData[8] = rs.getString("SID");
 
-                if (userID != null || clientType.equals("Admin")) {
-                    rowData[0] = "<HTML><U><FONT COLOR='BLUE'>" + rowData[0] + "</FONT></U></HTML>";
-                }
                 tableData.add(rowData.clone());
-                System.out.println(Arrays.toString(rowData));
             }
             return tableData;
 
@@ -450,20 +501,19 @@ public class Database {
 
         ResultSet rs;
         try {
-            stmnt = conn.createStatement();
-            rs = stmnt.executeQuery(query);
+            statement = connection.createStatement();
+            rs = statement.executeQuery(query);
             int position = 1;
             while (rs.next()) {
                 rowData[0] = Integer.toString(position++);
                 rowData[1] = rs.getString("UNAME");
                 rowData[2] = rs.getString("Problems");
                 tableData.add(rowData.clone());
-                System.out.println(rowData);
             }
             return tableData;
 
         } catch (SQLException ex) {
-            System.out.println("DB getProblemTable err" + ex.toString());
+            System.out.println("DB getProblemTable err\n" + ex.toString());
             return null;
         }
     }
@@ -476,24 +526,25 @@ public class Database {
 
         ResultSet rs;
         try {
-            stmnt = conn.createStatement();
-            rs = stmnt.executeQuery(query);
+            this.timer.stop();
+            statement = connection.createStatement();
+            rs = statement.executeQuery(query);
             while (rs.next()) {
                 rowData[0] = rs.getString("CID");
                 rowData[1] = rs.getString("CONTEST_NAME");
                 rowData[2] = rs.getString("SETTER");
-                rowData[3] = rs.getTimestamp("START_TIME").toString();
+                Timestamp startTime = rs.getTimestamp("START_TIME");
+                rowData[3] = startTime.toString();
                 rowData[4] = Integer.toString(rs.getInt("DURATION_MIN"));
-                rowData[5] = (rs.getString("FINISHED").equals("YES")) ? "Previous" : "Upcomming";
-                rowData[6] = rowData[0];
-                rowData[0] = "<HTML><U><FONT COLOR='BLUE'>" + rowData[0] + "</FONT></U></HTML>";
+                rowData[5] = rs.getString("FINISHED");
+
                 tableData.add(rowData.clone());
-                System.out.println(rowData);
             }
+            this.timer.start();
             return tableData;
 
         } catch (SQLException ex) {
-            System.out.println("DB getProblemTable err" + ex.toString());
+            System.out.println("DB getProblemTable err\n" + ex.toString());
             return null;
         }
     }
@@ -518,7 +569,7 @@ public class Database {
         String insert_problems = "{? = call ADD_PROBLEM_TO_CONTEST(?,?)}";
 
         try {
-            callableStatement = conn.prepareCall(insert_contest);
+            callableStatement = connection.prepareCall(insert_contest);
 
             callableStatement.setString(2, contestInfo.getContestName());
             callableStatement.setDate(3, new java.sql.Date(contestInfo.getStartTime().getTime()));
@@ -528,22 +579,23 @@ public class Database {
 
             callableStatement.execute();
             String contestID = callableStatement.getString(1);
+            callableStatement.close();
 
             for (String problems : contestInfo.getProblemIDs()) {
-                callableStatement = conn.prepareCall(insert_contest);
-                callableStatement.setString(2, contestID);
-                callableStatement.setString(3, problems);
+                callableStatement = connection.prepareCall(insert_problems);
+                callableStatement.setString(2, problems);
+                callableStatement.setString(3, contestID);
                 callableStatement.registerOutParameter(1, Types.VARCHAR);
                 callableStatement.execute();
-                if (callableStatement.getString(1).equals("CONTEST FINISHED")) {
+                if (callableStatement.getString(1).equals("OVER")) {
                     break;
                 }
                 callableStatement.close();
             }
-            return "SUCCESS";
+            updateState();
+            return "SUCCESSFULL";
         } catch (SQLException ex) {
-            System.out.println("DB Add Contest: " + ex.toString());
-            return null;
+            return "Contest saving Failed:\n" + ex.toString();
         }
 
     }
@@ -552,9 +604,9 @@ public class Database {
         String contestQuery = "SELECT CONTEST_INFO.ID AS CID, CONTEST_NAME, START_TIME, DURATION_MIN, ADMIN_INFO.USER_NAME AS SETTER FROM CONTEST_INFO, ADMIN_INFO WHERE SETTER_ID = ADMIN_INFO.ID AND CONTEST_INFO.ID = ?";
         String problemQuery = "SELECT PROBLEM_ID FROM CONTEST_PROBLEM_JUNCTION WHERE CONTEST_ID = ?";
         try {
-            prprdstmnt = conn.prepareStatement(contestQuery);
-            prprdstmnt.setString(1, contestID);
-            ResultSet rs = prprdstmnt.executeQuery();
+            preparedStatement = connection.prepareStatement(contestQuery);
+            preparedStatement.setString(1, contestID);
+            ResultSet rs = preparedStatement.executeQuery();
             if (rs.next() == false) {
                 return null;
             }
@@ -565,17 +617,16 @@ public class Database {
             contestInfo.setContestSetter(rs.getString("SETTER"));
             contestInfo.setDurationMinutes(Integer.toString(rs.getInt("DURATION_MIN")));
             contestInfo.setStartTime(new java.util.Date(rs.getDate("START_TIME").getTime()));
-            prprdstmnt.close();
+            preparedStatement.close();
 
-            prprdstmnt = conn.prepareCall(problemQuery);
-            prprdstmnt.setString(1, contestID);
-            rs = prprdstmnt.executeQuery();
+            preparedStatement = connection.prepareCall(problemQuery);
+            preparedStatement.setString(1, contestID);
+            rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
                 contestInfo.addProblem(rs.getString("PROBLEM_ID"));
-                System.out.println(contestInfo.getProblemIDs());
             }
-            prprdstmnt.close();
+            preparedStatement.close();
             return contestInfo;
 
         } catch (SQLException ex) {
@@ -584,4 +635,188 @@ public class Database {
         return null;
     }
 
+    public synchronized void updateContest(ContestInfo contestInfo, String setter) {
+        String call = "{? = call Update_contest(?,?,?,?,?,?}";
+        String status;
+        if (contestInfo.getStartTime().getTime() + Long.parseLong(contestInfo.getdurationMinutes()) < System.currentTimeMillis()) {
+            status = "OVER";
+        } else if (contestInfo.getStartTime().getTime() < System.currentTimeMillis()) {
+            status = "RUNNING";
+        } else {
+            status = "COMMING";
+        }
+
+        try {
+            callableStatement = connection.prepareCall(call);
+
+            callableStatement.registerOutParameter(1, Types.VARCHAR);
+            callableStatement.setString(2, contestInfo.getContestID());
+            callableStatement.setString(3, contestInfo.getContestName());
+            callableStatement.setDate(4, new java.sql.Date(contestInfo.getStartTime().getTime()));
+            callableStatement.setString(5, contestInfo.getdurationMinutes());
+            callableStatement.setString(6, status);
+            callableStatement.setString(7, setter);
+
+            callableStatement.execute();
+            callableStatement.close();
+            updateState();
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    private synchronized void updateState() {
+        this.timer.stop();
+        String call = "{call Update_state(?,?)}";
+
+        try {
+            callableStatement = connection.prepareCall(call);
+            callableStatement.registerOutParameter(1, Types.DATE);
+            callableStatement.registerOutParameter(2, Types.DATE);
+            callableStatement.execute();
+
+            nextStartTime = (callableStatement.getDate(1) == null) ? Long.MAX_VALUE : callableStatement.getDate(1).getTime();
+            nextFinishTime = (callableStatement.getDate(2) == null) ? Long.MAX_VALUE : callableStatement.getDate(2).getTime();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.timer.start();
+    }
+
+    public synchronized List<String[]> getContestProblemSet(String contestID) {
+        String sqlQuery = "SELECT ID, PROBLEM_NAME, TIME_LIMIT, MEMORY_LIMIT "
+                + "FROM CONTEST_PROBLEM_JUNCTION INNER JOIN PROBLEM_SET ON PROBLEM_ID = ID "
+                + "WHERE CONTEST_ID = ?";
+
+        List<String[]> table = new ArrayList<>();
+        String[] rowData = new String[4];
+        try {
+            preparedStatement = connection.prepareCall(sqlQuery);
+            preparedStatement.setString(1, contestID);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                rowData[0] = rs.getString("ID");
+                rowData[1] = rs.getString("PROBLEM_NAME");
+                rowData[2] = rs.getString("TIME_LIMIT");
+                rowData[3] = rs.getString("MEMORY_LIMIT");
+                table.add(rowData.clone());
+            }
+            return table;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println(ex.getMessage());
+            return null;
+        }
+    }
+
+    public synchronized List<String[]> getContestStatusTable(String contestID, String userID) {
+
+        System.out.println(contestID + ' ' + userID);
+        List<String[]> tableData = new ArrayList<>();
+        String[] rowData = new String[8];
+
+        String query = "SELECT SUBMISSION.ID AS SID, CODE_LANGUAGE AS CL, VERDICT AS VR, RUNNING_TIME AS RT, "
+                + "PROBLEM_SET.PROBLEM_NAME AS PNAME, PROBLEM_SET.ID AS PID, "
+                + "USER_INFO.USER_NAME AS UNAME "
+                + "FROM SUBMISSION "
+                + "INNER JOIN PROBLEM_SET ON PROBLEM_SET.ID = PROBLEM_ID "
+                + "INNER JOIN USER_INFO ON USER_INFO.ID = USER_ID "
+                + "INNER JOIN CONTEST_SUBMISSION_JUNCTION ON SUBMISSION.ID = SUBMISSION_ID "
+                + "WHERE CONTEST_ID = ? AND USER_ID = ? "
+                + "ORDER BY SID DESC";
+        if (userID == null) {
+            query = query.substring(0, query.length() - 33) + " ORDER BY SID DESC";
+        }
+        ResultSet rs;
+        try {
+            preparedStatement = connection.prepareCall(query);
+            if (userID != null) {
+                preparedStatement.setString(2, userID);
+            }
+            preparedStatement.setString(1, contestID);
+            rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+
+                rowData[0] = rs.getString("SID");
+                rowData[1] = rowData[0].substring(0, 2) + "/"
+                        + rowData[0].substring(2, 4) + "/"
+                        + rowData[0].substring(4, 8) + ":"
+                        + rowData[0].substring(8, 10) + ":"
+                        + rowData[0].substring(10, 12) + ":"
+                        + rowData[0].substring(12, 14);
+                rowData[2] = rs.getString("UNAME");
+                rowData[3] = rs.getString("PNAME");
+                rowData[4] = rs.getString("CL");
+                rowData[5] = rs.getString("VR");
+                rowData[6] = Integer.toString(rs.getInt("RT"));
+                rowData[7] = rs.getString("PID");
+
+                tableData.add(rowData.clone());
+            }
+            return tableData;
+
+        } catch (SQLException ex) {
+            System.out.println("DB Fetch Status Table err" + ex.toString());
+            return null;
+        }
+
+    }
+
+    public synchronized String addContestSubmissionToDB(NewSubmission submission, String userID, String contestID) {
+
+        String submissionID = addSubmissionToDB(submission, userID);
+
+        String mapSubmission = "{? = call SUBMISSION_FOR_CONTEST(?,?)}";
+        try {
+            callableStatement = connection.prepareCall(mapSubmission);
+            callableStatement.setString(2, submissionID);
+            callableStatement.setString(3, contestID);
+            callableStatement.registerOutParameter(1, Types.VARCHAR);
+            callableStatement.execute();
+
+            callableStatement.close();
+            return submissionID;
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return ex.toString();
+        }
+
+    }
+
+    public synchronized List<String[]> getContestStandingRawData(String contestID) {
+        String sqlQuery = "SELECT USER_INFO.USER_NAME AS UNAME, SUBMISSION.PROBLEM_ID AS PID, SUBMISSION.SUBMISSION_TIME AS STIME "
+                + "FROM SUBMISSION "
+                + "INNER JOIN USER_INFO ON USER_INFO.ID = USER_ID "
+                + "INNER JOIN CONTEST_SUBMISSION_JUNCTION ON SUBMISSION.ID = SUBMISSION_ID "
+                + "WHERE VERDICT = 'Accepted' and CONTEST_ID = ?";
+
+        List<String[]> table = new ArrayList<>();
+        String[] rowData = new String[3];
+        try {
+            preparedStatement = connection.prepareCall(sqlQuery);
+            preparedStatement.setString(1, contestID);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                rowData[0] = rs.getString("UNAME");
+                rowData[1] = rs.getString("PID");
+                System.out.println(rs.getDate("STIME"));
+                rowData[2] = Long.toString(rs.getDate("STIME").getTime());
+                System.out.println("STIME " + rowData[2]);
+                table.add(rowData.clone());
+            }
+            return table;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println(ex.getMessage());
+            return null;
+        }
+    }
 }

@@ -23,8 +23,8 @@ public class SocketForClient {
     private Socket socket;
     private DataOutputStream dataout;
     private DataInputStream datain;
-    private ObjectInputStream objectin;
-    private ObjectOutputStream objectout;
+    private ObjectInputStream objectIn;
+    private ObjectOutputStream objectOut;
 
     public SocketForClient(Socket socket) throws IOException {
         this.socket = socket;
@@ -32,12 +32,38 @@ public class SocketForClient {
 
             dataout = new DataOutputStream(socket.getOutputStream());
             datain = new DataInputStream(socket.getInputStream());
-            objectin = new ObjectInputStream(socket.getInputStream());
-            objectout = new ObjectOutputStream(socket.getOutputStream());
+            objectIn = new ObjectInputStream(socket.getInputStream());
+            objectOut = new ObjectOutputStream(socket.getOutputStream());
 
         } catch (IOException ex) {
 
         }
+    }
+
+    public DataPacket getPacket() {
+        if (socket.isConnected() == false) {
+            return null;
+        }
+        try {
+            return (DataPacket) objectIn.readObject();
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(SocketForClient.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public boolean sendDataPacket(DataPacket packet) {
+        if (socket.isConnected() == false) {
+            return false;
+        }
+        try {
+            objectOut.writeObject(packet);
+            objectOut.flush();
+            return true;
+        } catch (IOException ex) {
+            Logger.getLogger(SocketForClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     public int sendData(String data) {
@@ -63,112 +89,90 @@ public class SocketForClient {
     }
 
     public NewProblem saveProblem() throws IOException, ClassNotFoundException {
-        NewProblem newproblem = (NewProblem) objectin.readObject();
+        NewProblem newproblem = (NewProblem) objectIn.readObject();
 
         return newproblem;
 
     }
 
     public ContestInfo saveContestInfo() throws IOException, ClassNotFoundException {
-        ContestInfo contestInfo = (ContestInfo) objectin.readObject();
+        ContestInfo contestInfo = (ContestInfo) objectIn.readObject();
         return contestInfo;
     }
 
     public NewSubmission saveSubmission() throws IOException, ClassNotFoundException {
-        NewSubmission newsubmission = (NewSubmission) objectin.readObject();
+        NewSubmission newsubmission = (NewSubmission) objectIn.readObject();
 
         return newsubmission;
     }
 
     public boolean sendProblem(NewProblem newproblem) {
         try {
-            objectout.writeObject(newproblem);
+            objectOut.writeObject(newproblem);
             return true;
         } catch (IOException ex) {
-            System.out.println("SocketProblemSending Err " + ex.getMessage());
+            System.out.println("SocketProblemSending Err:\n " + ex.getMessage());
             return false;
         }
     }
 
     public boolean sendSubmission(NewSubmission submission) {
         try {
-            objectout.writeObject(submission);
+            objectOut.writeObject(submission);
             return true;
         } catch (IOException ex) {
-            System.out.println("SocketSubmisionSending Err " + ex.getMessage());
+            System.out.println("SocketSubmisionSending Err:\n " + ex.getMessage());
             return false;
         }
     }
 
     public boolean sendProblemTable(List<String[]> table) {
         try {
-            objectout.writeObject(table);
+            objectOut.writeObject(table);
             return true;
         } catch (IOException ex) {
-            System.out.println("SocketProblemTableSending Err " + ex.getMessage());
+            System.out.println("SocketProblemTableSending Err:\n " + ex.getMessage());
             return false;
         }
     }
 
     public boolean sendContestTable(List<String[]> table) {
         try {
-            objectout.writeObject(table);
+            objectOut.writeObject(table);
             return true;
         } catch (IOException ex) {
-            System.out.println("SocketProblemTableSending Err " + ex.getMessage());
+            System.out.println("SocketProblemTableSending Err :\n " + ex.getMessage());
             return false;
         }
     }
 
     public boolean sendStatusTable(List<String[]> table) {
         try {
-            objectout.writeObject(table);
+            objectOut.writeObject(table);
             return true;
         } catch (IOException ex) {
-            System.out.println("SocketStatusTableSending Err " + ex.getMessage());
+            System.out.println("SocketStatusTableSending Err:\n  " + ex.getMessage());
             return false;
         }
     }
 
     public boolean sendStandingsTable(List<String[]> table) {
         try {
-            objectout.writeObject(table);
+            objectOut.writeObject(table);
             return true;
         } catch (IOException ex) {
-            System.out.println("SocketStatusTableSending Err " + ex.getMessage());
-            return false;
-        }
-    }
-    
-    public boolean sendContestInfo(ContestInfo contestInfo)
-    {
-        try {
-            objectout.writeObject(contestInfo);
-            return true;
-        } catch (IOException ex) {
-            Logger.getLogger(SocketForClient.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("SocketStatusTableSending Err:\n  " + ex.getMessage());
             return false;
         }
     }
 
-    public File readFile(String fname, long size) {
+    public boolean sendContestInfo(ContestInfo contestInfo) {
         try {
-            FileOutputStream fos = new FileOutputStream(fname);
-            byte[] data = new byte[1024];
-            long receivedfilesize = 0;
-
-            while (receivedfilesize < size) {
-                receivedfilesize += datain.read(data);
-                fos.write(data);
-            }
-            fos.close();
-            dataout.writeUTF("EOF-----");
-            return new File(fname);
-        } catch (FileNotFoundException ex) {
-            return null;
+            objectOut.writeObject(contestInfo);
+            return true;
         } catch (IOException ex) {
             Logger.getLogger(SocketForClient.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
+            return false;
         }
     }
 

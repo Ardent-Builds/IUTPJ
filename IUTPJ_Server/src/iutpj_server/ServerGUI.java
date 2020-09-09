@@ -5,14 +5,19 @@
  */
 package iutpj_server;
 
-
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.sql.SQLException;
+import java.io.PrintStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
+import javax.swing.SwingUtilities;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.text.Element;
 
 /**
  *
@@ -25,11 +30,60 @@ public class ServerGUI extends javax.swing.JFrame {
      */
     private Server server;
     private Thread service;
+    private Document document;
+    private DocumentListener limitLinesListener;
+    ByteArrayOutputStream byteArrayOut;
+
     public ServerGUI() {
         initComponents();
         server = null;
         service = null;
-        
+        document = consoleTextArea.getDocument();
+        limitLinesListener = new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                SwingUtilities.invokeLater(() -> {
+                    Document document = e.getDocument();
+                    Element root = document.getDefaultRootElement();
+                    while (root.getElementCount() > 200) {
+                        int end = root.getElement(0).getEndOffset();
+                        try {
+                            document.remove(0, end);
+                        } catch (BadLocationException ble) {
+                            System.out.println(ble);
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            }
+        };
+        document.addDocumentListener(limitLinesListener);
+        byteArrayOut = new ByteArrayOutputStream() {
+            @Override
+            public void flush() {
+                String message = toString();
+
+                if (message.length() == 0) {
+                    return;
+                }
+                try {
+                    document.insertString(document.getLength(), message, null);
+                    consoleTextArea.setCaretPosition(document.getLength());
+                } catch (BadLocationException ex) {
+                    Logger.getLogger(ServerGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                reset();
+            }
+        };
+        System.setOut(new PrintStream(byteArrayOut, true));
+
     }
 
     /**
@@ -50,6 +104,10 @@ public class ServerGUI extends javax.swing.JFrame {
         PortLabel = new javax.swing.JLabel();
         txtPort = new javax.swing.JTextField();
         Start = new javax.swing.JButton();
+        stopButton = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        consoleTextArea = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -77,10 +135,11 @@ public class ServerGUI extends javax.swing.JFrame {
         RightPanel.setBackground(new java.awt.Color(255, 255, 255));
         RightPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        WelcomeLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 60)); // NOI18N
+        WelcomeLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 24)); // NOI18N
         WelcomeLabel.setForeground(new java.awt.Color(54, 33, 89));
+        WelcomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         WelcomeLabel.setText("Server ");
-        RightPanel.add(WelcomeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, 220, 70));
+        RightPanel.add(WelcomeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 220, 30));
 
         closeLabel.setFont(new java.awt.Font("Tahoma", 1, 25)); // NOI18N
         closeLabel.setForeground(new java.awt.Color(54, 33, 89));
@@ -102,35 +161,25 @@ public class ServerGUI extends javax.swing.JFrame {
         });
         RightPanel.add(minimizeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, -10, 30, 40));
 
-        PortLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 60)); // NOI18N
+        PortLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 19)); // NOI18N
         PortLabel.setForeground(new java.awt.Color(54, 33, 89));
+        PortLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         PortLabel.setText("Port:");
-        RightPanel.add(PortLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 170, 60));
+        PortLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        RightPanel.add(PortLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 60, 30));
 
-        txtPort.setFont(new java.awt.Font("Segoe UI Light", 0, 50)); // NOI18N
+        txtPort.setFont(new java.awt.Font("Segoe UI Light", 1, 15)); // NOI18N
         txtPort.setForeground(new java.awt.Color(102, 102, 102));
-        txtPort.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(102, 102, 102)));
+        txtPort.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtPort.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
         txtPort.setSelectionColor(new java.awt.Color(110, 89, 222));
-        txtPort.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtPortFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtPortFocusLost(evt);
-            }
-        });
-        txtPort.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPortActionPerformed(evt);
-            }
-        });
-        RightPanel.add(txtPort, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 300, 280, 50));
+        RightPanel.add(txtPort, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 260, 30));
 
         Start.setBackground(new java.awt.Color(54, 33, 89));
-        Start.setFont(new java.awt.Font("Segoe UI Emoji", 1, 48)); // NOI18N
+        Start.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
         Start.setForeground(new java.awt.Color(54, 33, 89));
         Start.setText("Start");
-        Start.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(54, 33, 89)));
+        Start.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED)));
         Start.setContentAreaFilled(false);
         Start.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         Start.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -139,32 +188,63 @@ public class ServerGUI extends javax.swing.JFrame {
                 StartButtonActionPerformed(evt);
             }
         });
-        RightPanel.add(Start, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 430, 320, 70));
+        RightPanel.add(Start, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 50, 70, 30));
 
-        getContentPane().add(RightPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 0, 530, 560));
+        stopButton.setBackground(new java.awt.Color(54, 33, 89));
+        stopButton.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        stopButton.setForeground(new java.awt.Color(54, 33, 89));
+        stopButton.setText("Stop");
+        stopButton.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED)));
+        stopButton.setContentAreaFilled(false);
+        stopButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        stopButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        stopButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stopButtonButtonActionPerformed(evt);
+            }
+        });
+        RightPanel.add(stopButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 50, 70, 30));
+
+        consoleTextArea.setEditable(false);
+        consoleTextArea.setBackground(new java.awt.Color(0, 0, 0));
+        consoleTextArea.setColumns(20);
+        consoleTextArea.setForeground(new java.awt.Color(0, 255, 51));
+        consoleTextArea.setRows(5);
+        consoleTextArea.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jScrollPane1.setViewportView(consoleTextArea);
+
+        jScrollPane2.setViewportView(jScrollPane1);
+
+        RightPanel.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 500, 460));
+
+        getContentPane().add(RightPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 0, 520, 550));
 
         setSize(new java.awt.Dimension(954, 556));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    void startGUI(){
+    void startGUI() {
         this.setVisible(true);
-        ProcessBuilder pb = new ProcessBuilder("g++","--version");
+        ProcessBuilder pb = new ProcessBuilder("g++", "--version");
         try {
             pb.start();
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "g++ Compiler path not Found, Err:"+ex.getMessage(),"Compiler Error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "g++ Compiler path not Found, Err:" + ex.getMessage(), "Compiler Error", JOptionPane.ERROR_MESSAGE);
         }
         pb.command("Javac", "--version");
-        try{
+        try {
             pb.start();
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Java Compiler path not Found, Err:"+ex.getMessage(),"Compiler Error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Java Compiler path not Found, Err:" + ex.getMessage(), "Compiler Error", JOptionPane.ERROR_MESSAGE);
         }
-        
+
     }
     private void closeLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeLabelMouseClicked
-        this.dispose();        // TODO add your handling code here:
+        if (service != null) {
+            server.stopServer();
+        }
+        this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_closeLabelMouseClicked
 
     private void minimizeLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeLabelMouseClicked
@@ -172,63 +252,39 @@ public class ServerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_minimizeLabelMouseClicked
     static int xx, yy;
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
-        xx=evt.getX();
-        yy=evt.getY();// TODO add your handling code here:
+        xx = evt.getX();
+        yy = evt.getY();// TODO add your handling code here:
     }//GEN-LAST:event_formMousePressed
 
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
-        int x,y;
-        x=evt.getXOnScreen();
-        y=evt.getYOnScreen();
-        this.setLocation(x-xx, y-yy);// TODO add your handling code here:
+        int x, y;
+        x = evt.getXOnScreen();
+        y = evt.getYOnScreen();
+        this.setLocation(x - xx, y - yy);// TODO add your handling code here:
     }//GEN-LAST:event_formMouseDragged
-
-    private void txtPortFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPortFocusGained
-        if(txtPort.getText().equals("Enter Username"))
-        {
-            txtPort.setText("");
-        }
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPortFocusGained
-
-    private void txtPortFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPortFocusLost
-        if(txtPort.getText().equals(""))
-        {
-            txtPort.setText("");
-        }
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPortFocusLost
-
-    private void txtPortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPortActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPortActionPerformed
 
     private void StartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StartButtonActionPerformed
         int port;
-        try 
-        {
-            port= Integer.parseInt(txtPort.getText());
-        }
-        catch (NumberFormatException e)
-        {
+        try {
+            port = Integer.parseInt(txtPort.getText());
+            txtPort.setEditable(false);
+        } catch (NumberFormatException e) {
             port = 0;
-            JOptionPane.showMessageDialog(null,"Port Error","Status",JOptionPane.ERROR_MESSAGE);
+            System.err.println("Port Error: "+e.getMessage());
         }
-      
+
         server = new Server(port);
         service = new Thread(server);
         service.start();
-        
     }//GEN-LAST:event_StartButtonActionPerformed
 
-    Server getServer(){
-        return server;
-    }
-    /**
-     * @param args the command line arguments
-     */
+    private void stopButtonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopButtonButtonActionPerformed
+        if (service != null) {
+            server.stopServer();
+        }
+        txtPort.setEditable(true);
+    }//GEN-LAST:event_stopButtonButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel LeftPanel;
@@ -237,8 +293,12 @@ public class ServerGUI extends javax.swing.JFrame {
     private javax.swing.JButton Start;
     private javax.swing.JLabel WelcomeLabel;
     private javax.swing.JLabel closeLabel;
+    private javax.swing.JTextArea consoleTextArea;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel logoLabel;
     private javax.swing.JLabel minimizeLabel;
+    private javax.swing.JButton stopButton;
     private javax.swing.JTextField txtPort;
     // End of variables declaration//GEN-END:variables
 

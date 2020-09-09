@@ -1,26 +1,29 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package iutpj_admin;
 
-import java.io.File;
 import javax.swing.JPanel;
+import newproblem.NewProblem;
 import org.icepdf.ri.common.SwingController;
 import org.icepdf.ri.common.SwingViewBuilder;
 
 /**
  *
- * @author KAWSAR
+ * @author HEROK
  */
 public class ProblemShow extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ProblemShow1
-     */
-    public ProblemShow(String name, String time, String memory) {
+    private final SwingController pdfController;
+    private final JPanel pdfViewerPanel;
+    
+    public ProblemShow() {
         initComponents();
-        ProblemNameLabel.setText(name);
-        
-        TimeLimitLabel.setText("Time Limit: "+time+" ms");
-        MemoryLimitLabel.setText("Memory Limit: "+memory+" kb");
-        this.setVisible(rootPaneCheckingEnabled);
+        this.pdfController = new SwingController();
+        this.pdfViewerPanel = new SwingViewBuilder(pdfController).buildViewerPanel();
+        this.pdfPanel.add(this.pdfViewerPanel);
     }
 
     /**
@@ -32,119 +35,143 @@ public class ProblemShow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        ProblemNameLabel = new javax.swing.JLabel();
-        TimeLimitLabel = new javax.swing.JLabel();
-        MemoryLimitLabel = new javax.swing.JLabel();
-        Separator = new javax.swing.JSeparator();
-        pdfviewerpanel = new javax.swing.JPanel();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
-        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
-        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
-        filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        problemPanel = new javax.swing.JPanel();
+        timeLimitLabel = new javax.swing.JLabel();
+        memoryLimitText = new javax.swing.JTextField();
+        memoryLimitLabel = new javax.swing.JLabel();
+        problemNameText = new javax.swing.JTextField();
+        ProblemLabel = new javax.swing.JLabel();
+        pdfPanel = new javax.swing.JPanel();
+        timeLimitText1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(650, 650));
-        setSize(new java.awt.Dimension(1920, 1440));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setMaximumSize(new java.awt.Dimension(1920, 1440));
-        jPanel1.setMinimumSize(new java.awt.Dimension(0, 0));
-        jPanel1.setPreferredSize(new java.awt.Dimension(0, 0));
+        problemPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        ProblemNameLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 36)); // NOI18N
-        ProblemNameLabel.setForeground(new java.awt.Color(0, 181, 204));
-        ProblemNameLabel.setText("Problem Name");
-        ProblemNameLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        timeLimitLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        timeLimitLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        timeLimitLabel.setText("Time Limit");
+        timeLimitLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
-        TimeLimitLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 24)); // NOI18N
-        TimeLimitLabel.setForeground(new java.awt.Color(0, 181, 204));
-        TimeLimitLabel.setText("Time Limit:");
-        TimeLimitLabel.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        memoryLimitText.setEditable(false);
+        memoryLimitText.setBackground(new java.awt.Color(204, 255, 255));
+        memoryLimitText.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        memoryLimitText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        memoryLimitText.setAutoscrolls(false);
+        memoryLimitText.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        memoryLimitText.setFocusable(false);
+        memoryLimitText.setRequestFocusEnabled(false);
+        memoryLimitText.setVerifyInputWhenFocusTarget(false);
 
-        MemoryLimitLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 24)); // NOI18N
-        MemoryLimitLabel.setForeground(new java.awt.Color(0, 181, 204));
-        MemoryLimitLabel.setText("Memory Limit:");
+        memoryLimitLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        memoryLimitLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        memoryLimitLabel.setText("Memory Limit");
+        memoryLimitLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
-        pdfviewerpanel.setMaximumSize(new java.awt.Dimension(1260, 960));
-        pdfviewerpanel.setPreferredSize(new java.awt.Dimension(1260, 600));
-        pdfviewerpanel.setLayout(new java.awt.BorderLayout());
+        problemNameText.setEditable(false);
+        problemNameText.setBackground(new java.awt.Color(204, 255, 255));
+        problemNameText.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        problemNameText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        problemNameText.setAutoscrolls(false);
+        problemNameText.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        problemNameText.setFocusable(false);
+        problemNameText.setRequestFocusEnabled(false);
+        problemNameText.setVerifyInputWhenFocusTarget(false);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(filler4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(filler3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(ProblemNameLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addComponent(TimeLimitLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 555, Short.MAX_VALUE)
-                .addComponent(MemoryLimitLabel)
-                .addGap(100, 100, 100))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(pdfviewerpanel, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
-                .addGap(10, 10, 10))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        ProblemLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        ProblemLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ProblemLabel.setText("Problem Name");
+        ProblemLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+
+        pdfPanel.setLayout(new java.awt.BorderLayout());
+
+        timeLimitText1.setEditable(false);
+        timeLimitText1.setBackground(new java.awt.Color(204, 255, 255));
+        timeLimitText1.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        timeLimitText1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        timeLimitText1.setAutoscrolls(false);
+        timeLimitText1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        timeLimitText1.setFocusable(false);
+        timeLimitText1.setRequestFocusEnabled(false);
+        timeLimitText1.setVerifyInputWhenFocusTarget(false);
+
+        javax.swing.GroupLayout problemPanelLayout = new javax.swing.GroupLayout(problemPanel);
+        problemPanel.setLayout(problemPanelLayout);
+        problemPanelLayout.setHorizontalGroup(
+            problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(problemPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Separator)
+                .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pdfPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(problemPanelLayout.createSequentialGroup()
+                        .addComponent(timeLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(timeLimitText1, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(memoryLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(memoryLimitText, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE))
+                    .addGroup(problemPanelLayout.createSequentialGroup()
+                        .addComponent(ProblemLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(problemNameText)))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(filler4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(filler3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ProblemNameLabel))
-                .addGap(5, 5, 5)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(TimeLimitLabel)
-                    .addComponent(MemoryLimitLabel))
-                .addGap(20, 20, 20)
-                .addComponent(Separator, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(pdfviewerpanel, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
-                .addGap(10, 10, 10))
+        problemPanelLayout.setVerticalGroup(
+            problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(problemPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ProblemLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(problemNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(timeLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(memoryLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(timeLimitText1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(memoryLimitText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pdfPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 890, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(problemPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 452, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(problemPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+    public void showProblem(NewProblem problem)
+    {
+        this.problemNameText.setText(problem.getProblemName());
+        this.timeLimitText1.setText(problem.getTimeLimit());
+        this.memoryLimitText.setText(problem.getMemoryLimit());
+        this.pdfController.openDocument(problem.getProb(),0,problem.getProb().length,null, null);
+        this.pdfViewerPanel.revalidate();
+        this.setVisible(rootPaneCheckingEnabled);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel MemoryLimitLabel;
-    private javax.swing.JLabel ProblemNameLabel;
-    private javax.swing.JSeparator Separator;
-    private javax.swing.JLabel TimeLimitLabel;
-    private javax.swing.Box.Filler filler1;
-    private javax.swing.Box.Filler filler2;
-    private javax.swing.Box.Filler filler3;
-    private javax.swing.Box.Filler filler4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel pdfviewerpanel;
+    private javax.swing.JLabel ProblemLabel;
+    private javax.swing.JLabel memoryLimitLabel;
+    private javax.swing.JTextField memoryLimitText;
+    private javax.swing.JPanel pdfPanel;
+    private javax.swing.JTextField problemNameText;
+    private javax.swing.JPanel problemPanel;
+    private javax.swing.JLabel timeLimitLabel;
+    private javax.swing.JTextField timeLimitText1;
     // End of variables declaration//GEN-END:variables
-
-    void viewPdf(File problem){
-        SwingController controller = new SwingController();
-        controller.setToolBarVisible(false);
-        SwingViewBuilder factory = new SwingViewBuilder(controller);
-        JPanel viwerpanel = factory.buildViewerPanel();
-        viwerpanel.setSize(1260, 560);
-        pdfviewerpanel.add(viwerpanel);
-        controller.openDocument(problem.getAbsolutePath());
-    }
 }

@@ -17,11 +17,12 @@ public class SignUp extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
-    UserSocket usersocket;
+    UserSocket userSocket;
     public SignUp(UserSocket usersocket) {
         initComponents();
         txtUsername.setFocusable(true);
-        this.usersocket = usersocket;
+        this.userSocket = usersocket;
+        this.userSocket.setCurrentJFrame(this);
     }
 
     /**
@@ -239,29 +240,18 @@ public class SignUp extends javax.swing.JFrame {
 
     private void SignUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignUpButtonActionPerformed
        String usrname = txtUsername.getText();
-       String password = PasswordField.getText();
-       String confirmPassword = ConfirmPasswordField.getText();
-       if(password.equals(confirmPassword)==false){
-           ConfirmPasswordField.setText("");
-           JOptionPane.showMessageDialog(null, "Password didn't match", "Error", JOptionPane.ERROR_MESSAGE);
-       }
-       else{
-           if(usersocket.sendData("SignUp--["+usrname+"]["+password+"]")<0){
-               JOptionPane.showMessageDialog(null, "Socket write error", "Connection!!!", JOptionPane.ERROR_MESSAGE);
-           }
-           
-           String tmp = usersocket.readData();
-           
-           if(tmp.equals("Exist---")){
-               JOptionPane.showMessageDialog(null, "Username already exist", "SignUP", JOptionPane.INFORMATION_MESSAGE);
-           }
-           else if(tmp.equals("SignUpTr")){
-               JOptionPane.showMessageDialog(null, "SignUp Successfull", "SignUP", JOptionPane.INFORMATION_MESSAGE);
-           }
-           else{
-               JOptionPane.showMessageDialog(null, "SignUp Failed", "SignUp!!!", JOptionPane.ERROR_MESSAGE);
-           }
-       }
+        String password = PasswordField.getText();
+        String confirmPassword = ConfirmPasswordField.getText();
+
+        if (password.equals(confirmPassword) == false) {
+            ConfirmPasswordField.setText("");
+            JOptionPane.showMessageDialog(null, "Password didn't match", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (userSocket.signUp(usrname, password)) {
+
+            JOptionPane.showMessageDialog(null, "SignUp Successfull", "SignUP", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "SignUp Failed", "SignUp!!!", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_SignUpButtonActionPerformed
     static int xx, yy;
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed

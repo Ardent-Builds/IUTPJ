@@ -7,8 +7,6 @@ package iutpj_server;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import newproblem.NewProblem;
 import newsubmission.NewSubmission;
 
@@ -18,194 +16,474 @@ import newsubmission.NewSubmission;
  */
 public class Multi_Thread implements Runnable {
 
-    private final SocketForClient sc;
+    private final SocketForClient clientSocket;
     private final Database database;
-    private String clienttype;
-    private String userID;
+    private String userType;
+    private DataPacket dataPacket;
 
     Multi_Thread(Socket sc, Database db) throws IOException {
-        this.sc = new SocketForClient(sc);
+        this.clientSocket = new SocketForClient(sc);
         this.database = db;
-        clienttype = null;
+        userType = null;
 
     }
 
     @Override
     public void run() {
+        dataPacket = clientSocket.getPacket();
+        userType = (String) dataPacket.getValue("UserType");
+        dataPacket.addPayLoad("Status", "Connection OK");
+        clientSocket.sendDataPacket(dataPacket);
 
-        clienttype = sc.readData();
-        System.out.println(clienttype);
         while (true) {
-            String data = sc.readData();
-            if (data == null) {
+            dataPacket = clientSocket.getPacket();
+            if (dataPacket == null) {
                 break;
             }
-
-            String code = data.substring(0, 8);
-            System.out.println(data + " " + code);
-            switch (code) {
-                case "Login---":
-                    LoginSignUpHandler loginhandler = new LoginSignUpHandler(data, clienttype, database);
-                    if (loginhandler.isValid()) {
-                        sc.sendData("LoginTrue");
-                        int x = data.indexOf(']', 9);
-                        userID = loginhandler.getUserID();
-
-                    } else {
-                        sc.sendData("LoginFalse");
-                    }
+            System.out.println(dataPacket.getRoute());
+            String route = dataPacket.getRoute().split("/")[0];
+            switch (route) {
+                case "user":
+                    routeUser();
                     break;
-
-                case "SignUp--":
-                    LoginSignUpHandler signUPhandler = new LoginSignUpHandler(data, clienttype, database);
-                    if (signUPhandler.doesExist()) {
-                        sc.sendData("Exist---");
-                    } else if (signUPhandler.SignUp()) {
-                        sc.sendData("SignUpTr");
-                    } else {
-                        sc.sendData("SignUpFl");
-                    }
+                case "offline":
+                    routeOffline();
                     break;
-
-                case "AddProb-":
-                    System.out.println("AddProb- called");
-                    NewProblem newproblem;
-                    try {
-                        newproblem = sc.saveProblem();
-                        String status = database.addProblemToDB(newproblem, userID);
-                        if (status.equals("SUCCESS")) {
-                            System.out.println("Problem Added");
-                        } else {
-                            System.out.println("Problem adding failed " + status);
-                        }
-                    } catch (IOException | ClassNotFoundException ex) {
-                        System.out.println("Problem Object reading err " + ex.getMessage());
-                    }
-                    break;
-
-                case "AddSub--":
-                    System.out.println("AddSub-- called");
-                    String submissionID;
-
-                    NewSubmission newsubmission = null;
-
-                    try {
-                        newsubmission = sc.saveSubmission();
-                        submissionID = database.addSubmissionToDB(newsubmission, userID);
-                        if (submissionID != null && submissionID.length() == 14) {
-                            System.out.println("submission Added");
-                        } else {
-                            System.out.println("submission adding failed");
-                        }
-                    } catch (IOException | ClassNotFoundException ex) {
-                        System.out.println("Submission Object reading err " + ex.getMessage());
-                        submissionID = null;
-                    }
-                    if (newsubmission != null) {
-                        NewProblem problem = database.getProblem(newsubmission.getProblemID());
-                        if (problem != null) {
-                            Thread t = new Thread(new CompileAndRun(problem, newsubmission, submissionID, database));
-                            t.start();
-                        }
-                    }
-                    break;
-
-                case "PrbTable":
-
-                    int x = data.indexOf(']', 9);
-
-                    String tableForWhom = data.substring(9, x);
-
-                    if (sc.sendProblemTable(database.getProblemTable((tableForWhom.equals("MyDel") || tableForWhom.equals("My")) ? userID : null))) {
-                        System.out.println("ProblemTable Sent");
-                    } else {
-                        System.out.println("ProblemTable Sending Failed");
-                    }
-                    break;
-
-                case "StTable-":
-
-                    x = data.indexOf(']', 9);
-                    tableForWhom = data.substring(9, x);
-
-                    if (sc.sendStatusTable(database.getStatusTable((tableForWhom.equals("My") ? userID : null), clienttype))) {
-                        System.out.println("StatusTable Sent");
-                    } else {
-                        System.out.println("StatusTable Sending Failed");
-                    }
-                    break;
-
-                case "StdTable":
-
-                    x = data.indexOf(']', 9);
-                    String identifier = data.substring(9, x);
-                    System.out.println(identifier);
-
-                    if (sc.sendStandingsTable(database.getStandingsTable())) {
-                        System.out.println("StandingsTable Sent");
-                    } else {
-                        System.out.println("StandingsTable Sending Failed");
-                    }
-                    break;
-
-                case "SrcCode-":
-                    x = data.indexOf(']', 9);
-                    submissionID = data.substring(9, x);
-
-                    if (sc.sendSubmission(database.getSubmission(submissionID))) {
-                        System.out.println("Submission Sent");
-                    } else {
-                        System.out.println("Submission Sending Failed");
-                    }
-                    break;
-
-                case "ProbFile":
-                    x = data.indexOf(']', 9);
-                    String problemID = data.substring(9, x);
-
-                    if (sc.sendProblem(database.getProblem(problemID))) {
-                        System.out.println("Problem Sent");
-                    } else {
-                        System.out.println("Problem Sending Failed");
-                    }
-                    break;
-                case "DelProb-":
-                    x = data.indexOf(']', 9);
-                    problemID = data.substring(9, x);
-
-                    String status = database.deleteProblem(problemID, userID);
-                    System.out.println(status);
-                    if (sc.sendProblemTable(database.getProblemTable(userID))) {
-                        System.out.println("ProblemTable Sent");
-                    } else {
-                        System.out.println("ProblemTable Sending Failed");
-                    }
-                case "CntstTab":
-                    if (sc.sendContestTable(database.getContestTable())) {
-                        System.out.println("ProblemTable Sent");
-                    } else {
-                        System.out.println("ProblemTable Sending Failed");
-                    }
-                    break;
-                case "CntstInf":
-                    try {
-                        System.out.println(database.addContest(sc.saveContestInfo(), userID));
-                    } catch (IOException | ClassNotFoundException ex) {
-                        System.out.println("Contest Save Failled " + ex.toString());
-                    }
-                    break;
-                case "getCntst":
-                    x = data.indexOf(']', 9);
-                    String contestID = data.substring(9, x);
-                    sc.sendContestInfo(database.getContestInfo(contestID));
-                    
+                case "contest":
+                    routeContest();
                     break;
                 default:
+                    System.out.println("Unrecognized root route");
+                    dataPacket.addPayLoad("Error", "Unrecognized root route :" + dataPacket.getRoute());
+                    clientSocket.sendDataPacket(dataPacket);
                     break;
             }
-
         }
         System.out.println("A user is Disconnected");
     }
 
+    private void routeUser() {
+        String route = dataPacket.getRoute().split("/")[1];
+
+        switch (route) {
+            case "login":
+                routeUserLogin();
+                break;
+            case "signUp":
+                routeUserSignUp();
+                break;
+            case "forgottenPassword":
+                routeUserForgottenPassword();
+                break;
+            case "updateInfo":
+                routeUserUpdateInfo();
+                break;
+            default:
+                System.err.println("Unrecognized user route : "+dataPacket.getRoute());
+                dataPacket.addPayLoad("Error", "Unrecognized user route :" + dataPacket.getRoute());
+                clientSocket.sendDataPacket(dataPacket);
+                break;
+        }
+    }
+
+    private void routeUserLogin() {
+        String userName = (String) dataPacket.getValue("Username");
+        String password = (String) dataPacket.getValue("Password");
+        UserAuthenticationAuthorization userLogin = new UserAuthenticationAuthorization(userType, userName, password, database);
+        DataPacket response = new DataPacket();
+
+        response.setUserID(userLogin.getUserID());
+        response.addPayLoad("Authorization", userLogin.isAuthorized());
+        clientSocket.sendDataPacket(response);
+    }
+
+    private void routeUserSignUp(){
+        String userName = (String) dataPacket.getValue("Username");
+        String password = (String) dataPacket.getValue("Password");
+        UserAuthenticationAuthorization userSignUp = new UserAuthenticationAuthorization(userType, userName, password, database);
+
+        DataPacket response = new DataPacket();
+        if (userSignUp.doesExist()) {
+            response.addPayLoad("Status", false);
+            response.addPayLoad("Error", "User Name Exist");
+            clientSocket.sendDataPacket(response);
+            return;
+        }
+        response.addPayLoad("Status", userSignUp.SignUp());
+        response.setUserID(userSignUp.getUserID());
+        clientSocket.sendDataPacket(response);
+    }
+
+    private void routeUserForgottenPassword() {
+
+    }
+
+    private void routeUserUpdateInfo() {
+
+    }
+
+    private void routeContest() {
+        String route = dataPacket.getRoute().split("/")[1];
+
+        switch (route) {
+            case "new":
+                routeContestNew();
+                break;
+            case "update":
+                routeContestUpdate();
+                break;
+            case "info":
+                routeContestInfo();
+                break;
+            case "table":
+                routeContestTable();
+                break;
+            case "problem":
+                routeContestProblem();
+                break;
+            case "submission":
+                routeContestSubmission();
+                break;
+            case "status":
+                routeContestStatus();
+                break;
+            case "standing":
+                routeContestStandingRawData();
+                break;
+            default:
+                dataPacket.addPayLoad("Error", "Unrecognized Contest route :" + dataPacket.getRoute());
+                clientSocket.sendDataPacket(dataPacket);
+                break;
+        }
+
+    }
+
+    private void routeContestNew() {
+        ContestInfo contestInfo = (ContestInfo) dataPacket.getValue("ContestInfo");
+        DataPacket response = new DataPacket();
+
+        String status = database.addContest(contestInfo, dataPacket.getUserID());
+        response.addPayLoad("Status", status);
+        clientSocket.sendDataPacket(response);
+    }
+
+    private void routeContestUpdate() {
+
+    }
+    
+    private void routeContestInfo(){
+        String contestID = (String)dataPacket.getValue("ContestID");
+        DataPacket response = dataPacket;
+        response.addPayLoad("ContestInfo", database.getContestInfo(contestID));
+        clientSocket.sendDataPacket(response);    
+    }
+
+    private void routeContestTable() {
+        DataPacket response = new DataPacket();
+        response.setRoute(dataPacket.getRoute());
+        response.addPayLoad("Table", database.getContestTable());
+        clientSocket.sendDataPacket(response);
+    }
+
+    private void routeContestProblem() {
+        String route = dataPacket.getRoute().split("/")[2];
+        switch (route) {
+            case "table":
+                routeContestProblemTable();
+                break;
+            case "file":
+                routeContestProblemFile();
+                break;
+            default:
+                System.out.println("Unrecognized Contest Problem Route: \n" + route);
+                dataPacket.addPayLoad("Error", "Unrecognized Contest Problem Route: " + dataPacket.getRoute());
+                clientSocket.sendDataPacket(dataPacket);
+                break;
+        }
+    }
+
+    private void routeContestProblemTable() {
+        String contestID = (String) dataPacket.getValue("Option");
+        System.out.println("Contest Problem set Request: "+contestID);
+        DataPacket response = new DataPacket();
+
+        response.setUserID(dataPacket.getUserID());
+        response.setRoute(dataPacket.getRoute());
+        response.addPayLoad("Table", database.getContestProblemSet(contestID));
+
+        clientSocket.sendDataPacket(response);
+    }
+
+    private void routeContestProblemFile() {
+        String problemID = (String) dataPacket.getValue("ProblemID");
+        System.err.println(problemID);
+        DataPacket response = new DataPacket();
+
+        response.setUserID(dataPacket.getUserID());
+        response.addPayLoad("File", database.getProblem(problemID,"Contest"));
+
+        clientSocket.sendDataPacket(response);
+    }
+
+    private void routeContestSubmission() {
+        String route = dataPacket.getRoute().split("/")[2];
+        switch (route) {
+            case "new":
+                routeContestSubmissionNew();
+                break;
+            case "file":
+                routeContestSubmissionFile();
+                break;
+            default:
+                System.out.println("Unrecognized Contest Submission Route: \n" + route);
+                dataPacket.addPayLoad("Error", "Unrecognized Contest Submission Route:" + dataPacket.getRoute());
+                clientSocket.sendDataPacket(dataPacket);
+                break;
+        }
+    }
+
+    private void routeContestSubmissionNew() {
+        NewSubmission submission = (NewSubmission) dataPacket.getValue("File");
+        String contestID = (String)dataPacket.getValue("ContestID");
+        if (submission == null) {
+            dataPacket.addPayLoad("Status", "Submission File Not Found");
+            clientSocket.sendDataPacket(dataPacket);
+            return;
+        }
+        String submissionID = database.addContestSubmissionToDB(submission, dataPacket.getUserID(),contestID);
+        System.err.println(submissionID);
+        DataPacket response = new DataPacket();
+        
+        if (submissionID.length() != 14) {
+            response = dataPacket;
+            response.addPayLoad("Status", submissionID);
+            clientSocket.sendDataPacket(response);
+            return;
+        }
+        response.addPayLoad("SubmisionID", submissionID);
+        NewProblem problem = database.getProblem(submission.getProblemID(),"submision");
+        if (problem != null) {
+            Thread run = new Thread(new CompileAndRun(problem, submission, submissionID, database));
+            run.start();
+
+        } else {
+            response.addPayLoad("Status", "Problem Not Found");
+            clientSocket.sendDataPacket(response);
+            return;
+        }
+        response.addPayLoad("Status", "OK");
+        clientSocket.sendDataPacket(response);
+    }
+
+    private void routeContestSubmissionFile() {
+
+    }
+
+    private void routeContestStatus() {
+        String option = (String)dataPacket.getValue("Option");
+        String contestID = (String)dataPacket.getValue("ContestID");
+        DataPacket response = new DataPacket();
+        
+        response.addPayLoad("Table", database.getContestStatusTable(contestID, option));
+        response.setRoute(dataPacket.getRoute());
+        clientSocket.sendDataPacket(response); 
+
+    }
+
+    private void routeContestStandingRawData() {
+        String contestID = (String)dataPacket.getValue("ContestID");
+        DataPacket response = new DataPacket();
+        
+        response.addPayLoad("Table", database.getContestStandingRawData(contestID));
+        System.out.println(response.getPayLoad());
+        response.setRoute(dataPacket.getRoute());
+        clientSocket.sendDataPacket(response); 
+    }
+
+    private void routeOffline() {
+        String route = dataPacket.getRoute().split("/")[1];
+
+        switch (route) {
+            case "problem":
+                routeOfflineProblem();
+                break;
+            case "submission":
+                routeOfflineSubmission();
+                break;
+            case "status":
+                routeOfflineStatus();
+                break;
+            case "standing":
+                routeOfflineStanding();
+                break;
+            default:
+                System.out.println("Unrecognized Offline Route");
+                dataPacket.addPayLoad("Error", "Unrecognized Offline route :" + dataPacket.getRoute());
+                clientSocket.sendDataPacket(dataPacket);
+                break;
+        }
+    }
+
+    private void routeOfflineProblem() {
+        String route = dataPacket.getRoute().split("/")[2];
+        switch (route) {
+            case "table":
+                routeOfflineProblemTable();
+                break;
+            case "new":
+                routeOfflineProblemNew();
+                break;
+            case "file":
+                routeOfflineProblemFile();
+                break;
+            case "delete":
+                routeOfflineProblemDelete();
+                break;
+            case "update":
+                routeOfflineProblemUpdate();
+                break;
+            case "lock":
+                routeOfflineProblemLock();
+                break;
+            default:
+                System.out.println("Unrecognized Offline Problem Route");
+                dataPacket.addPayLoad("Error", "Unrecognized Offline Problem route :" + dataPacket.getRoute());
+                clientSocket.sendDataPacket(dataPacket);
+                break;
+        }
+
+    }
+
+    private void routeOfflineProblemNew() {
+        NewProblem newProblem = (NewProblem) dataPacket.getValue("File");
+        DataPacket response = new DataPacket();
+        String status = database.addProblemToDB(newProblem, dataPacket.getUserID());
+
+        response.addPayLoad("Status", status);
+        clientSocket.sendDataPacket(response);
+
+    }
+
+    private void routeOfflineProblemTable() {
+        String option = (String) dataPacket.getValue("Option");
+        DataPacket response = new DataPacket();
+
+        response.setUserID(dataPacket.getUserID());
+        response.setRoute(dataPacket.getRoute());
+        response.addPayLoad("Table", database.getProblemTable(option));
+
+        clientSocket.sendDataPacket(response);
+    }
+
+    private void routeOfflineProblemFile() {
+        String problemID = (String) dataPacket.getValue("ProblemID");
+        System.err.println(problemID);
+        DataPacket response = new DataPacket();
+
+        response.setUserID(dataPacket.getUserID());
+        response.addPayLoad("File", database.getProblem(problemID,userType));
+
+        clientSocket.sendDataPacket(response);
+    }
+
+    private void routeOfflineProblemDelete() {
+        String userID = dataPacket.getUserID();
+        String problemID = (String) dataPacket.getValue("ProblemID");
+        String status = database.deleteProblem(problemID, userID);
+
+        DataPacket response = new DataPacket();
+        response.setUserID(userID);
+        response.setRoute(dataPacket.getRoute());
+        response.addPayLoad("Status", status);
+        clientSocket.sendDataPacket(response);
+
+    }
+    private void routeOfflineProblemLock() {
+        String userID = dataPacket.getUserID();
+        String problemID = (String) dataPacket.getValue("ProblemID");
+        String state = (String) dataPacket.getValue("State");
+        String status = database.changeProblemLockState(problemID, state);
+
+        DataPacket response = new DataPacket();
+        response.setUserID(userID);
+        response.setRoute(dataPacket.getRoute());
+        response.addPayLoad("Status", status);
+        clientSocket.sendDataPacket(response);
+    }
+
+    private void routeOfflineProblemUpdate() {
+    }
+
+    private void routeOfflineSubmission() {
+        String route = dataPacket.getRoute().split("/")[2];
+        switch (route) {
+            case "new":
+                routeOfflineSubmissionNew();
+                break;
+            case "file":
+                routeOfflineSubmissionFile();
+                break;
+            default:
+                System.out.println("Unrecognized Offline Submission Route");
+                dataPacket.addPayLoad("Error", "Unrecognized Offline Submission route :" + dataPacket.getRoute());
+                clientSocket.sendDataPacket(dataPacket);
+
+                break;
+        }
+    }
+
+    private void routeOfflineSubmissionNew() {
+        NewSubmission submission = (NewSubmission) dataPacket.getValue("File");
+        if (submission == null) {
+            dataPacket.addPayLoad("Error", "Submission File Not Found");
+            clientSocket.sendDataPacket(dataPacket);
+            return;
+        }
+        String submissionID = database.addSubmissionToDB(submission, dataPacket.getUserID());
+        DataPacket response = new DataPacket();
+        
+        if (submissionID.length() != 14) {
+            response = dataPacket;
+            response.addPayLoad("Error", submissionID);
+            clientSocket.sendDataPacket(response);
+            return;
+        }
+        response.addPayLoad("SubmisionID", submissionID);
+        NewProblem problem = database.getProblem(submission.getProblemID(),userType);
+        if (problem != null) {
+            Thread run = new Thread(new CompileAndRun(problem, submission, submissionID, database));
+            run.start();
+
+        } else {
+            response.addPayLoad("Error", "Problem Not Found");
+            clientSocket.sendDataPacket(response);
+            return;
+        }
+        response.addPayLoad("Status", "OK");
+        clientSocket.sendDataPacket(response);
+    }
+
+    private void routeOfflineSubmissionFile() {
+        String submissionID = (String)dataPacket.getValue("SubmissionID");
+        DataPacket response = new DataPacket();
+        NewSubmission submission = database.getSubmission(submissionID);
+        
+        response.addPayLoad("File", submission);
+        clientSocket.sendDataPacket(response); 
+    }
+
+    private void routeOfflineStatus() {
+        String option = (String)dataPacket.getValue("Option");
+        DataPacket response = new DataPacket();
+        
+        response.addPayLoad("Table", database.getStatusTable(option));
+        response.setRoute(dataPacket.getRoute());
+        clientSocket.sendDataPacket(response); 
+    }
+
+    private void routeOfflineStanding() {
+        DataPacket response = dataPacket;
+        response.addPayLoad("Table", database.getStandingsTable());
+        clientSocket.sendDataPacket(response);
+    }
 }
