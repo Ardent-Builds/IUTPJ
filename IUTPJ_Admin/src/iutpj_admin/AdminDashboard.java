@@ -58,7 +58,7 @@ public class AdminDashboard extends javax.swing.JFrame {
 
                     c.setFont(new Font("Segoe UI", Font.BOLD, 16));
                     c.setBorder(new LineBorder(Color.BLACK, 1, false));
-                    c.setBackground(Color.green);
+                    //c.setBackground(Color.green);
                     return c;
                 }
                 if (null != table.getClientProperty(table.getColumnName(column)) && value != null) {
@@ -67,12 +67,12 @@ public class AdminDashboard extends javax.swing.JFrame {
                     cd.setForeground((Color) table.getClientProperty(table.getColumnName(column)));
                     cd.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
                     cd.setFont(new Font("Segoe UI", Font.BOLD, 14));
-                    cd.setBackground((row % 2 == 0 ? new Color(242, 242, 189) : Color.WHITE));
+                    cd.setBackground(row % 2 == 1 ? new Color(242, 242, 242) : Color.WHITE);
                     cd.setEnabled(true);
                     return (Component) cd;
                 }
                 c.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-                c.setBackground((row % 2 == 0 ? new Color(242, 242, 189) : Color.WHITE));
+                c.setBackground(row % 2 == 1 ? new Color(242, 242, 242) : Color.WHITE);
                 return c;
             }
         };
