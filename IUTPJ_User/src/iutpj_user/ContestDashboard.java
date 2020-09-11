@@ -100,9 +100,8 @@ public class ContestDashboard extends javax.swing.JFrame {
 
                 if (row < 0) {
 
-                    c.setFont(new Font("Segoe UI", Font.BOLD, 16));
+                    c.setFont(new Font("Segoe UI", Font.BOLD, 20));
                     c.setBorder(new LineBorder(Color.BLACK, 1, false));
-                    c.setBackground(Color.green);
                     return c;
                 }
                 if (null != table.getClientProperty(table.getColumnName(column)) && value != null) {
@@ -110,13 +109,13 @@ public class ContestDashboard extends javax.swing.JFrame {
                     cd.setText(value.toString());
                     cd.setForeground(Color.BLUE);
                     cd.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-                    cd.setFont(new Font("Segoe UI", Font.BOLD, 14));
-                    cd.setBackground((row % 2 == 0 ? new Color(242, 242, 189) : Color.WHITE));
+                    cd.setFont(new Font("Segoe UI", Font.BOLD, 20));
+                    cd.setBackground((row % 2 == 0 ? new Color(242, 242, 242) : Color.WHITE));
                     cd.setEnabled(true);
                     return (Component) cd;
                 }
-                c.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-                c.setBackground((row % 2 == 0 ? new Color(242, 242, 189) : Color.WHITE));
+                c.setFont(new Font("Segoe UI", Font.BOLD, 20));
+                c.setBackground((row % 2 == 0 ? new Color(242, 242, 242) : Color.WHITE));
                 return c;
             }
         };
@@ -143,6 +142,7 @@ public class ContestDashboard extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel6 = new javax.swing.JPanel();
+        pdfPanel = new javax.swing.JPanel();
         ContestDashboardDesktopPane = new javax.swing.JDesktopPane();
         ContestDashboardTabSwitcher = new javax.swing.JTabbedPane();
         HomePanel = new javax.swing.JPanel();
@@ -174,7 +174,6 @@ public class ContestDashboard extends javax.swing.JFrame {
         timeLimitText = new javax.swing.JTextField();
         selectProblemLabel = new javax.swing.JLabel();
         selectProblemCombo = new javax.swing.JComboBox<>();
-        pdfPanel = new javax.swing.JPanel();
         submitProblemSolution = new javax.swing.JButton();
         SubmitSolPanel = new javax.swing.JPanel();
         ChooseFileLabel = new javax.swing.JLabel();
@@ -214,6 +213,8 @@ public class ContestDashboard extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
+        pdfPanel.setLayout(new java.awt.BorderLayout());
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAutoRequestFocus(false);
         setBackground(new java.awt.Color(0, 181, 204));
@@ -239,13 +240,12 @@ public class ContestDashboard extends javax.swing.JFrame {
         WelcomeLabel.setForeground(new java.awt.Color(54, 33, 89));
         WelcomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         WelcomeLabel.setText("Contest Area");
-        WelcomeLabel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 255), 5, true));
 
         leaveContestArenaButton.setBackground(new java.awt.Color(54, 33, 89));
         leaveContestArenaButton.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
         leaveContestArenaButton.setForeground(new java.awt.Color(54, 33, 89));
-        leaveContestArenaButton.setText("Leave Contest Arena");
-        leaveContestArenaButton.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 255), 2, true), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED)));
+        leaveContestArenaButton.setText("Leave Contest Area");
+        leaveContestArenaButton.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(54, 33, 89)));
         leaveContestArenaButton.setContentAreaFilled(false);
         leaveContestArenaButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         leaveContestArenaButton.addActionListener(new java.awt.event.ActionListener() {
@@ -254,86 +254,86 @@ public class ContestDashboard extends javax.swing.JFrame {
             }
         });
 
-        setterLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        setterLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        setterLabel.setForeground(new java.awt.Color(54, 33, 89));
         setterLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        setterLabel.setText("Setter");
-        setterLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        setterLabel.setText("Setter:");
 
-        contestNameLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        contestNameLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        contestNameLabel.setForeground(new java.awt.Color(54, 33, 89));
         contestNameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        contestNameLabel.setText("Contest Name");
-        contestNameLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        contestNameLabel.setText("Contest Name:");
 
         contestNameText.setEditable(false);
         contestNameText.setBackground(new java.awt.Color(255, 255, 255));
+        contestNameText.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         contestNameText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         contestNameText.setAutoscrolls(false);
-        contestNameText.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         contestNameText.setFocusable(false);
         contestNameText.setRequestFocusEnabled(false);
         contestNameText.setVerifyInputWhenFocusTarget(false);
 
         setterText.setEditable(false);
         setterText.setBackground(new java.awt.Color(255, 255, 255));
+        setterText.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         setterText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         setterText.setAutoscrolls(false);
-        setterText.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         setterText.setFocusable(false);
         setterText.setRequestFocusEnabled(false);
         setterText.setVerifyInputWhenFocusTarget(false);
 
-        durationMinutesLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        durationMinutesLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        durationMinutesLabel.setForeground(new java.awt.Color(54, 33, 89));
         durationMinutesLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        durationMinutesLabel.setText("Duration Minutes");
-        durationMinutesLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        durationMinutesLabel.setText("Duration (Minutes):");
 
         durationMinutesText.setEditable(false);
         durationMinutesText.setBackground(new java.awt.Color(255, 255, 255));
+        durationMinutesText.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         durationMinutesText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         durationMinutesText.setAutoscrolls(false);
-        durationMinutesText.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         durationMinutesText.setFocusable(false);
         durationMinutesText.setRequestFocusEnabled(false);
         durationMinutesText.setVerifyInputWhenFocusTarget(false);
 
-        numberOfProblemsLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        numberOfProblemsLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        numberOfProblemsLabel.setForeground(new java.awt.Color(54, 33, 89));
         numberOfProblemsLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        numberOfProblemsLabel.setText("Number Of problems");
-        numberOfProblemsLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        numberOfProblemsLabel.setText("Number of Problems:");
 
         NumberOfProblemText.setEditable(false);
         NumberOfProblemText.setBackground(new java.awt.Color(255, 255, 255));
+        NumberOfProblemText.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         NumberOfProblemText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         NumberOfProblemText.setAutoscrolls(false);
-        NumberOfProblemText.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         NumberOfProblemText.setFocusable(false);
         NumberOfProblemText.setRequestFocusEnabled(false);
         NumberOfProblemText.setVerifyInputWhenFocusTarget(false);
 
-        startTimeLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        startTimeLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        startTimeLabel.setForeground(new java.awt.Color(54, 33, 89));
         startTimeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        startTimeLabel.setText("Start Time");
-        startTimeLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        startTimeLabel.setText("Start Time:");
 
         startTimeText.setEditable(false);
         startTimeText.setBackground(new java.awt.Color(255, 255, 255));
+        startTimeText.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         startTimeText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         startTimeText.setAutoscrolls(false);
-        startTimeText.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         startTimeText.setFocusable(false);
         startTimeText.setRequestFocusEnabled(false);
         startTimeText.setVerifyInputWhenFocusTarget(false);
 
-        remainingTimeLabelHome.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        remainingTimeLabelHome.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        remainingTimeLabelHome.setForeground(new java.awt.Color(54, 33, 89));
         remainingTimeLabelHome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        remainingTimeLabelHome.setText("Remaining Time");
-        remainingTimeLabelHome.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        remainingTimeLabelHome.setText("Remaining Time:");
 
         remainingTimeText.setEditable(false);
         remainingTimeText.setBackground(new java.awt.Color(255, 255, 255));
+        remainingTimeText.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         remainingTimeText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         remainingTimeText.setAutoscrolls(false);
-        remainingTimeText.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         remainingTimeText.setFocusable(false);
         remainingTimeText.setRequestFocusEnabled(false);
         remainingTimeText.setVerifyInputWhenFocusTarget(false);
@@ -398,7 +398,7 @@ public class ContestDashboard extends javax.swing.JFrame {
                 .addGroup(HomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(remainingTimeLabelHome, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(remainingTimeText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 360, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 350, Short.MAX_VALUE)
                 .addComponent(leaveContestArenaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -460,19 +460,18 @@ public class ContestDashboard extends javax.swing.JFrame {
         });
         ProblemSetjScrollPane.setViewportView(problemSetTable);
 
-        remainingTimeLabelStandingsProblems.setBackground(new java.awt.Color(204, 255, 255));
-        remainingTimeLabelStandingsProblems.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        remainingTimeLabelStandingsProblems.setBackground(new java.awt.Color(255, 255, 255));
+        remainingTimeLabelStandingsProblems.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        remainingTimeLabelStandingsProblems.setForeground(new java.awt.Color(54, 33, 89));
         remainingTimeLabelStandingsProblems.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        remainingTimeLabelStandingsProblems.setText("Remaining Time");
-        remainingTimeLabelStandingsProblems.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        remainingTimeLabelStandingsProblems.setText("Remaining Time:");
 
         remainingTimeTextProblems.setEditable(false);
-        remainingTimeTextProblems.setBackground(new java.awt.Color(204, 255, 255));
-        remainingTimeTextProblems.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        remainingTimeTextProblems.setBackground(new java.awt.Color(255, 255, 255));
+        remainingTimeTextProblems.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         remainingTimeTextProblems.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         remainingTimeTextProblems.setText(durationMinutesText.getText());
         remainingTimeTextProblems.setAutoscrolls(false);
-        remainingTimeTextProblems.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         remainingTimeTextProblems.setFocusable(false);
         remainingTimeTextProblems.setRequestFocusEnabled(false);
         remainingTimeTextProblems.setVerifyInputWhenFocusTarget(false);
@@ -499,77 +498,75 @@ public class ContestDashboard extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        ContestDashboardTabSwitcher.addTab("Problem Set", ProblemsetPanel);
+        ContestDashboardTabSwitcher.addTab("Problemset", ProblemsetPanel);
 
         problemPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        remainingTimeLabelProblem.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        remainingTimeLabelProblem.setBackground(new java.awt.Color(255, 255, 255));
+        remainingTimeLabelProblem.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        remainingTimeLabelProblem.setForeground(new java.awt.Color(54, 33, 89));
         remainingTimeLabelProblem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        remainingTimeLabelProblem.setText("Remaining Time");
-        remainingTimeLabelProblem.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        remainingTimeLabelProblem.setText("Remaining Time:");
 
         remainingTimeTextProblem.setEditable(false);
-        remainingTimeTextProblem.setBackground(new java.awt.Color(204, 255, 255));
-        remainingTimeTextProblem.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        remainingTimeTextProblem.setBackground(new java.awt.Color(255, 255, 255));
+        remainingTimeTextProblem.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         remainingTimeTextProblem.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         remainingTimeTextProblem.setAutoscrolls(false);
-        remainingTimeTextProblem.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         remainingTimeTextProblem.setFocusable(false);
         remainingTimeTextProblem.setRequestFocusEnabled(false);
         remainingTimeTextProblem.setVerifyInputWhenFocusTarget(false);
 
-        timeLimitLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        timeLimitLabel.setBackground(new java.awt.Color(255, 255, 255));
+        timeLimitLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        timeLimitLabel.setForeground(new java.awt.Color(54, 33, 89));
         timeLimitLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        timeLimitLabel.setText("Time Limit(ms)");
-        timeLimitLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        timeLimitLabel.setText("Time Limit (ms):");
 
         memoryLimitText.setEditable(false);
-        memoryLimitText.setBackground(new java.awt.Color(204, 255, 255));
-        memoryLimitText.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        memoryLimitText.setBackground(new java.awt.Color(255, 255, 255));
+        memoryLimitText.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         memoryLimitText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         memoryLimitText.setAutoscrolls(false);
-        memoryLimitText.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         memoryLimitText.setFocusable(false);
         memoryLimitText.setRequestFocusEnabled(false);
         memoryLimitText.setVerifyInputWhenFocusTarget(false);
 
-        memoryLimitLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        memoryLimitLabel.setBackground(new java.awt.Color(255, 255, 255));
+        memoryLimitLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        memoryLimitLabel.setForeground(new java.awt.Color(54, 33, 89));
         memoryLimitLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        memoryLimitLabel.setText("Memory Limit");
-        memoryLimitLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        memoryLimitLabel.setText("Memory Limit:");
 
         timeLimitText.setEditable(false);
-        timeLimitText.setBackground(new java.awt.Color(204, 255, 255));
-        timeLimitText.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        timeLimitText.setBackground(new java.awt.Color(255, 255, 255));
+        timeLimitText.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         timeLimitText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         timeLimitText.setAutoscrolls(false);
-        timeLimitText.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         timeLimitText.setFocusable(false);
         timeLimitText.setRequestFocusEnabled(false);
         timeLimitText.setVerifyInputWhenFocusTarget(false);
 
-        selectProblemLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        selectProblemLabel.setBackground(new java.awt.Color(255, 255, 255));
+        selectProblemLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        selectProblemLabel.setForeground(new java.awt.Color(54, 33, 89));
         selectProblemLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        selectProblemLabel.setText("Select Problem");
-        selectProblemLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        selectProblemLabel.setText("Select Problem:");
 
-        selectProblemCombo.setBackground(new java.awt.Color(204, 255, 255));
-        selectProblemCombo.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
-        selectProblemCombo.setForeground(new java.awt.Color(0, 51, 204));
-        selectProblemCombo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        selectProblemCombo.setBackground(new java.awt.Color(240, 240, 240));
+        selectProblemCombo.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         selectProblemCombo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 selectProblemComboItemStateChanged(evt);
             }
         });
 
-        pdfPanel.setLayout(new java.awt.BorderLayout());
-
-        submitProblemSolution.setBackground(new java.awt.Color(255, 255, 255));
-        submitProblemSolution.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
-        submitProblemSolution.setForeground(new java.awt.Color(51, 0, 51));
-        submitProblemSolution.setText("Submit Problem");
-        submitProblemSolution.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 153), 1, true), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 153, 153), new java.awt.Color(102, 255, 255), new java.awt.Color(0, 153, 153), new java.awt.Color(102, 255, 255))));
+        submitProblemSolution.setBackground(new java.awt.Color(54, 33, 89));
+        submitProblemSolution.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        submitProblemSolution.setForeground(new java.awt.Color(54, 33, 89));
+        submitProblemSolution.setText("Submit");
+        submitProblemSolution.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(54, 33, 89)));
+        submitProblemSolution.setContentAreaFilled(false);
         submitProblemSolution.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         submitProblemSolution.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -583,37 +580,33 @@ public class ContestDashboard extends javax.swing.JFrame {
             problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(problemPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pdfPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(selectProblemLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(remainingTimeLabelProblem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(timeLimitLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(problemPanelLayout.createSequentialGroup()
-                        .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(selectProblemLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(remainingTimeLabelProblem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(timeLimitLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(timeLimitText, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(problemPanelLayout.createSequentialGroup()
-                                .addComponent(timeLimitText)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(memoryLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(memoryLimitText, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(selectProblemCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, problemPanelLayout.createSequentialGroup()
-                                .addComponent(remainingTimeTextProblem, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(submitProblemSolution, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(memoryLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(memoryLimitText, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(selectProblemCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, problemPanelLayout.createSequentialGroup()
+                        .addComponent(remainingTimeTextProblem)
+                        .addGap(18, 18, 18)
+                        .addComponent(submitProblemSolution, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         problemPanelLayout.setVerticalGroup(
             problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(problemPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(submitProblemSolution, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(remainingTimeLabelProblem, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(remainingTimeTextProblem, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(remainingTimeLabelProblem, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(remainingTimeTextProblem, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(submitProblemSolution, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3)
                 .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(selectProblemLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -625,9 +618,7 @@ public class ContestDashboard extends javax.swing.JFrame {
                     .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(memoryLimitText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(timeLimitText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(7, 7, 7)
-                .addComponent(pdfPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(533, 533, 533))
         );
 
         ContestDashboardTabSwitcher.addTab("Problem", problemPanel);
@@ -637,13 +628,14 @@ public class ContestDashboard extends javax.swing.JFrame {
         ChooseFileLabel.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
         ChooseFileLabel.setForeground(new java.awt.Color(54, 33, 89));
         ChooseFileLabel.setText("Or Choose File:");
-        ChooseFileLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 204, 204), new java.awt.Color(0, 204, 204)));
 
-        ProblemIDLabel.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
+        ProblemIDLabel.setBackground(new java.awt.Color(255, 255, 255));
+        ProblemIDLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
         ProblemIDLabel.setForeground(new java.awt.Color(54, 33, 89));
         ProblemIDLabel.setText("Select Problem:");
 
-        LanguageLabel.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
+        LanguageLabel.setBackground(new java.awt.Color(255, 255, 255));
+        LanguageLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
         LanguageLabel.setForeground(new java.awt.Color(54, 33, 89));
         LanguageLabel.setText("Language: ");
 
@@ -656,14 +648,13 @@ public class ContestDashboard extends javax.swing.JFrame {
         submissionLanguageCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "C", "C++", "Java" }));
 
         SourceCodeLabel.setBackground(new java.awt.Color(255, 255, 255));
-        SourceCodeLabel.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
+        SourceCodeLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
         SourceCodeLabel.setForeground(new java.awt.Color(54, 33, 89));
         SourceCodeLabel.setText("Source Code:");
 
         ChooseFileButton.setBackground(new java.awt.Color(255, 255, 255));
-        ChooseFileButton.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        ChooseFileButton.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         ChooseFileButton.setText("Choose File");
-        ChooseFileButton.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 153), 2, true), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 204, 204), new java.awt.Color(0, 204, 204), new java.awt.Color(0, 204, 204), new java.awt.Color(0, 204, 204))));
         ChooseFileButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ChooseFileButtonActionPerformed(evt);
@@ -674,7 +665,7 @@ public class ContestDashboard extends javax.swing.JFrame {
         SubmitButton.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
         SubmitButton.setForeground(new java.awt.Color(54, 33, 89));
         SubmitButton.setText("Submit");
-        SubmitButton.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 153), 2, true), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 255, 255), new java.awt.Color(0, 255, 255), new java.awt.Color(0, 255, 255), new java.awt.Color(0, 255, 255))));
+        SubmitButton.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(54, 33, 89)));
         SubmitButton.setContentAreaFilled(false);
         SubmitButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         SubmitButton.addActionListener(new java.awt.event.ActionListener() {
@@ -735,7 +726,7 @@ public class ContestDashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SourceCodeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SourceCodeScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 443, Short.MAX_VALUE)
+                .addComponent(SourceCodeScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(SubmitSolPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ChooseFileButton, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -800,17 +791,17 @@ public class ContestDashboard extends javax.swing.JFrame {
         });
         MySubScrollPane.setViewportView(MySubTable);
 
-        remainingTimeLabelMysubmission.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        remainingTimeLabelMysubmission.setBackground(new java.awt.Color(255, 255, 255));
+        remainingTimeLabelMysubmission.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        remainingTimeLabelMysubmission.setForeground(new java.awt.Color(54, 33, 89));
         remainingTimeLabelMysubmission.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        remainingTimeLabelMysubmission.setText("Remaining Time");
-        remainingTimeLabelMysubmission.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        remainingTimeLabelMysubmission.setText("Remaining Time:");
 
         remainingTimeTextMySubmission.setEditable(false);
         remainingTimeTextMySubmission.setBackground(new java.awt.Color(255, 255, 255));
-        remainingTimeTextMySubmission.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        remainingTimeTextMySubmission.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         remainingTimeTextMySubmission.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         remainingTimeTextMySubmission.setAutoscrolls(false);
-        remainingTimeTextMySubmission.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         remainingTimeTextMySubmission.setFocusable(false);
         remainingTimeTextMySubmission.setRequestFocusEnabled(false);
         remainingTimeTextMySubmission.setVerifyInputWhenFocusTarget(false);
@@ -829,12 +820,14 @@ public class ContestDashboard extends javax.swing.JFrame {
             MySubPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MySubPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(MySubPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(remainingTimeLabelMysubmission, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(MySubPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(MySubPanelLayout.createSequentialGroup()
+                        .addComponent(remainingTimeLabelMysubmission, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(2, 2, 2))
                     .addComponent(remainingTimeTextMySubmission, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
+                .addGap(9, 9, 9)
                 .addComponent(MySubScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         ContestDashboardTabSwitcher.addTab("My Submissions", MySubPanel);
@@ -900,17 +893,17 @@ public class ContestDashboard extends javax.swing.JFrame {
         });
         StatusScrollPane.setViewportView(StatusTable);
 
-        remainingTimeLabelStatus.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        remainingTimeLabelStatus.setBackground(new java.awt.Color(255, 255, 255));
+        remainingTimeLabelStatus.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        remainingTimeLabelStatus.setForeground(new java.awt.Color(54, 33, 89));
         remainingTimeLabelStatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        remainingTimeLabelStatus.setText("Remaining Time");
-        remainingTimeLabelStatus.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        remainingTimeLabelStatus.setText("Remaining Time:");
 
         remainingTimeTextStatus.setEditable(false);
         remainingTimeTextStatus.setBackground(new java.awt.Color(255, 255, 255));
-        remainingTimeTextStatus.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        remainingTimeTextStatus.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         remainingTimeTextStatus.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         remainingTimeTextStatus.setAutoscrolls(false);
-        remainingTimeTextStatus.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         remainingTimeTextStatus.setFocusable(false);
         remainingTimeTextStatus.setRequestFocusEnabled(false);
         remainingTimeTextStatus.setVerifyInputWhenFocusTarget(false);
@@ -929,12 +922,12 @@ public class ContestDashboard extends javax.swing.JFrame {
             StatusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(StatusPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(StatusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(remainingTimeLabelStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(remainingTimeTextStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
+                .addGroup(StatusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(remainingTimeLabelStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(remainingTimeTextStatus))
+                .addGap(11, 11, 11)
                 .addComponent(StatusScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         ContestDashboardTabSwitcher.addTab("Status", StatusPanel);
@@ -988,17 +981,17 @@ public class ContestDashboard extends javax.swing.JFrame {
         StandingsTable.getTableHeader().setReorderingAllowed(false);
         StandingsScrollPane.setViewportView(StandingsTable);
 
-        remainingTimeLabelStandings.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        remainingTimeLabelStandings.setBackground(new java.awt.Color(255, 255, 255));
+        remainingTimeLabelStandings.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        remainingTimeLabelStandings.setForeground(new java.awt.Color(54, 33, 89));
         remainingTimeLabelStandings.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        remainingTimeLabelStandings.setText("Remaining Time");
-        remainingTimeLabelStandings.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        remainingTimeLabelStandings.setText("Remaining Time:");
 
         remainingTimeTextStanding.setEditable(false);
         remainingTimeTextStanding.setBackground(new java.awt.Color(255, 255, 255));
-        remainingTimeTextStanding.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        remainingTimeTextStanding.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         remainingTimeTextStanding.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         remainingTimeTextStanding.setAutoscrolls(false);
-        remainingTimeTextStanding.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         remainingTimeTextStanding.setFocusable(false);
         remainingTimeTextStanding.setRequestFocusEnabled(false);
         remainingTimeTextStanding.setVerifyInputWhenFocusTarget(false);
@@ -1016,10 +1009,10 @@ public class ContestDashboard extends javax.swing.JFrame {
         StandingsPanelLayout.setVerticalGroup(
             StandingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(StandingsPanelLayout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addGroup(StandingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(remainingTimeLabelStandings, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(remainingTimeTextStanding, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addGroup(StandingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(remainingTimeTextStanding, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(remainingTimeLabelStandings, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(StandingsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 658, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1295,15 +1288,6 @@ public class ContestDashboard extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_leaveContestArenaButtonActionPerformed
 
-    private void submitProblemSolutionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitProblemSolutionActionPerformed
-        if (!this.timer.isRunning()) {
-            JOptionPane.showMessageDialog(null, "Contest is Over", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        selectProblemCombo.setSelectedItem(selectProblemCombo.getSelectedItem());
-        ContestDashboardTabSwitcher.setSelectedIndex(3);
-    }//GEN-LAST:event_submitProblemSolutionActionPerformed
-
     private void problemSetTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_problemSetTableMouseClicked
         if (evt.getClickCount() == 1 && !evt.isConsumed()) {
             evt.consume();
@@ -1315,28 +1299,6 @@ public class ContestDashboard extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_problemSetTableMouseClicked
-
-    private void selectProblemComboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_selectProblemComboItemStateChanged
-
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            int problemRow = selectProblemCombo.getSelectedIndex();
-            System.out.println(problemRow);
-            String problemID = problemTableModel[problemRow][0].toString();
-            
-            NewProblem problem = (this.timer.isRunning()? userSocket.getContestProblem(problemID):userSocket.getProblem(problemID));
-            if(problem == null){
-                timeLimitText.setText("Problem Locked / Not Found");
-                memoryLimitText.setText("Problem Locked / Not Found");
-                pdfController.closeDocument();
-                return;
-            }
-            timeLimitText.setText(problem.getTimeLimit());
-            memoryLimitText.setText(problem.getMemoryLimit());
-            pdfController.openDocument(problem.getProb(), 0, problem.getProb().length, null, null);
-            pdfViewerPanel.revalidate();
-        }
-
-    }//GEN-LAST:event_selectProblemComboItemStateChanged
 
     private void MySubTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MySubTableMouseClicked
         if (evt.getClickCount() == 1 && !evt.isConsumed()) {
@@ -1379,6 +1341,31 @@ public class ContestDashboard extends javax.swing.JFrame {
     private void selectProblemComboSubmitItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_selectProblemComboSubmitItemStateChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_selectProblemComboSubmitItemStateChanged
+
+    private void selectProblemComboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_selectProblemComboItemStateChanged
+
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            int problemRow = selectProblemCombo.getSelectedIndex();
+            System.out.println(problemRow);
+            String problemID = problemTableModel[problemRow][0].toString();
+
+            NewProblem problem = (this.timer.isRunning()? userSocket.getContestProblem(problemID):userSocket.getProblem(problemID));
+            if(problem == null){
+                timeLimitText.setText("Problem Locked / Not Found");
+                memoryLimitText.setText("Problem Locked / Not Found");
+                pdfController.closeDocument();
+                return;
+            }
+            timeLimitText.setText(problem.getTimeLimit());
+            memoryLimitText.setText(problem.getMemoryLimit());
+            pdfController.openDocument(problem.getProb(), 0, problem.getProb().length, null, null);
+            pdfViewerPanel.revalidate();
+        }
+    }//GEN-LAST:event_selectProblemComboItemStateChanged
+
+    private void submitProblemSolutionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitProblemSolutionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_submitProblemSolutionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
