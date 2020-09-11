@@ -290,14 +290,14 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="timeLimitLabel" alignment="0" min="-2" pref="27" max="-2" attributes="0"/>
-                              <Component id="timeLimitText" alignment="1" min="-2" pref="27" max="-2" attributes="0"/>
                               <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                   <Component id="memoryLimitText" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                                   <Component id="memoryLimitLabel" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                               </Group>
+                              <Component id="timeLimitText" min="-2" pref="27" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="pdfPanel" pref="342" max="32767" attributes="0"/>
+                          <Component id="pdfPanel" pref="334" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -322,10 +322,7 @@
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="ff" green="ff" red="cc" type="rgb"/>
-                    </Property>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI Emoji" size="14" style="1"/>
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="autoscrolls" type="boolean" value="false"/>
@@ -357,10 +354,7 @@
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="ff" green="ff" red="cc" type="rgb"/>
-                    </Property>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI Emoji" size="14" style="1"/>
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="autoscrolls" type="boolean" value="false"/>
@@ -404,25 +398,6 @@
                       <Color blue="33" green="0" red="33" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Submit Problem"/>
-                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
-                        <CompoundBorder>
-                          <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                            <LineBorder roundedCorners="true">
-                              <Color PropertyName="color" blue="99" green="0" red="0" type="rgb"/>
-                            </LineBorder>
-                          </Border>
-                          <Border PropertyName="inside" info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
-                            <BevelBorder>
-                              <Color PropertyName="highlightOuter" blue="99" green="99" red="0" type="rgb"/>
-                              <Color PropertyName="highlightInner" blue="ff" green="ff" red="66" type="rgb"/>
-                              <Color PropertyName="shadowOuter" blue="99" green="99" red="0" type="rgb"/>
-                              <Color PropertyName="shadowInner" blue="ff" green="ff" red="66" type="rgb"/>
-                            </BevelBorder>
-                          </Border>
-                        </CompoundBorder>
-                      </Border>
-                    </Property>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                       <Color id="Default Cursor"/>
                     </Property>
@@ -435,10 +410,7 @@
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="ff" green="ff" red="cc" type="rgb"/>
-                    </Property>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI Emoji" size="14" style="1"/>
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="autoscrolls" type="boolean" value="false"/>
@@ -543,30 +515,12 @@
                       <Color blue="59" green="21" red="36" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Or Choose File:"/>
-                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
-                        <EtchetBorder bevelType="0">
-                          <Color PropertyName="highlight" blue="cc" green="cc" red="0" type="rgb"/>
-                          <Color PropertyName="shadow" blue="cc" green="cc" red="0" type="rgb"/>
-                        </EtchetBorder>
-                      </Border>
-                    </Property>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtProblemID">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="14" style="0"/>
-                    </Property>
-                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
-                        <BevelBorder bevelType="1">
-                          <Color PropertyName="highlightOuter" blue="ff" green="ff" red="99" type="rgb"/>
-                          <Color PropertyName="highlightInner" blue="ff" green="ff" red="99" type="rgb"/>
-                          <Color PropertyName="shadowOuter" blue="cc" green="cc" red="0" type="rgb"/>
-                          <Color PropertyName="shadowInner" blue="cc" green="cc" red="0" type="rgb"/>
-                        </BevelBorder>
-                      </Border>
                     </Property>
                   </Properties>
                 </Component>
@@ -579,14 +533,6 @@
                       <Color blue="59" green="21" red="36" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Problem ID: "/>
-                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
-                        <EtchetBorder bevelType="0">
-                          <Color PropertyName="highlight" blue="cc" green="cc" red="0" type="rgb"/>
-                          <Color PropertyName="shadow" blue="cc" green="cc" red="0" type="rgb"/>
-                        </EtchetBorder>
-                      </Border>
-                    </Property>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="LanguageLabel">
@@ -598,14 +544,6 @@
                       <Color blue="59" green="21" red="36" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Language: "/>
-                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
-                        <EtchetBorder bevelType="0">
-                          <Color PropertyName="highlight" blue="cc" green="cc" red="0" type="rgb"/>
-                          <Color PropertyName="shadow" blue="cc" green="cc" red="0" type="rgb"/>
-                        </EtchetBorder>
-                      </Border>
-                    </Property>
                   </Properties>
                 </Component>
                 <Container class="javax.swing.JScrollPane" name="SourceCodeScrollPane">
@@ -638,14 +576,6 @@
                         <StringItem index="2" value="Java"/>
                       </StringArray>
                     </Property>
-                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
-                        <EtchetBorder>
-                          <Color PropertyName="highlight" blue="cc" green="cc" red="0" type="rgb"/>
-                          <Color PropertyName="shadow" blue="cc" green="cc" red="0" type="rgb"/>
-                        </EtchetBorder>
-                      </Border>
-                    </Property>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="SourceCodeLabel">
@@ -660,14 +590,6 @@
                       <Color blue="59" green="21" red="36" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Source Code:"/>
-                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
-                        <EtchetBorder bevelType="0">
-                          <Color PropertyName="highlight" blue="cc" green="cc" red="0" type="rgb"/>
-                          <Color PropertyName="shadow" blue="cc" green="cc" red="0" type="rgb"/>
-                        </EtchetBorder>
-                      </Border>
-                    </Property>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="ChooseFileButton">
@@ -679,25 +601,6 @@
                       <Font name="Segoe UI Emoji" size="14" style="1"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Choose File"/>
-                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
-                        <CompoundBorder>
-                          <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                            <LineBorder roundedCorners="true" thickness="2">
-                              <Color PropertyName="color" blue="99" green="0" red="0" type="rgb"/>
-                            </LineBorder>
-                          </Border>
-                          <Border PropertyName="inside" info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
-                            <BevelBorder>
-                              <Color PropertyName="highlightOuter" blue="cc" green="cc" red="0" type="rgb"/>
-                              <Color PropertyName="highlightInner" blue="cc" green="cc" red="0" type="rgb"/>
-                              <Color PropertyName="shadowOuter" blue="cc" green="cc" red="0" type="rgb"/>
-                              <Color PropertyName="shadowInner" blue="cc" green="cc" red="0" type="rgb"/>
-                            </BevelBorder>
-                          </Border>
-                        </CompoundBorder>
-                      </Border>
-                    </Property>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ChooseFileButtonActionPerformed"/>
@@ -715,25 +618,6 @@
                       <Color blue="59" green="21" red="36" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Submit"/>
-                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
-                        <CompoundBorder>
-                          <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                            <LineBorder roundedCorners="true" thickness="2">
-                              <Color PropertyName="color" blue="99" green="33" red="0" type="rgb"/>
-                            </LineBorder>
-                          </Border>
-                          <Border PropertyName="inside" info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
-                            <BevelBorder>
-                              <Color PropertyName="highlightOuter" blue="ff" green="ff" red="0" type="rgb"/>
-                              <Color PropertyName="highlightInner" blue="ff" green="ff" red="0" type="rgb"/>
-                              <Color PropertyName="shadowOuter" blue="ff" green="ff" red="0" type="rgb"/>
-                              <Color PropertyName="shadowInner" blue="ff" green="ff" red="0" type="rgb"/>
-                            </BevelBorder>
-                          </Border>
-                        </CompoundBorder>
-                      </Border>
-                    </Property>
                     <Property name="contentAreaFilled" type="boolean" value="false"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                       <Color id="Default Cursor"/>

@@ -56,9 +56,8 @@ public class AdminDashboard extends javax.swing.JFrame {
                 JComponent c = (JComponent) cellRenderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (row < 0) {
 
-                    c.setFont(new Font("Segoe UI", Font.BOLD, 16));
+                    c.setFont(new Font("Segoe UI", Font.BOLD, 20));
                     c.setBorder(new LineBorder(Color.BLACK, 1, false));
-                    //c.setBackground(Color.green);
                     return c;
                 }
                 if (null != table.getClientProperty(table.getColumnName(column)) && value != null) {
@@ -66,44 +65,51 @@ public class AdminDashboard extends javax.swing.JFrame {
                     cd.setText(value.toString());
                     cd.setForeground((Color) table.getClientProperty(table.getColumnName(column)));
                     cd.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-                    cd.setFont(new Font("Segoe UI", Font.BOLD, 14));
+                    cd.setFont(new Font("Segoe UI", Font.BOLD, 20));
                     cd.setBackground(row % 2 == 1 ? new Color(242, 242, 242) : Color.WHITE);
                     cd.setEnabled(true);
                     return (Component) cd;
                 }
-                c.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+                c.setFont(new Font("Segoe UI", Font.BOLD, 20));
                 c.setBackground(row % 2 == 1 ? new Color(242, 242, 242) : Color.WHITE);
                 return c;
             }
         };
 
         StatusTable.setDefaultRenderer(Object.class, cellRenderer);
+        StatusTable.setRowHeight(25);
         StatusTable.getTableHeader().setDefaultRenderer(cellRenderer);
         StatusTable.putClientProperty("Problem", Color.BLUE);
         StatusTable.putClientProperty("#", Color.BLUE);
 
         ContestTable.setDefaultRenderer(Object.class, cellRenderer);
+        ContestTable.setRowHeight(25);
         ContestTable.getTableHeader().setDefaultRenderer(cellRenderer);
         ContestTable.putClientProperty("Contest Name", Color.BLUE);
 
         addContestProblemTable.setDefaultRenderer(Object.class, cellRenderer);
+        addContestProblemTable.setRowHeight(25);
         addContestProblemTable.getTableHeader().setDefaultRenderer(cellRenderer);
         addContestProblemTable.putClientProperty("Problem Name", Color.BLUE);
         addContestProblemTable.putClientProperty("", Color.red);
 
         StandingsTable.setDefaultRenderer(Object.class, cellRenderer);
+        StandingsTable.setRowHeight(25);
         StandingsTable.getTableHeader().setDefaultRenderer(cellRenderer);
 
         ProblemsetTable.setDefaultRenderer(Object.class, cellRenderer);
+        ProblemsetTable.setRowHeight(25);
         ProblemsetTable.getTableHeader().setDefaultRenderer(cellRenderer);
         ProblemsetTable.putClientProperty("Problem Name", Color.BLUE);
 
         DelProblemsetTable.setDefaultRenderer(Object.class, cellRenderer);
+        DelProblemsetTable.setRowHeight(25);
         DelProblemsetTable.getTableHeader().setDefaultRenderer(cellRenderer);
         DelProblemsetTable.putClientProperty(" ", Color.RED);
         DelProblemsetTable.putClientProperty("Locked", Color.GREEN);
 
         MyProblemsTable.setDefaultRenderer(Object.class, cellRenderer);
+        MyProblemsTable.setRowHeight(25);
         MyProblemsTable.getTableHeader().setDefaultRenderer(cellRenderer);
         MyProblemsTable.putClientProperty("Problem Name", Color.BLUE);
 
@@ -152,9 +158,9 @@ public class AdminDashboard extends javax.swing.JFrame {
         TimeLimitLabel = new javax.swing.JLabel();
         txtProblemName = new javax.swing.JTextField();
         SubmitButton = new javax.swing.JButton();
-        txtTimeLimit = new javax.swing.JFormattedTextField();
-        txtMemoryLimit = new javax.swing.JFormattedTextField();
         problemLockCheckBox = new javax.swing.JCheckBox();
+        txtMemoryLimit = new javax.swing.JTextField();
+        txtTimeLimit = new javax.swing.JTextField();
         DeleteProblemPanel = new javax.swing.JPanel();
         DelProblemSetjScrollPane = new javax.swing.JScrollPane();
         DelProblemsetTable = new javax.swing.JTable();
@@ -170,7 +176,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         addContestProblemTable = new javax.swing.JTable();
         addProblemToContestLabel = new javax.swing.JLabel();
-        contestProblemCombo = new javax.swing.JComboBox<>();
+        contestProblemCombo = new javax.swing.JComboBox<String>();
         markContestLabel = new javax.swing.JLabel();
         StatusPanel = new javax.swing.JPanel();
         StatusScrollPane = new javax.swing.JScrollPane();
@@ -235,16 +241,16 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addComponent(WelcomeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HomePanelLayout.createSequentialGroup()
-                .addContainerGap(382, Short.MAX_VALUE)
+                .addContainerGap(395, Short.MAX_VALUE)
                 .addComponent(LogOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(382, Short.MAX_VALUE))
+                .addContainerGap(396, Short.MAX_VALUE))
         );
         HomePanelLayout.setVerticalGroup(
             HomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HomePanelLayout.createSequentialGroup()
                 .addGap(200, 200, 200)
                 .addComponent(WelcomeLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 188, Short.MAX_VALUE)
                 .addComponent(LogOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(100, 100, 100))
         );
@@ -311,13 +317,13 @@ public class AdminDashboard extends javax.swing.JFrame {
         ProblemsetPanelLayout.setHorizontalGroup(
             ProblemsetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ProblemsetPanelLayout.createSequentialGroup()
-                .addComponent(ProblemSetjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 854, Short.MAX_VALUE)
+                .addComponent(ProblemSetjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 881, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         ProblemsetPanelLayout.setVerticalGroup(
             ProblemsetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ProblemsetPanelLayout.createSequentialGroup()
-                .addComponent(ProblemSetjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
+                .addComponent(ProblemSetjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
@@ -383,13 +389,13 @@ public class AdminDashboard extends javax.swing.JFrame {
         MyProblemsPanelLayout.setHorizontalGroup(
             MyProblemsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MyProblemsPanelLayout.createSequentialGroup()
-                .addComponent(MyProblemsjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 854, Short.MAX_VALUE)
+                .addComponent(MyProblemsjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 881, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         MyProblemsPanelLayout.setVerticalGroup(
             MyProblemsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MyProblemsPanelLayout.createSequentialGroup()
-                .addComponent(MyProblemsjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
+                .addComponent(MyProblemsjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
@@ -434,14 +440,14 @@ public class AdminDashboard extends javax.swing.JFrame {
             ContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ContestsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(ContestTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 834, Short.MAX_VALUE)
+                .addComponent(ContestTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 857, Short.MAX_VALUE)
                 .addContainerGap())
         );
         ContestsPanelLayout.setVerticalGroup(
             ContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ContestsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(ContestTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE)
+                .addComponent(ContestTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -485,17 +491,19 @@ public class AdminDashboard extends javax.swing.JFrame {
             }
         });
 
-        MemoryLimitLabel.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
+        MemoryLimitLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
         MemoryLimitLabel.setForeground(new java.awt.Color(54, 33, 89));
         MemoryLimitLabel.setText("Memory Limit (KB):");
 
-        ProblemNameLabel.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
+        ProblemNameLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
         ProblemNameLabel.setForeground(new java.awt.Color(54, 33, 89));
         ProblemNameLabel.setText("Problem Name:");
 
-        TimeLimitLabel.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
+        TimeLimitLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
         TimeLimitLabel.setForeground(new java.awt.Color(54, 33, 89));
         TimeLimitLabel.setText("Time Limit (ms):");
+
+        txtProblemName.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
 
         SubmitButton.setBackground(new java.awt.Color(54, 33, 89));
         SubmitButton.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
@@ -511,12 +519,8 @@ public class AdminDashboard extends javax.swing.JFrame {
             }
         });
 
-        txtTimeLimit.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-
-        txtMemoryLimit.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-
         problemLockCheckBox.setBackground(new java.awt.Color(255, 255, 255));
-        problemLockCheckBox.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
+        problemLockCheckBox.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
         problemLockCheckBox.setForeground(new java.awt.Color(54, 33, 89));
         problemLockCheckBox.setSelected(true);
         problemLockCheckBox.setText("Lock Problem For Contest");
@@ -526,6 +530,10 @@ public class AdminDashboard extends javax.swing.JFrame {
         problemLockCheckBox.setIconTextGap(160);
         problemLockCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
         problemLockCheckBox.setPreferredSize(new java.awt.Dimension(376, 28));
+
+        txtMemoryLimit.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+
+        txtTimeLimit.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
 
         javax.swing.GroupLayout AddProblemPanelLayout = new javax.swing.GroupLayout(AddProblemPanel);
         AddProblemPanel.setLayout(AddProblemPanelLayout);
@@ -541,28 +549,28 @@ public class AdminDashboard extends javax.swing.JFrame {
                         .addGroup(AddProblemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(ChProblemStatementButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(AddInputButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(AddOutputButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
+                            .addComponent(AddOutputButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, AddProblemPanelLayout.createSequentialGroup()
                                 .addComponent(ProblemNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtProblemName, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))
+                                .addComponent(txtProblemName, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
+                            .addComponent(problemLockCheckBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, AddProblemPanelLayout.createSequentialGroup()
                                 .addComponent(TimeLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtTimeLimit))
+                                .addComponent(txtTimeLimit, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, AddProblemPanelLayout.createSequentialGroup()
                                 .addComponent(MemoryLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtMemoryLimit))
-                            .addComponent(problemLockCheckBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(txtMemoryLimit, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)))))
                 .addGap(367, 367, 367))
         );
         AddProblemPanelLayout.setVerticalGroup(
             AddProblemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AddProblemPanelLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(42, 42, 42)
                 .addComponent(ChProblemStatementButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(37, 37, 37)
                 .addComponent(AddInputButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
                 .addComponent(AddOutputButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -571,18 +579,18 @@ public class AdminDashboard extends javax.swing.JFrame {
                     .addComponent(ProblemNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtProblemName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(AddProblemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(TimeLimitLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                    .addComponent(txtTimeLimit))
+                .addGroup(AddProblemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(TimeLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTimeLimit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(AddProblemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(MemoryLimitLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                    .addComponent(txtMemoryLimit))
+                .addGroup(AddProblemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(MemoryLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtMemoryLimit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(problemLockCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SubmitButton)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         ManagePanelTabSwitcher.addTab("Add Problem", AddProblemPanel);
@@ -641,15 +649,15 @@ public class AdminDashboard extends javax.swing.JFrame {
         DeleteProblemPanel.setLayout(DeleteProblemPanelLayout);
         DeleteProblemPanelLayout.setHorizontalGroup(
             DeleteProblemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 849, Short.MAX_VALUE)
+            .addGap(0, 876, Short.MAX_VALUE)
             .addGroup(DeleteProblemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(DelProblemSetjScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 849, Short.MAX_VALUE))
+                .addComponent(DelProblemSetjScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 876, Short.MAX_VALUE))
         );
         DeleteProblemPanelLayout.setVerticalGroup(
             DeleteProblemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 522, Short.MAX_VALUE)
+            .addGap(0, 533, Short.MAX_VALUE)
             .addGroup(DeleteProblemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(DelProblemSetjScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE))
+                .addComponent(DelProblemSetjScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE))
         );
 
         ManagePanelTabSwitcher.addTab("Delete Problem", DeleteProblemPanel);
@@ -657,24 +665,21 @@ public class AdminDashboard extends javax.swing.JFrame {
         AddContestPanel.setBackground(new java.awt.Color(255, 255, 255));
         AddContestPanel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
-        ProblemNameLabel1.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
+        ProblemNameLabel1.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
         ProblemNameLabel1.setForeground(new java.awt.Color(54, 33, 89));
         ProblemNameLabel1.setText("Contest Name:");
-        ProblemNameLabel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
-        TimeLimitLabel1.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
+        TimeLimitLabel1.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
         TimeLimitLabel1.setForeground(new java.awt.Color(54, 33, 89));
         TimeLimitLabel1.setText("Start Time:");
-        TimeLimitLabel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
-        contestNameTextField.setFont(new java.awt.Font("Segoe UI Emoji", 0, 14)); // NOI18N
-        contestNameTextField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+        contestNameTextField.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
 
         SubmitContest.setBackground(new java.awt.Color(54, 33, 89));
         SubmitContest.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
         SubmitContest.setForeground(new java.awt.Color(54, 33, 89));
         SubmitContest.setText("Submit");
-        SubmitContest.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 204)), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED)));
+        SubmitContest.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(54, 33, 89)));
         SubmitContest.setContentAreaFilled(false);
         SubmitContest.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         SubmitContest.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -684,28 +689,24 @@ public class AdminDashboard extends javax.swing.JFrame {
             }
         });
 
-        DurationLabel.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
+        DurationLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
         DurationLabel.setForeground(new java.awt.Color(54, 33, 89));
         DurationLabel.setText("Duration:");
-        DurationLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
         dateTimeTextField.setEditable(false);
-        dateTimeTextField.setFont(new java.awt.Font("Segoe UI Emoji", 0, 14)); // NOI18N
+        dateTimeTextField.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         dateTimeTextField.setText("DD/MM/YYYY:HH24:MM");
-        dateTimeTextField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
 
-        OpenCalendarButton.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        OpenCalendarButton.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         OpenCalendarButton.setText("Open Calendar");
-        OpenCalendarButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         OpenCalendarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 OpenCalendarButtonActionPerformed(evt);
             }
         });
 
-        durationTextField.setFont(new java.awt.Font("Segoe UI Emoji", 0, 14)); // NOI18N
+        durationTextField.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         durationTextField.setText("Minutes");
-        durationTextField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
 
         addContestProblemTable.setFont(new java.awt.Font("Segoe UI Emoji", 0, 14)); // NOI18N
         addContestProblemTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -737,19 +738,17 @@ public class AdminDashboard extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(addContestProblemTable);
 
-        addProblemToContestLabel.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
+        addProblemToContestLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
         addProblemToContestLabel.setForeground(new java.awt.Color(54, 33, 89));
-        addProblemToContestLabel.setText("Added Problems");
-        addProblemToContestLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        addProblemToContestLabel.setText("Added Problems:");
 
+        contestProblemCombo.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         contestProblemCombo.setMaximumRowCount(-1);
-        contestProblemCombo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        markContestLabel.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
+        markContestLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
         markContestLabel.setForeground(new java.awt.Color(54, 33, 89));
         markContestLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         markContestLabel.setText("Mark Problem for Contest");
-        markContestLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
         javax.swing.GroupLayout AddContestPanelLayout = new javax.swing.GroupLayout(AddContestPanel);
         AddContestPanel.setLayout(AddContestPanelLayout);
@@ -771,7 +770,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                             .addComponent(contestNameTextField)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AddContestPanelLayout.createSequentialGroup()
                                 .addGroup(AddContestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(dateTimeTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+                                    .addComponent(dateTimeTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
                                     .addComponent(durationTextField))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(OpenCalendarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -892,11 +891,11 @@ public class AdminDashboard extends javax.swing.JFrame {
         StatusPanel.setLayout(StatusPanelLayout);
         StatusPanelLayout.setHorizontalGroup(
             StatusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(StatusScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 854, Short.MAX_VALUE)
+            .addComponent(StatusScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 881, Short.MAX_VALUE)
         );
         StatusPanelLayout.setVerticalGroup(
             StatusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(StatusScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
+            .addComponent(StatusScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
         );
 
         AdminDashboardTabSwitcher.addTab("Status", StatusPanel);
@@ -952,32 +951,28 @@ public class AdminDashboard extends javax.swing.JFrame {
         StandingsPanel.setLayout(StandingsPanelLayout);
         StandingsPanelLayout.setHorizontalGroup(
             StandingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(StandingsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 854, Short.MAX_VALUE)
+            .addComponent(StandingsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 881, Short.MAX_VALUE)
         );
         StandingsPanelLayout.setVerticalGroup(
             StandingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(StandingsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
+            .addComponent(StandingsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
         );
 
         AdminDashboardTabSwitcher.addTab("Standings", StandingsPanel);
-
-        AdminDashboardDesktopPane.setLayer(AdminDashboardTabSwitcher, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout AdminDashboardDesktopPaneLayout = new javax.swing.GroupLayout(AdminDashboardDesktopPane);
         AdminDashboardDesktopPane.setLayout(AdminDashboardDesktopPaneLayout);
         AdminDashboardDesktopPaneLayout.setHorizontalGroup(
             AdminDashboardDesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(AdminDashboardDesktopPaneLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AdminDashboardDesktopPaneLayout.createSequentialGroup()
                 .addComponent(AdminDashboardTabSwitcher)
                 .addGap(0, 0, 0))
         );
         AdminDashboardDesktopPaneLayout.setVerticalGroup(
             AdminDashboardDesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(AdminDashboardDesktopPaneLayout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(AdminDashboardTabSwitcher)
-                .addContainerGap())
+            .addComponent(AdminDashboardTabSwitcher)
         );
+        AdminDashboardDesktopPane.setLayer(AdminDashboardTabSwitcher, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         getContentPane().add(AdminDashboardDesktopPane, java.awt.BorderLayout.CENTER);
 
@@ -1293,7 +1288,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     private void SubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitButtonActionPerformed
 
         String problemname = txtProblemName.getText();
-        String timelimit = txtTimeLimit.getText();
+        String timelimit = txtMemoryLimit.getText();
         String memorylimit = txtMemoryLimit.getText();
         if (problemname.length() <= 0 || timelimit.length() <= 0 || memorylimit.length() <= 0) {
             JOptionPane.showMessageDialog(null, "Please fill Problem Name, Timelimit, Memorylimit", "Error", JOptionPane.ERROR_MESSAGE);
@@ -1442,8 +1437,8 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel markContestLabel;
     private javax.swing.JCheckBox problemLockCheckBox;
-    private javax.swing.JFormattedTextField txtMemoryLimit;
+    private javax.swing.JTextField txtMemoryLimit;
     private javax.swing.JTextField txtProblemName;
-    private javax.swing.JFormattedTextField txtTimeLimit;
+    private javax.swing.JTextField txtTimeLimit;
     // End of variables declaration//GEN-END:variables
 }

@@ -265,8 +265,7 @@ public class ContestDashboard extends javax.swing.JFrame {
         contestNameLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
         contestNameText.setEditable(false);
-        contestNameText.setBackground(new java.awt.Color(204, 255, 255));
-        contestNameText.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        contestNameText.setBackground(new java.awt.Color(255, 255, 255));
         contestNameText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         contestNameText.setAutoscrolls(false);
         contestNameText.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -275,8 +274,7 @@ public class ContestDashboard extends javax.swing.JFrame {
         contestNameText.setVerifyInputWhenFocusTarget(false);
 
         setterText.setEditable(false);
-        setterText.setBackground(new java.awt.Color(204, 255, 255));
-        setterText.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        setterText.setBackground(new java.awt.Color(255, 255, 255));
         setterText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         setterText.setAutoscrolls(false);
         setterText.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -290,8 +288,7 @@ public class ContestDashboard extends javax.swing.JFrame {
         durationMinutesLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
         durationMinutesText.setEditable(false);
-        durationMinutesText.setBackground(new java.awt.Color(204, 255, 255));
-        durationMinutesText.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        durationMinutesText.setBackground(new java.awt.Color(255, 255, 255));
         durationMinutesText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         durationMinutesText.setAutoscrolls(false);
         durationMinutesText.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -305,8 +302,7 @@ public class ContestDashboard extends javax.swing.JFrame {
         numberOfProblemsLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
         NumberOfProblemText.setEditable(false);
-        NumberOfProblemText.setBackground(new java.awt.Color(204, 255, 255));
-        NumberOfProblemText.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        NumberOfProblemText.setBackground(new java.awt.Color(255, 255, 255));
         NumberOfProblemText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         NumberOfProblemText.setAutoscrolls(false);
         NumberOfProblemText.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -320,8 +316,7 @@ public class ContestDashboard extends javax.swing.JFrame {
         startTimeLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
         startTimeText.setEditable(false);
-        startTimeText.setBackground(new java.awt.Color(204, 255, 255));
-        startTimeText.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        startTimeText.setBackground(new java.awt.Color(255, 255, 255));
         startTimeText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         startTimeText.setAutoscrolls(false);
         startTimeText.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -335,8 +330,7 @@ public class ContestDashboard extends javax.swing.JFrame {
         remainingTimeLabelHome.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
         remainingTimeText.setEditable(false);
-        remainingTimeText.setBackground(new java.awt.Color(204, 255, 255));
-        remainingTimeText.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        remainingTimeText.setBackground(new java.awt.Color(255, 255, 255));
         remainingTimeText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         remainingTimeText.setAutoscrolls(false);
         remainingTimeText.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -648,27 +642,23 @@ public class ContestDashboard extends javax.swing.JFrame {
         ProblemIDLabel.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
         ProblemIDLabel.setForeground(new java.awt.Color(54, 33, 89));
         ProblemIDLabel.setText("Select Problem:");
-        ProblemIDLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 204, 204), new java.awt.Color(0, 204, 204)));
 
         LanguageLabel.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
         LanguageLabel.setForeground(new java.awt.Color(54, 33, 89));
         LanguageLabel.setText("Language: ");
-        LanguageLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 204, 204), new java.awt.Color(0, 204, 204)));
 
         SourceCodeTextArea.setColumns(20);
         SourceCodeTextArea.setRows(5);
         SourceCodeScrollPane.setViewportView(SourceCodeTextArea);
 
-        submissionLanguageCombo.setBackground(new java.awt.Color(204, 255, 255));
-        submissionLanguageCombo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        submissionLanguageCombo.setBackground(new java.awt.Color(240, 240, 240));
+        submissionLanguageCombo.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         submissionLanguageCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "C", "C++", "Java" }));
-        submissionLanguageCombo.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(0, 204, 204), new java.awt.Color(0, 204, 204)));
 
         SourceCodeLabel.setBackground(new java.awt.Color(255, 255, 255));
         SourceCodeLabel.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
         SourceCodeLabel.setForeground(new java.awt.Color(54, 33, 89));
         SourceCodeLabel.setText("Source Code:");
-        SourceCodeLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 204, 204), new java.awt.Color(0, 204, 204)));
 
         ChooseFileButton.setBackground(new java.awt.Color(255, 255, 255));
         ChooseFileButton.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
@@ -693,10 +683,8 @@ public class ContestDashboard extends javax.swing.JFrame {
             }
         });
 
-        selectProblemComboSubmit.setBackground(new java.awt.Color(204, 255, 255));
-        selectProblemComboSubmit.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
-        selectProblemComboSubmit.setForeground(new java.awt.Color(0, 51, 204));
-        selectProblemComboSubmit.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        selectProblemComboSubmit.setBackground(new java.awt.Color(240, 240, 240));
+        selectProblemComboSubmit.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         selectProblemComboSubmit.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 selectProblemComboSubmitItemStateChanged(evt);
@@ -818,7 +806,7 @@ public class ContestDashboard extends javax.swing.JFrame {
         remainingTimeLabelMysubmission.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
         remainingTimeTextMySubmission.setEditable(false);
-        remainingTimeTextMySubmission.setBackground(new java.awt.Color(204, 255, 255));
+        remainingTimeTextMySubmission.setBackground(new java.awt.Color(255, 255, 255));
         remainingTimeTextMySubmission.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
         remainingTimeTextMySubmission.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         remainingTimeTextMySubmission.setAutoscrolls(false);
@@ -918,7 +906,7 @@ public class ContestDashboard extends javax.swing.JFrame {
         remainingTimeLabelStatus.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
         remainingTimeTextStatus.setEditable(false);
-        remainingTimeTextStatus.setBackground(new java.awt.Color(204, 255, 255));
+        remainingTimeTextStatus.setBackground(new java.awt.Color(255, 255, 255));
         remainingTimeTextStatus.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
         remainingTimeTextStatus.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         remainingTimeTextStatus.setAutoscrolls(false);
@@ -1006,7 +994,7 @@ public class ContestDashboard extends javax.swing.JFrame {
         remainingTimeLabelStandings.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
         remainingTimeTextStanding.setEditable(false);
-        remainingTimeTextStanding.setBackground(new java.awt.Color(204, 255, 255));
+        remainingTimeTextStanding.setBackground(new java.awt.Color(255, 255, 255));
         remainingTimeTextStanding.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
         remainingTimeTextStanding.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         remainingTimeTextStanding.setAutoscrolls(false);

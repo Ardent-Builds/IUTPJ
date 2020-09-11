@@ -314,8 +314,7 @@ public class UserDashboard extends javax.swing.JFrame {
         timeLimitLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
         memoryLimitText.setEditable(false);
-        memoryLimitText.setBackground(new java.awt.Color(204, 255, 255));
-        memoryLimitText.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        memoryLimitText.setBackground(new java.awt.Color(255, 255, 255));
         memoryLimitText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         memoryLimitText.setAutoscrolls(false);
         memoryLimitText.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -329,8 +328,7 @@ public class UserDashboard extends javax.swing.JFrame {
         memoryLimitLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
         problemNameText.setEditable(false);
-        problemNameText.setBackground(new java.awt.Color(204, 255, 255));
-        problemNameText.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        problemNameText.setBackground(new java.awt.Color(255, 255, 255));
         problemNameText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         problemNameText.setAutoscrolls(false);
         problemNameText.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -349,7 +347,6 @@ public class UserDashboard extends javax.swing.JFrame {
         submitProblemSolution.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
         submitProblemSolution.setForeground(new java.awt.Color(51, 0, 51));
         submitProblemSolution.setText("Submit Problem");
-        submitProblemSolution.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 153), 1, true), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 153, 153), new java.awt.Color(102, 255, 255), new java.awt.Color(0, 153, 153), new java.awt.Color(102, 255, 255))));
         submitProblemSolution.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         submitProblemSolution.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -358,8 +355,7 @@ public class UserDashboard extends javax.swing.JFrame {
         });
 
         timeLimitText.setEditable(false);
-        timeLimitText.setBackground(new java.awt.Color(204, 255, 255));
-        timeLimitText.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        timeLimitText.setBackground(new java.awt.Color(255, 255, 255));
         timeLimitText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         timeLimitText.setAutoscrolls(false);
         timeLimitText.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -402,12 +398,12 @@ public class UserDashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(timeLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(timeLimitText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(memoryLimitText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(memoryLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(memoryLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(timeLimitText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pdfPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
+                .addComponent(pdfPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -418,20 +414,16 @@ public class UserDashboard extends javax.swing.JFrame {
         ChooseFileLabel.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
         ChooseFileLabel.setForeground(new java.awt.Color(54, 33, 89));
         ChooseFileLabel.setText("Or Choose File:");
-        ChooseFileLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 204, 204), new java.awt.Color(0, 204, 204)));
 
         txtProblemID.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        txtProblemID.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED, new java.awt.Color(153, 255, 255), new java.awt.Color(153, 255, 255), new java.awt.Color(0, 204, 204), new java.awt.Color(0, 204, 204)));
 
         ProblemIDLabel.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
         ProblemIDLabel.setForeground(new java.awt.Color(54, 33, 89));
         ProblemIDLabel.setText("Problem ID: ");
-        ProblemIDLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 204, 204), new java.awt.Color(0, 204, 204)));
 
         LanguageLabel.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
         LanguageLabel.setForeground(new java.awt.Color(54, 33, 89));
         LanguageLabel.setText("Language: ");
-        LanguageLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 204, 204), new java.awt.Color(0, 204, 204)));
 
         SourceCodeTextArea.setColumns(20);
         SourceCodeTextArea.setRows(5);
@@ -440,18 +432,15 @@ public class UserDashboard extends javax.swing.JFrame {
         submissionLanguageCombo.setBackground(new java.awt.Color(204, 255, 255));
         submissionLanguageCombo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         submissionLanguageCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "C", "C++", "Java" }));
-        submissionLanguageCombo.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(0, 204, 204), new java.awt.Color(0, 204, 204)));
 
         SourceCodeLabel.setBackground(new java.awt.Color(255, 255, 255));
         SourceCodeLabel.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
         SourceCodeLabel.setForeground(new java.awt.Color(54, 33, 89));
         SourceCodeLabel.setText("Source Code:");
-        SourceCodeLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 204, 204), new java.awt.Color(0, 204, 204)));
 
         ChooseFileButton.setBackground(new java.awt.Color(255, 255, 255));
         ChooseFileButton.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
         ChooseFileButton.setText("Choose File");
-        ChooseFileButton.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 153), 2, true), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 204, 204), new java.awt.Color(0, 204, 204), new java.awt.Color(0, 204, 204), new java.awt.Color(0, 204, 204))));
         ChooseFileButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ChooseFileButtonActionPerformed(evt);
@@ -462,7 +451,6 @@ public class UserDashboard extends javax.swing.JFrame {
         SubmitButton.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
         SubmitButton.setForeground(new java.awt.Color(54, 33, 89));
         SubmitButton.setText("Submit");
-        SubmitButton.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 153), 2, true), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 255, 255), new java.awt.Color(0, 255, 255), new java.awt.Color(0, 255, 255), new java.awt.Color(0, 255, 255))));
         SubmitButton.setContentAreaFilled(false);
         SubmitButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         SubmitButton.addActionListener(new java.awt.event.ActionListener() {

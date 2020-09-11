@@ -143,7 +143,7 @@ public class Login extends javax.swing.JFrame {
                 LoginButtonActionPerformed(evt);
             }
         });
-        RightPanel.add(LoginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 360, 80, 40));
+        RightPanel.add(LoginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 350, 80, 40));
 
         PasswordField.setFont(new java.awt.Font("Segoe UI Light", 0, 20)); // NOI18N
         PasswordField.setForeground(new java.awt.Color(102, 102, 102));
