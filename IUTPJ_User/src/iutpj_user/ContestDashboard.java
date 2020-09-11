@@ -141,8 +141,6 @@ public class ContestDashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel6 = new javax.swing.JPanel();
-        pdfPanel = new javax.swing.JPanel();
         ContestDashboardDesktopPane = new javax.swing.JDesktopPane();
         ContestDashboardTabSwitcher = new javax.swing.JTabbedPane();
         HomePanel = new javax.swing.JPanel();
@@ -175,6 +173,7 @@ public class ContestDashboard extends javax.swing.JFrame {
         selectProblemLabel = new javax.swing.JLabel();
         selectProblemCombo = new javax.swing.JComboBox<>();
         submitProblemSolution = new javax.swing.JButton();
+        pdfPanel = new javax.swing.JPanel();
         SubmitSolPanel = new javax.swing.JPanel();
         ChooseFileLabel = new javax.swing.JLabel();
         ProblemIDLabel = new javax.swing.JLabel();
@@ -201,19 +200,6 @@ public class ContestDashboard extends javax.swing.JFrame {
         StandingsTable = new javax.swing.JTable();
         remainingTimeLabelStandings = new javax.swing.JLabel();
         remainingTimeTextStanding = new javax.swing.JTextField();
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        pdfPanel.setLayout(new java.awt.BorderLayout());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAutoRequestFocus(false);
@@ -346,11 +332,11 @@ public class ContestDashboard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(HomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(HomePanelLayout.createSequentialGroup()
-                        .addGap(0, 277, Short.MAX_VALUE)
+                        .addGap(0, 272, Short.MAX_VALUE)
                         .addGroup(HomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(leaveContestArenaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(WelcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(287, Short.MAX_VALUE))
+                        .addContainerGap(282, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HomePanelLayout.createSequentialGroup()
                         .addGroup(HomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(remainingTimeLabelHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -398,8 +384,9 @@ public class ContestDashboard extends javax.swing.JFrame {
                 .addGroup(HomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(remainingTimeLabelHome, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(remainingTimeText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 350, Short.MAX_VALUE)
-                .addComponent(leaveContestArenaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 280, Short.MAX_VALUE)
+                .addComponent(leaveContestArenaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         ContestDashboardTabSwitcher.addTab("Home", HomePanel);
@@ -480,7 +467,7 @@ public class ContestDashboard extends javax.swing.JFrame {
         ProblemsetPanel.setLayout(ProblemsetPanelLayout);
         ProblemsetPanelLayout.setHorizontalGroup(
             ProblemsetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ProblemSetjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 809, Short.MAX_VALUE)
+            .addComponent(ProblemSetjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 799, Short.MAX_VALUE)
             .addGroup(ProblemsetPanelLayout.createSequentialGroup()
                 .addComponent(remainingTimeLabelStandingsProblems, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -490,12 +477,12 @@ public class ContestDashboard extends javax.swing.JFrame {
             ProblemsetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ProblemsetPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(ProblemsetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(remainingTimeLabelStandingsProblems, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(remainingTimeTextProblems, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(ProblemsetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(remainingTimeTextProblems, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(remainingTimeLabelStandingsProblems, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ProblemSetjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 658, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(ProblemSetjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         ContestDashboardTabSwitcher.addTab("Problemset", ProblemsetPanel);
@@ -574,39 +561,45 @@ public class ContestDashboard extends javax.swing.JFrame {
             }
         });
 
+        pdfPanel.setLayout(new java.awt.BorderLayout());
+
         javax.swing.GroupLayout problemPanelLayout = new javax.swing.GroupLayout(problemPanel);
         problemPanel.setLayout(problemPanelLayout);
         problemPanelLayout.setHorizontalGroup(
             problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(problemPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(selectProblemLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(remainingTimeLabelProblem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(timeLimitLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pdfPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(problemPanelLayout.createSequentialGroup()
-                        .addComponent(timeLimitText, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+                        .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(selectProblemLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(remainingTimeLabelProblem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(timeLimitLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(memoryLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(memoryLimitText, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(selectProblemCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, problemPanelLayout.createSequentialGroup()
-                        .addComponent(remainingTimeTextProblem)
-                        .addGap(18, 18, 18)
-                        .addComponent(submitProblemSolution, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(problemPanelLayout.createSequentialGroup()
+                                .addComponent(timeLimitText, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(memoryLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(memoryLimitText, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE))
+                            .addComponent(selectProblemCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, problemPanelLayout.createSequentialGroup()
+                                .addComponent(remainingTimeTextProblem)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(submitProblemSolution, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         problemPanelLayout.setVerticalGroup(
             problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(problemPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(remainingTimeLabelProblem, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(remainingTimeTextProblem, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(submitProblemSolution, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(remainingTimeLabelProblem, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(remainingTimeTextProblem, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(submitProblemSolution, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3)
                 .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(selectProblemLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -614,11 +607,13 @@ public class ContestDashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(timeLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(memoryLimitLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(memoryLimitText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(timeLimitText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(533, 533, 533))
+                        .addComponent(timeLimitText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(memoryLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pdfPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         ContestDashboardTabSwitcher.addTab("Problem", problemPanel);
@@ -676,11 +671,6 @@ public class ContestDashboard extends javax.swing.JFrame {
 
         selectProblemComboSubmit.setBackground(new java.awt.Color(240, 240, 240));
         selectProblemComboSubmit.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        selectProblemComboSubmit.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                selectProblemComboSubmitItemStateChanged(evt);
-            }
-        });
 
         javax.swing.GroupLayout SubmitSolPanelLayout = new javax.swing.GroupLayout(SubmitSolPanel);
         SubmitSolPanel.setLayout(SubmitSolPanelLayout);
@@ -693,7 +683,7 @@ public class ContestDashboard extends javax.swing.JFrame {
                         .addComponent(ChooseFileLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ChooseFileButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 367, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 357, Short.MAX_VALUE)
                         .addComponent(SubmitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(SourceCodeScrollPane)
                     .addGroup(SubmitSolPanelLayout.createSequentialGroup()
@@ -726,7 +716,7 @@ public class ContestDashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SourceCodeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SourceCodeScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
+                .addComponent(SourceCodeScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(SubmitSolPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ChooseFileButton, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -813,20 +803,18 @@ public class ContestDashboard extends javax.swing.JFrame {
             .addGroup(MySubPanelLayout.createSequentialGroup()
                 .addComponent(remainingTimeLabelMysubmission, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(remainingTimeTextMySubmission, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE))
+                .addComponent(remainingTimeTextMySubmission, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE))
             .addComponent(MySubScrollPane)
         );
         MySubPanelLayout.setVerticalGroup(
             MySubPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MySubPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(MySubPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(MySubPanelLayout.createSequentialGroup()
-                        .addComponent(remainingTimeLabelMysubmission, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(2, 2, 2))
-                    .addComponent(remainingTimeTextMySubmission, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
-                .addComponent(MySubScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(MySubPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(remainingTimeTextMySubmission, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(remainingTimeLabelMysubmission, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MySubScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -915,18 +903,18 @@ public class ContestDashboard extends javax.swing.JFrame {
             .addGroup(StatusPanelLayout.createSequentialGroup()
                 .addComponent(remainingTimeLabelStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(remainingTimeTextStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE))
+                .addComponent(remainingTimeTextStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE))
             .addComponent(StatusScrollPane)
         );
         StatusPanelLayout.setVerticalGroup(
             StatusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(StatusPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(StatusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(remainingTimeLabelStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(remainingTimeTextStatus))
-                .addGap(11, 11, 11)
-                .addComponent(StatusScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(StatusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(remainingTimeTextStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 27, Short.MAX_VALUE)
+                    .addComponent(remainingTimeLabelStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(StatusScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1003,19 +991,19 @@ public class ContestDashboard extends javax.swing.JFrame {
             .addGroup(StandingsPanelLayout.createSequentialGroup()
                 .addComponent(remainingTimeLabelStandings, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(remainingTimeTextStanding, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE))
+                .addComponent(remainingTimeTextStanding, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE))
             .addComponent(StandingsScrollPane)
         );
         StandingsPanelLayout.setVerticalGroup(
             StandingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(StandingsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(StandingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(remainingTimeTextStanding, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(remainingTimeLabelStandings, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(StandingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(remainingTimeLabelStandings, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                    .addComponent(remainingTimeTextStanding, javax.swing.GroupLayout.PREFERRED_SIZE, 27, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(StandingsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 658, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(StandingsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         ContestDashboardTabSwitcher.addTab("Standings", StandingsPanel);
@@ -1338,9 +1326,14 @@ public class ContestDashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_StatusTableMouseClicked
 
-    private void selectProblemComboSubmitItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_selectProblemComboSubmitItemStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_selectProblemComboSubmitItemStateChanged
+    private void submitProblemSolutionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitProblemSolutionActionPerformed
+        if (!this.timer.isRunning()) {
+            JOptionPane.showMessageDialog(null, "Contest is Over", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        selectProblemComboSubmit.setSelectedItem(selectProblemCombo.getSelectedItem());
+        ContestDashboardTabSwitcher.setSelectedIndex(3);
+    }//GEN-LAST:event_submitProblemSolutionActionPerformed
 
     private void selectProblemComboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_selectProblemComboItemStateChanged
 
@@ -1362,10 +1355,6 @@ public class ContestDashboard extends javax.swing.JFrame {
             pdfViewerPanel.revalidate();
         }
     }//GEN-LAST:event_selectProblemComboItemStateChanged
-
-    private void submitProblemSolutionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitProblemSolutionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_submitProblemSolutionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1398,7 +1387,6 @@ public class ContestDashboard extends javax.swing.JFrame {
     private javax.swing.JTextField contestNameText;
     private javax.swing.JLabel durationMinutesLabel;
     private javax.swing.JTextField durationMinutesText;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JButton leaveContestArenaButton;
     private javax.swing.JLabel memoryLimitLabel;
     private javax.swing.JTextField memoryLimitText;

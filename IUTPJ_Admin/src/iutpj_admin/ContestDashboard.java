@@ -67,6 +67,7 @@ public class ContestDashboard extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 remainingTimeText.setText(getRemainingTime());
                 remainingTimeTextProblems.setText(remainingTimeText.getText());
+                remainingTimeTextProblem.setText(remainingTimeText.getText());
                 remainingTimeTextStanding.setText(remainingTimeText.getText());
                 remainingTimeTextStatus.setText(remainingTimeText.getText());
 
@@ -130,31 +131,6 @@ public class ContestDashboard extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         ContestDashboardDesktopPane = new javax.swing.JDesktopPane();
         ContestDashboardTabSwitcher = new javax.swing.JTabbedPane();
-        ProblemsetPanel = new javax.swing.JPanel();
-        ProblemSetjScrollPane = new javax.swing.JScrollPane();
-        problemSetTable = new javax.swing.JTable();
-        remainingTimeLabelStandingsProblems = new javax.swing.JLabel();
-        remainingTimeTextProblems = new javax.swing.JTextField();
-        problemPanel = new javax.swing.JPanel();
-        remainingTimeLabelProblem = new javax.swing.JLabel();
-        remainingTimeTextProblem = new javax.swing.JTextField();
-        timeLimitLabel = new javax.swing.JLabel();
-        memoryLimitText = new javax.swing.JTextField();
-        memoryLimitLabel = new javax.swing.JLabel();
-        timeLimitText = new javax.swing.JTextField();
-        selectProblemLabel = new javax.swing.JLabel();
-        selectProblemCombo = new javax.swing.JComboBox<String>();
-        pdfPanel = new javax.swing.JPanel();
-        StatusPanel = new javax.swing.JPanel();
-        StatusScrollPane = new javax.swing.JScrollPane();
-        StatusTable = new javax.swing.JTable();
-        remainingTimeLabelStatus = new javax.swing.JLabel();
-        remainingTimeTextStatus = new javax.swing.JTextField();
-        StandingsPanel = new javax.swing.JPanel();
-        StandingsScrollPane = new javax.swing.JScrollPane();
-        StandingsTable = new javax.swing.JTable();
-        remainingTimeLabelStandings = new javax.swing.JLabel();
-        remainingTimeTextStanding = new javax.swing.JTextField();
         HomePanel = new javax.swing.JPanel();
         WelcomeLabel = new javax.swing.JLabel();
         leaveContestArenaButton = new javax.swing.JButton();
@@ -170,6 +146,31 @@ public class ContestDashboard extends javax.swing.JFrame {
         startTimeText = new javax.swing.JTextField();
         remainingTimeLabelHome = new javax.swing.JLabel();
         remainingTimeText = new javax.swing.JTextField();
+        ProblemsetPanel = new javax.swing.JPanel();
+        ProblemSetjScrollPane = new javax.swing.JScrollPane();
+        problemSetTable = new javax.swing.JTable();
+        remainingTimeLabelStandingsProblems = new javax.swing.JLabel();
+        remainingTimeTextProblems = new javax.swing.JTextField();
+        problemPanel = new javax.swing.JPanel();
+        remainingTimeLabelProblem = new javax.swing.JLabel();
+        remainingTimeTextProblem = new javax.swing.JTextField();
+        timeLimitLabel = new javax.swing.JLabel();
+        memoryLimitText = new javax.swing.JTextField();
+        memoryLimitLabel = new javax.swing.JLabel();
+        timeLimitText = new javax.swing.JTextField();
+        selectProblemLabel = new javax.swing.JLabel();
+        selectProblemCombo = new javax.swing.JComboBox<>();
+        pdfPanel = new javax.swing.JPanel();
+        StatusPanel = new javax.swing.JPanel();
+        StatusScrollPane = new javax.swing.JScrollPane();
+        StatusTable = new javax.swing.JTable();
+        remainingTimeLabelStatus = new javax.swing.JLabel();
+        remainingTimeTextStatus = new javax.swing.JTextField();
+        StandingsPanel = new javax.swing.JPanel();
+        StandingsScrollPane = new javax.swing.JScrollPane();
+        StandingsTable = new javax.swing.JTable();
+        remainingTimeLabelStandings = new javax.swing.JLabel();
+        remainingTimeTextStanding = new javax.swing.JTextField();
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -197,398 +198,6 @@ public class ContestDashboard extends javax.swing.JFrame {
                 ContestDashboardTabSwitcherMouseClicked(evt);
             }
         });
-
-        ProblemsetPanel.setBackground(new java.awt.Color(255, 255, 255));
-
-        ProblemSetjScrollPane.setBackground(new java.awt.Color(255, 255, 255));
-        ProblemSetjScrollPane.setFont(new java.awt.Font("Segoe UI Emoji", 1, 25)); // NOI18N
-
-        problemSetTable.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
-        problemSetTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Problem ID", "Problem Name", "Problem Setter"
-            }
-        ));
-        problemSetTable.setFocusable(false);
-        problemSetTable.setGridColor(new java.awt.Color(255, 255, 255));
-        problemSetTable.setIntercellSpacing(new java.awt.Dimension(0, 0));
-        problemSetTable.setMinimumSize(new java.awt.Dimension(0, 0));
-        problemSetTable.setOpaque(false);
-        problemSetTable.setRequestFocusEnabled(false);
-        problemSetTable.setRowHeight(23);
-        problemSetTable.setRowSelectionAllowed(false);
-        problemSetTable.setSelectionBackground(new java.awt.Color(0, 181, 204));
-        problemSetTable.setShowHorizontalLines(false);
-        problemSetTable.getTableHeader().setReorderingAllowed(false);
-        problemSetTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                problemSetTableMouseClicked(evt);
-            }
-        });
-        ProblemSetjScrollPane.setViewportView(problemSetTable);
-
-        remainingTimeLabelStandingsProblems.setBackground(new java.awt.Color(255, 255, 255));
-        remainingTimeLabelStandingsProblems.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
-        remainingTimeLabelStandingsProblems.setForeground(new java.awt.Color(54, 33, 89));
-        remainingTimeLabelStandingsProblems.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        remainingTimeLabelStandingsProblems.setText("Remaining Time:");
-
-        remainingTimeTextProblems.setEditable(false);
-        remainingTimeTextProblems.setBackground(new java.awt.Color(255, 255, 255));
-        remainingTimeTextProblems.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        remainingTimeTextProblems.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        remainingTimeTextProblems.setAutoscrolls(false);
-        remainingTimeTextProblems.setFocusable(false);
-        remainingTimeTextProblems.setRequestFocusEnabled(false);
-        remainingTimeTextProblems.setVerifyInputWhenFocusTarget(false);
-
-        javax.swing.GroupLayout ProblemsetPanelLayout = new javax.swing.GroupLayout(ProblemsetPanel);
-        ProblemsetPanel.setLayout(ProblemsetPanelLayout);
-        ProblemsetPanelLayout.setHorizontalGroup(
-            ProblemsetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ProblemSetjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 872, Short.MAX_VALUE)
-            .addGroup(ProblemsetPanelLayout.createSequentialGroup()
-                .addComponent(remainingTimeLabelStandingsProblems, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(remainingTimeTextProblems))
-        );
-        ProblemsetPanelLayout.setVerticalGroup(
-            ProblemsetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ProblemsetPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(ProblemsetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(remainingTimeTextProblems, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(remainingTimeLabelStandingsProblems, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ProblemSetjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 658, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        ContestDashboardTabSwitcher.addTab("Problemset", ProblemsetPanel);
-
-        problemPanel.setBackground(new java.awt.Color(255, 255, 255));
-
-        remainingTimeLabelProblem.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
-        remainingTimeLabelProblem.setForeground(new java.awt.Color(54, 33, 89));
-        remainingTimeLabelProblem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        remainingTimeLabelProblem.setText("Remaining Time:");
-
-        remainingTimeTextProblem.setEditable(false);
-        remainingTimeTextProblem.setBackground(new java.awt.Color(255, 255, 255));
-        remainingTimeTextProblem.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        remainingTimeTextProblem.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        remainingTimeTextProblem.setAutoscrolls(false);
-        remainingTimeTextProblem.setFocusable(false);
-        remainingTimeTextProblem.setRequestFocusEnabled(false);
-        remainingTimeTextProblem.setVerifyInputWhenFocusTarget(false);
-
-        timeLimitLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
-        timeLimitLabel.setForeground(new java.awt.Color(54, 33, 89));
-        timeLimitLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        timeLimitLabel.setText("Time Limit (ms):");
-
-        memoryLimitText.setEditable(false);
-        memoryLimitText.setBackground(new java.awt.Color(255, 255, 255));
-        memoryLimitText.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        memoryLimitText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        memoryLimitText.setAutoscrolls(false);
-        memoryLimitText.setFocusable(false);
-        memoryLimitText.setRequestFocusEnabled(false);
-        memoryLimitText.setVerifyInputWhenFocusTarget(false);
-
-        memoryLimitLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
-        memoryLimitLabel.setForeground(new java.awt.Color(54, 33, 89));
-        memoryLimitLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        memoryLimitLabel.setText("Memory Limit (kB):");
-
-        timeLimitText.setEditable(false);
-        timeLimitText.setBackground(new java.awt.Color(255, 255, 255));
-        timeLimitText.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        timeLimitText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        timeLimitText.setAutoscrolls(false);
-        timeLimitText.setFocusable(false);
-        timeLimitText.setRequestFocusEnabled(false);
-        timeLimitText.setVerifyInputWhenFocusTarget(false);
-
-        selectProblemLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
-        selectProblemLabel.setForeground(new java.awt.Color(54, 33, 89));
-        selectProblemLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        selectProblemLabel.setText("Select Problem:");
-
-        selectProblemCombo.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        selectProblemCombo.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                selectProblemComboItemStateChanged(evt);
-            }
-        });
-
-        pdfPanel.setLayout(new java.awt.BorderLayout());
-
-        javax.swing.GroupLayout problemPanelLayout = new javax.swing.GroupLayout(problemPanel);
-        problemPanel.setLayout(problemPanelLayout);
-        problemPanelLayout.setHorizontalGroup(
-            problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(problemPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pdfPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(problemPanelLayout.createSequentialGroup()
-                        .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(selectProblemLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(remainingTimeLabelProblem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(timeLimitLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(problemPanelLayout.createSequentialGroup()
-                                .addComponent(timeLimitText, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(memoryLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(memoryLimitText, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(selectProblemCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(remainingTimeTextProblem, javax.swing.GroupLayout.Alignment.LEADING))))
-                .addContainerGap())
-        );
-        problemPanelLayout.setVerticalGroup(
-            problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(problemPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(remainingTimeTextProblem, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(remainingTimeLabelProblem, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(5, 5, 5)
-                .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(selectProblemLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(selectProblemCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(timeLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(memoryLimitLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(memoryLimitText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(timeLimitText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(7, 7, 7)
-                .addComponent(pdfPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        ContestDashboardTabSwitcher.addTab("Problem", problemPanel);
-
-        StatusPanel.setBackground(new java.awt.Color(255, 255, 255));
-
-        StatusScrollPane.setFont(new java.awt.Font("Segoe UI Emoji", 1, 25)); // NOI18N
-
-        StatusTable.setFont(new java.awt.Font("Segoe UI Emoji", 0, 14)); // NOI18N
-        StatusTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "#", "When", "Who", "Problem", "Lang", "Verdict", "Time"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        StatusTable.setFocusable(false);
-        StatusTable.setGridColor(new java.awt.Color(255, 255, 255));
-        StatusTable.setIntercellSpacing(new java.awt.Dimension(0, 0));
-        StatusTable.setOpaque(false);
-        StatusTable.setRequestFocusEnabled(false);
-        StatusTable.setRowHeight(23);
-        StatusTable.setRowSelectionAllowed(false);
-        StatusTable.setSelectionBackground(new java.awt.Color(0, 181, 204));
-        StatusTable.getTableHeader().setReorderingAllowed(false);
-        StatusTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                StatusTableMouseClicked(evt);
-            }
-        });
-        StatusScrollPane.setViewportView(StatusTable);
-
-        remainingTimeLabelStatus.setBackground(new java.awt.Color(255, 255, 255));
-        remainingTimeLabelStatus.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
-        remainingTimeLabelStatus.setForeground(new java.awt.Color(54, 33, 89));
-        remainingTimeLabelStatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        remainingTimeLabelStatus.setText("Remaining Time:");
-
-        remainingTimeTextStatus.setEditable(false);
-        remainingTimeTextStatus.setBackground(new java.awt.Color(255, 255, 255));
-        remainingTimeTextStatus.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        remainingTimeTextStatus.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        remainingTimeTextStatus.setAutoscrolls(false);
-        remainingTimeTextStatus.setFocusable(false);
-        remainingTimeTextStatus.setRequestFocusEnabled(false);
-        remainingTimeTextStatus.setVerifyInputWhenFocusTarget(false);
-
-        javax.swing.GroupLayout StatusPanelLayout = new javax.swing.GroupLayout(StatusPanel);
-        StatusPanel.setLayout(StatusPanelLayout);
-        StatusPanelLayout.setHorizontalGroup(
-            StatusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(StatusPanelLayout.createSequentialGroup()
-                .addComponent(remainingTimeLabelStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(remainingTimeTextStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE))
-            .addComponent(StatusScrollPane)
-        );
-        StatusPanelLayout.setVerticalGroup(
-            StatusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(StatusPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(StatusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(remainingTimeLabelStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(remainingTimeTextStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
-                .addComponent(StatusScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        ContestDashboardTabSwitcher.addTab("Status", StatusPanel);
-
-        StandingsPanel.setBackground(new java.awt.Color(255, 255, 255));
-
-        StandingsScrollPane.setFont(new java.awt.Font("Segoe UI Emoji", 1, 25)); // NOI18N
-
-        StandingsTable.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
-        StandingsTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "#", "When", "Who", "Problem", "Lang", "Verdict", "Time"
-            }
-        ));
-        StandingsTable.setFocusable(false);
-        StandingsTable.setGridColor(new java.awt.Color(255, 255, 255));
-        StandingsTable.setIntercellSpacing(new java.awt.Dimension(0, 0));
-        StandingsTable.setOpaque(false);
-        StandingsTable.setRequestFocusEnabled(false);
-        StandingsTable.setRowHeight(23);
-        StandingsTable.setRowSelectionAllowed(false);
-        StandingsTable.setSelectionBackground(new java.awt.Color(0, 181, 204));
-        StandingsTable.setShowHorizontalLines(false);
-        StandingsTable.getTableHeader().setReorderingAllowed(false);
-        StandingsScrollPane.setViewportView(StandingsTable);
-
-        remainingTimeLabelStandings.setBackground(new java.awt.Color(255, 255, 255));
-        remainingTimeLabelStandings.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
-        remainingTimeLabelStandings.setForeground(new java.awt.Color(54, 33, 89));
-        remainingTimeLabelStandings.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        remainingTimeLabelStandings.setText("Remaining Time:");
-
-        remainingTimeTextStanding.setEditable(false);
-        remainingTimeTextStanding.setBackground(new java.awt.Color(255, 255, 255));
-        remainingTimeTextStanding.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        remainingTimeTextStanding.setForeground(new java.awt.Color(54, 33, 89));
-        remainingTimeTextStanding.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        remainingTimeTextStanding.setAutoscrolls(false);
-        remainingTimeTextStanding.setFocusable(false);
-        remainingTimeTextStanding.setRequestFocusEnabled(false);
-        remainingTimeTextStanding.setVerifyInputWhenFocusTarget(false);
-
-        javax.swing.GroupLayout StandingsPanelLayout = new javax.swing.GroupLayout(StandingsPanel);
-        StandingsPanel.setLayout(StandingsPanelLayout);
-        StandingsPanelLayout.setHorizontalGroup(
-            StandingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(StandingsPanelLayout.createSequentialGroup()
-                .addComponent(remainingTimeLabelStandings, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(remainingTimeTextStanding, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE))
-            .addComponent(StandingsScrollPane)
-        );
-        StandingsPanelLayout.setVerticalGroup(
-            StandingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(StandingsPanelLayout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addGroup(StandingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(remainingTimeLabelStandings, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(remainingTimeTextStanding, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(StandingsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 658, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        ContestDashboardTabSwitcher.addTab("Standings", StandingsPanel);
 
         HomePanel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -754,11 +363,409 @@ public class ContestDashboard extends javax.swing.JFrame {
                 .addGroup(HomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(remainingTimeLabelHome, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(remainingTimeText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 429, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 435, Short.MAX_VALUE)
                 .addComponent(leaveContestArenaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         ContestDashboardTabSwitcher.addTab("Home", HomePanel);
+
+        ProblemsetPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        ProblemSetjScrollPane.setBackground(new java.awt.Color(255, 255, 255));
+        ProblemSetjScrollPane.setFont(new java.awt.Font("Segoe UI Emoji", 1, 25)); // NOI18N
+
+        problemSetTable.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        problemSetTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Problem ID", "Problem Name", "Problem Setter"
+            }
+        ));
+        problemSetTable.setFocusable(false);
+        problemSetTable.setGridColor(new java.awt.Color(255, 255, 255));
+        problemSetTable.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        problemSetTable.setMinimumSize(new java.awt.Dimension(0, 0));
+        problemSetTable.setOpaque(false);
+        problemSetTable.setRequestFocusEnabled(false);
+        problemSetTable.setRowHeight(23);
+        problemSetTable.setRowSelectionAllowed(false);
+        problemSetTable.setSelectionBackground(new java.awt.Color(0, 181, 204));
+        problemSetTable.setShowHorizontalLines(false);
+        problemSetTable.getTableHeader().setReorderingAllowed(false);
+        problemSetTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                problemSetTableMouseClicked(evt);
+            }
+        });
+        ProblemSetjScrollPane.setViewportView(problemSetTable);
+
+        remainingTimeLabelStandingsProblems.setBackground(new java.awt.Color(255, 255, 255));
+        remainingTimeLabelStandingsProblems.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        remainingTimeLabelStandingsProblems.setForeground(new java.awt.Color(54, 33, 89));
+        remainingTimeLabelStandingsProblems.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        remainingTimeLabelStandingsProblems.setText("Remaining Time:");
+
+        remainingTimeTextProblems.setEditable(false);
+        remainingTimeTextProblems.setBackground(new java.awt.Color(255, 255, 255));
+        remainingTimeTextProblems.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        remainingTimeTextProblems.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        remainingTimeTextProblems.setAutoscrolls(false);
+        remainingTimeTextProblems.setFocusable(false);
+        remainingTimeTextProblems.setRequestFocusEnabled(false);
+        remainingTimeTextProblems.setVerifyInputWhenFocusTarget(false);
+
+        javax.swing.GroupLayout ProblemsetPanelLayout = new javax.swing.GroupLayout(ProblemsetPanel);
+        ProblemsetPanel.setLayout(ProblemsetPanelLayout);
+        ProblemsetPanelLayout.setHorizontalGroup(
+            ProblemsetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(ProblemSetjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 872, Short.MAX_VALUE)
+            .addGroup(ProblemsetPanelLayout.createSequentialGroup()
+                .addComponent(remainingTimeLabelStandingsProblems, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(remainingTimeTextProblems))
+        );
+        ProblemsetPanelLayout.setVerticalGroup(
+            ProblemsetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ProblemsetPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(ProblemsetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(remainingTimeTextProblems, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(remainingTimeLabelStandingsProblems, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ProblemSetjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)
+                .addGap(13, 13, 13))
+        );
+
+        ContestDashboardTabSwitcher.addTab("Problemset", ProblemsetPanel);
+
+        problemPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        remainingTimeLabelProblem.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        remainingTimeLabelProblem.setForeground(new java.awt.Color(54, 33, 89));
+        remainingTimeLabelProblem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        remainingTimeLabelProblem.setText("Remaining Time:");
+
+        remainingTimeTextProblem.setEditable(false);
+        remainingTimeTextProblem.setBackground(new java.awt.Color(255, 255, 255));
+        remainingTimeTextProblem.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        remainingTimeTextProblem.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        remainingTimeTextProblem.setAutoscrolls(false);
+        remainingTimeTextProblem.setFocusable(false);
+        remainingTimeTextProblem.setRequestFocusEnabled(false);
+        remainingTimeTextProblem.setVerifyInputWhenFocusTarget(false);
+
+        timeLimitLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        timeLimitLabel.setForeground(new java.awt.Color(54, 33, 89));
+        timeLimitLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        timeLimitLabel.setText("Time Limit (ms):");
+
+        memoryLimitText.setEditable(false);
+        memoryLimitText.setBackground(new java.awt.Color(255, 255, 255));
+        memoryLimitText.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        memoryLimitText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        memoryLimitText.setAutoscrolls(false);
+        memoryLimitText.setFocusable(false);
+        memoryLimitText.setRequestFocusEnabled(false);
+        memoryLimitText.setVerifyInputWhenFocusTarget(false);
+
+        memoryLimitLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        memoryLimitLabel.setForeground(new java.awt.Color(54, 33, 89));
+        memoryLimitLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        memoryLimitLabel.setText("Memory Limit (kB):");
+
+        timeLimitText.setEditable(false);
+        timeLimitText.setBackground(new java.awt.Color(255, 255, 255));
+        timeLimitText.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        timeLimitText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        timeLimitText.setAutoscrolls(false);
+        timeLimitText.setFocusable(false);
+        timeLimitText.setRequestFocusEnabled(false);
+        timeLimitText.setVerifyInputWhenFocusTarget(false);
+
+        selectProblemLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        selectProblemLabel.setForeground(new java.awt.Color(54, 33, 89));
+        selectProblemLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        selectProblemLabel.setText("Select Problem:");
+
+        selectProblemCombo.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        selectProblemCombo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                selectProblemComboItemStateChanged(evt);
+            }
+        });
+
+        pdfPanel.setLayout(new java.awt.BorderLayout());
+
+        javax.swing.GroupLayout problemPanelLayout = new javax.swing.GroupLayout(problemPanel);
+        problemPanel.setLayout(problemPanelLayout);
+        problemPanelLayout.setHorizontalGroup(
+            problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(problemPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pdfPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(problemPanelLayout.createSequentialGroup()
+                        .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(selectProblemLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(remainingTimeLabelProblem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(timeLimitLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(problemPanelLayout.createSequentialGroup()
+                                .addComponent(timeLimitText, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(memoryLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(memoryLimitText, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE))
+                            .addComponent(selectProblemCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(remainingTimeTextProblem, javax.swing.GroupLayout.Alignment.LEADING))))
+                .addContainerGap())
+        );
+        problemPanelLayout.setVerticalGroup(
+            problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(problemPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(remainingTimeTextProblem, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(remainingTimeLabelProblem, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
+                .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(selectProblemLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(selectProblemCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(timeLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(memoryLimitLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(memoryLimitText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(timeLimitText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(7, 7, 7)
+                .addComponent(pdfPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 596, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        ContestDashboardTabSwitcher.addTab("Problem", problemPanel);
+
+        StatusPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        StatusScrollPane.setFont(new java.awt.Font("Segoe UI Emoji", 1, 25)); // NOI18N
+
+        StatusTable.setFont(new java.awt.Font("Segoe UI Emoji", 0, 14)); // NOI18N
+        StatusTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "#", "When", "Who", "Problem", "Lang", "Verdict", "Time"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        StatusTable.setFocusable(false);
+        StatusTable.setGridColor(new java.awt.Color(255, 255, 255));
+        StatusTable.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        StatusTable.setOpaque(false);
+        StatusTable.setRequestFocusEnabled(false);
+        StatusTable.setRowHeight(23);
+        StatusTable.setRowSelectionAllowed(false);
+        StatusTable.setSelectionBackground(new java.awt.Color(0, 181, 204));
+        StatusTable.getTableHeader().setReorderingAllowed(false);
+        StatusTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                StatusTableMouseClicked(evt);
+            }
+        });
+        StatusScrollPane.setViewportView(StatusTable);
+
+        remainingTimeLabelStatus.setBackground(new java.awt.Color(255, 255, 255));
+        remainingTimeLabelStatus.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        remainingTimeLabelStatus.setForeground(new java.awt.Color(54, 33, 89));
+        remainingTimeLabelStatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        remainingTimeLabelStatus.setText("Remaining Time:");
+
+        remainingTimeTextStatus.setEditable(false);
+        remainingTimeTextStatus.setBackground(new java.awt.Color(255, 255, 255));
+        remainingTimeTextStatus.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        remainingTimeTextStatus.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        remainingTimeTextStatus.setAutoscrolls(false);
+        remainingTimeTextStatus.setFocusable(false);
+        remainingTimeTextStatus.setRequestFocusEnabled(false);
+        remainingTimeTextStatus.setVerifyInputWhenFocusTarget(false);
+
+        javax.swing.GroupLayout StatusPanelLayout = new javax.swing.GroupLayout(StatusPanel);
+        StatusPanel.setLayout(StatusPanelLayout);
+        StatusPanelLayout.setHorizontalGroup(
+            StatusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(StatusPanelLayout.createSequentialGroup()
+                .addComponent(remainingTimeLabelStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(remainingTimeTextStatus))
+            .addComponent(StatusScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 872, Short.MAX_VALUE)
+        );
+        StatusPanelLayout.setVerticalGroup(
+            StatusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(StatusPanelLayout.createSequentialGroup()
+                .addGap(7, 7, 7)
+                .addGroup(StatusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(remainingTimeLabelStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(remainingTimeTextStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(StatusScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE)
+                .addGap(16, 16, 16))
+        );
+
+        ContestDashboardTabSwitcher.addTab("Status", StatusPanel);
+
+        StandingsPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        StandingsScrollPane.setFont(new java.awt.Font("Segoe UI Emoji", 1, 25)); // NOI18N
+
+        StandingsTable.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        StandingsTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "#", "When", "Who", "Problem", "Lang", "Verdict", "Time"
+            }
+        ));
+        StandingsTable.setFocusable(false);
+        StandingsTable.setGridColor(new java.awt.Color(255, 255, 255));
+        StandingsTable.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        StandingsTable.setOpaque(false);
+        StandingsTable.setRequestFocusEnabled(false);
+        StandingsTable.setRowHeight(23);
+        StandingsTable.setRowSelectionAllowed(false);
+        StandingsTable.setSelectionBackground(new java.awt.Color(0, 181, 204));
+        StandingsTable.setShowHorizontalLines(false);
+        StandingsTable.getTableHeader().setReorderingAllowed(false);
+        StandingsScrollPane.setViewportView(StandingsTable);
+
+        remainingTimeLabelStandings.setBackground(new java.awt.Color(255, 255, 255));
+        remainingTimeLabelStandings.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        remainingTimeLabelStandings.setForeground(new java.awt.Color(54, 33, 89));
+        remainingTimeLabelStandings.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        remainingTimeLabelStandings.setText("Remaining Time:");
+
+        remainingTimeTextStanding.setEditable(false);
+        remainingTimeTextStanding.setBackground(new java.awt.Color(255, 255, 255));
+        remainingTimeTextStanding.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        remainingTimeTextStanding.setForeground(new java.awt.Color(54, 33, 89));
+        remainingTimeTextStanding.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        remainingTimeTextStanding.setAutoscrolls(false);
+        remainingTimeTextStanding.setFocusable(false);
+        remainingTimeTextStanding.setRequestFocusEnabled(false);
+        remainingTimeTextStanding.setVerifyInputWhenFocusTarget(false);
+
+        javax.swing.GroupLayout StandingsPanelLayout = new javax.swing.GroupLayout(StandingsPanel);
+        StandingsPanel.setLayout(StandingsPanelLayout);
+        StandingsPanelLayout.setHorizontalGroup(
+            StandingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(StandingsPanelLayout.createSequentialGroup()
+                .addComponent(remainingTimeLabelStandings, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(remainingTimeTextStanding)
+                .addContainerGap())
+            .addComponent(StandingsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 872, Short.MAX_VALUE)
+        );
+        StandingsPanelLayout.setVerticalGroup(
+            StandingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(StandingsPanelLayout.createSequentialGroup()
+                .addGroup(StandingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(StandingsPanelLayout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(remainingTimeLabelStandings, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, StandingsPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(remainingTimeTextStanding, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(StandingsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
+                .addGap(21, 21, 21))
+        );
+
+        ContestDashboardTabSwitcher.addTab("Standings", StandingsPanel);
+
+        ContestDashboardDesktopPane.setLayer(ContestDashboardTabSwitcher, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout ContestDashboardDesktopPaneLayout = new javax.swing.GroupLayout(ContestDashboardDesktopPane);
         ContestDashboardDesktopPane.setLayout(ContestDashboardDesktopPaneLayout);
@@ -775,7 +782,6 @@ public class ContestDashboard extends javax.swing.JFrame {
                 .addComponent(ContestDashboardTabSwitcher)
                 .addContainerGap())
         );
-        ContestDashboardDesktopPane.setLayer(ContestDashboardTabSwitcher, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         getContentPane().add(ContestDashboardDesktopPane, java.awt.BorderLayout.CENTER);
 

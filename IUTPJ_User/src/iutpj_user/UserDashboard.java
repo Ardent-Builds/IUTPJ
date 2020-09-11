@@ -293,13 +293,13 @@ public class UserDashboard extends javax.swing.JFrame {
         ProblemsetPanelLayout.setHorizontalGroup(
             ProblemsetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ProblemsetPanelLayout.createSequentialGroup()
-                .addComponent(ProblemSetjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 813, Short.MAX_VALUE)
+                .addComponent(ProblemSetjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 798, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         ProblemsetPanelLayout.setVerticalGroup(
             ProblemsetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ProblemsetPanelLayout.createSequentialGroup()
-                .addComponent(ProblemSetjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+                .addComponent(ProblemSetjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
@@ -310,7 +310,7 @@ public class UserDashboard extends javax.swing.JFrame {
         timeLimitLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
         timeLimitLabel.setForeground(new java.awt.Color(54, 33, 89));
         timeLimitLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        timeLimitLabel.setText("Time Limit");
+        timeLimitLabel.setText("Time Limit(ms):");
 
         memoryLimitText.setEditable(false);
         memoryLimitText.setBackground(new java.awt.Color(255, 255, 255));
@@ -324,7 +324,7 @@ public class UserDashboard extends javax.swing.JFrame {
         memoryLimitLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
         memoryLimitLabel.setForeground(new java.awt.Color(54, 33, 89));
         memoryLimitLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        memoryLimitLabel.setText("Memory Limit");
+        memoryLimitLabel.setText("Memory Limit(kB):");
 
         problemNameText.setEditable(false);
         problemNameText.setBackground(new java.awt.Color(255, 255, 255));
@@ -338,7 +338,7 @@ public class UserDashboard extends javax.swing.JFrame {
         selectProblemLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
         selectProblemLabel.setForeground(new java.awt.Color(54, 33, 89));
         selectProblemLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        selectProblemLabel.setText("Problem Name");
+        selectProblemLabel.setText("Problem Name:");
 
         pdfPanel.setLayout(new java.awt.BorderLayout());
 
@@ -377,18 +377,17 @@ public class UserDashboard extends javax.swing.JFrame {
                             .addGroup(problemPanelLayout.createSequentialGroup()
                                 .addComponent(timeLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(timeLimitText, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                                .addComponent(timeLimitText, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(memoryLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                .addComponent(memoryLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(problemPanelLayout.createSequentialGroup()
                                 .addComponent(selectProblemLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(problemNameText, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
-                                .addGap(53, 53, 53)))
+                                .addComponent(problemNameText)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(problemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(memoryLimitText, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                            .addComponent(submitProblemSolution, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(memoryLimitText, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                            .addComponent(submitProblemSolution, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         problemPanelLayout.setVerticalGroup(
@@ -408,7 +407,7 @@ public class UserDashboard extends javax.swing.JFrame {
                         .addComponent(memoryLimitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(timeLimitText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pdfPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
+                .addComponent(pdfPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -490,7 +489,7 @@ public class UserDashboard extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(txtProblemID, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(SourceCodeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 258, Short.MAX_VALUE)))
+                        .addGap(0, 243, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         SubmitSolPanelLayout.setVerticalGroup(
@@ -507,7 +506,7 @@ public class UserDashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SourceCodeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SourceCodeScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                .addComponent(SourceCodeScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(SubmitSolPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ChooseFileButton, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -726,14 +725,14 @@ public class UserDashboard extends javax.swing.JFrame {
             ContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ContestsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(ContestTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 793, Short.MAX_VALUE)
+                .addComponent(ContestTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 778, Short.MAX_VALUE)
                 .addContainerGap())
         );
         ContestsPanelLayout.setVerticalGroup(
             ContestsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ContestsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(ContestTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
+                .addComponent(ContestTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1010,10 +1009,13 @@ public class UserDashboard extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No file chosen!", "Error", JOptionPane.ERROR_MESSAGE);
         }
         userSocket.addSubmission(codefile, problemid, language);
+        updateSubmitSolutionTab();
     }//GEN-LAST:event_SubmitButtonActionPerformed
 
     private void submitProblemSolutionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitProblemSolutionActionPerformed
-        // TODO add your handling code here:
+        txtProblemID.setText(problemID);
+        txtProblemID.setEditable(false);
+        UserDashboardTabSwitcher.setSelectedIndex(3);
     }//GEN-LAST:event_submitProblemSolutionActionPerformed
 
 
