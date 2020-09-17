@@ -261,12 +261,14 @@ public class UserSocket {
             response = getDataPacket();
             String status =(String) response.getValue("Status");
             String error = (String) response.getValue("Error");
+            if(error==null) error = "";
+            if(status==null) status = "Something went wrong";
             JOptionPane.showMessageDialog(null, status+' '+error, "Status", JOptionPane.INFORMATION_MESSAGE);
 
         } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, ex.toString(), "Problem Sending Error:", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, ex.toString(), "Submission Sending Error:", JOptionPane.ERROR_MESSAGE);
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, ex.toString(), "Problem Sending Error:", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, ex.toString(), "Submission Sending Error:", JOptionPane.ERROR_MESSAGE);
         }
         loadingScreen.setVisible(false);
 

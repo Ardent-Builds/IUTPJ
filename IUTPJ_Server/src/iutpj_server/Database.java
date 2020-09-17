@@ -210,7 +210,7 @@ public class Database {
         )
          */
         String sql = "{? = call INSERT_PROBLEM_SET(?,?,?,?,?,?,?,?)}";
-
+        System.out.println(problem.getTimeLimit()+' '+problem.getMemoryLimit());
         try {
             Blob problemStatement = connection.createBlob();
             problemStatement.setBytes(1, problem.getProb());

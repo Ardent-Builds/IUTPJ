@@ -50,7 +50,7 @@ public class ProblemShow extends javax.swing.JFrame {
 
         timeLimitLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
         timeLimitLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        timeLimitLabel.setText("Time Limit");
+        timeLimitLabel.setText("Time Limit(ms)");
         timeLimitLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
         memoryLimitText.setEditable(false);
@@ -65,7 +65,7 @@ public class ProblemShow extends javax.swing.JFrame {
 
         memoryLimitLabel.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
         memoryLimitLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        memoryLimitLabel.setText("Memory Limit");
+        memoryLimitLabel.setText("Memory Limit(kB)");
         memoryLimitLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
         problemNameText.setEditable(false);

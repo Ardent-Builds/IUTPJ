@@ -1250,7 +1250,6 @@ public class AdminDashboard extends javax.swing.JFrame {
             return;
         }
         if (adminSocket.submitContest(contestInfo)) {
-            JOptionPane.showMessageDialog(null, "Submitted", "Status", JOptionPane.INFORMATION_MESSAGE);
             contestInfo = new ContestInfo();
             contestNameTextField.setText(null);
             durationTextField.setText(null);
@@ -1293,15 +1292,18 @@ public class AdminDashboard extends javax.swing.JFrame {
     private void SubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitButtonActionPerformed
 
         String problemname = txtProblemName.getText();
-        String timelimit = txtMemoryLimit.getText();
+        String timelimit = txtTimeLimit.getText();
         String memorylimit = txtMemoryLimit.getText();
         if (problemname.length() <= 0 || timelimit.length() <= 0 || memorylimit.length() <= 0) {
             JOptionPane.showMessageDialog(null, "Please fill Problem Name, Timelimit, Memorylimit", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
-        if (Integer.parseInt(timelimit) < 0 || Integer.parseInt(memorylimit) < 0) {
-            JOptionPane.showMessageDialog(null, "Timelimit or Memorylimit cannot be negative", "Error", JOptionPane.ERROR_MESSAGE);
+        try{
+            Integer.parseUnsignedInt(timelimit);
+            Integer.parseUnsignedInt(memorylimit);
+        }
+        catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
