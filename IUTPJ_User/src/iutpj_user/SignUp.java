@@ -266,10 +266,6 @@ public class SignUp extends javax.swing.JFrame {
         this.setLocation(x-xx,y-yy);// TODO add your handling code here:
     }//GEN-LAST:event_formMouseDragged
 
-    /**
-     * @param args the command line arguments
-     */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AlreadyAccButton;
